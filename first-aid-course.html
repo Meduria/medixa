@@ -1,0 +1,485 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>First Aid — Medixa</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,400;8..60,500;8..60,600;8..60,700&family=IBM+Plex+Sans:wght@400;500;600&display=swap');
+
+:root{
+  --paper:#F4EFEC;
+  --paper-2:#EEE3E1;
+  --ink:#241A1B;
+  --ink-soft:#5A4547;
+  --teal:#7A2333;
+  --teal-deep:#4A1420;
+  --brick:#8C2A1E;
+  --gold:#B98A3E;
+  --line:#D8C6C4;
+  --white:#FBFBF9;
+}
+
+*{box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{
+  margin:0;
+  background:var(--paper);
+  color:var(--ink);
+  font-family:'IBM Plex Sans', sans-serif;
+  line-height:1.6;
+  -webkit-font-smoothing:antialiased;
+}
+h1,h2,h3{
+  font-family:'Source Serif 4', serif;
+  color:var(--ink);
+  margin:0 0 0.4em 0;
+  font-weight:600;
+}
+p{margin:0 0 1em 0; max-width:62ch; color:var(--ink-soft);}
+a{color:var(--teal-deep);}
+
+/* ---------- Hero ---------- */
+.hero{
+  padding:5.5rem 1.5rem 4rem;
+  background:linear-gradient(180deg, var(--teal-deep) 0%, var(--teal) 100%);
+  color:var(--white);
+  position:relative;
+  overflow:hidden;
+}
+.hero-inner{max-width:920px; margin:0 auto; display:flex; gap:3rem; align-items:flex-end; flex-wrap:wrap;}
+.hero-text{flex:1 1 380px;}
+.hero-kicker{
+  font-family:'Source Serif 4', serif;
+  font-style:italic;
+  font-size:1.05rem;
+  color:#E4C3C4;
+  margin-bottom:0.6rem;
+}
+.hero h1{
+  color:var(--white);
+  font-size:clamp(2.6rem, 6vw, 4.2rem);
+  line-height:1.02;
+  letter-spacing:-0.01em;
+}
+.hero p{color:#EAD9D8; max-width:46ch; font-size:1.05rem;}
+.hero-emergency{
+  flex:0 0 220px;
+  border-left:1px solid rgba(255,255,255,0.35);
+  padding-left:1.6rem;
+}
+.hero-emergency .num{
+  font-family:'Source Serif 4', serif;
+  font-size:3.4rem;
+  font-weight:700;
+  color:var(--white);
+  line-height:1;
+}
+.hero-emergency .label{
+  font-size:0.85rem;
+  color:#E4C3C4;
+  margin-top:0.4rem;
+  max-width:22ch;
+}
+
+/* ---------- Layout ---------- */
+.layout{
+  max-width:1080px;
+  margin:0 auto;
+  display:grid;
+  grid-template-columns:220px 1fr;
+  gap:3rem;
+  padding:3rem 1.5rem 5rem;
+}
+@media (max-width:820px){
+  .layout{grid-template-columns:1fr; padding-top:1.5rem;}
+}
+
+nav.toc{
+  position:sticky;
+  top:1.5rem;
+  align-self:start;
+  font-size:0.92rem;
+}
+nav.toc .toc-title{
+  font-family:'Source Serif 4', serif;
+  font-style:italic;
+  color:var(--ink-soft);
+  margin-bottom:0.8rem;
+  font-size:1rem;
+}
+nav.toc ol{list-style:none; margin:0; padding:0; border-left:1px solid var(--line);}
+nav.toc li{margin:0;}
+nav.toc a{
+  display:block;
+  padding:0.45rem 0 0.45rem 0.9rem;
+  color:var(--ink-soft);
+  text-decoration:none;
+  border-left:2px solid transparent;
+  margin-left:-1px;
+}
+nav.toc a:hover{color:var(--teal-deep); border-left-color:var(--gold);}
+@media (max-width:820px){
+  nav.toc{position:static; overflow-x:auto;}
+  nav.toc ol{border-left:none; display:flex; gap:0.4rem; padding-bottom:0.5rem;}
+  nav.toc a{border-left:none; border-bottom:2px solid transparent; white-space:nowrap; padding:0.4rem 0.7rem; background:var(--paper-2); border-radius:3px;}
+}
+
+main{min-width:0;}
+
+.intro{max-width:64ch; margin-bottom:3rem;}
+.intro p{font-size:1.05rem;}
+
+.primary-survey{
+  background:var(--paper-2);
+  border-left:3px solid var(--teal);
+  padding:1.4rem 1.6rem;
+  margin:0 0 3.5rem 0;
+  max-width:64ch;
+}
+.primary-survey h3{font-size:1.15rem; margin-bottom:0.7rem;}
+.primary-survey ol{margin:0; padding-left:1.2rem; color:var(--ink-soft);}
+.primary-survey li{margin-bottom:0.4rem;}
+
+/* ---------- Modules ---------- */
+.module{
+  padding:3rem 0;
+  border-top:1px solid var(--line);
+  max-width:66ch;
+}
+.module:first-of-type{border-top:none; padding-top:0;}
+.module-number{
+  font-family:'Source Serif 4', serif;
+  font-style:italic;
+  color:var(--gold);
+  font-size:1rem;
+  margin-bottom:0.3rem;
+}
+.module h2{font-size:1.85rem; margin-bottom:0.9rem;}
+.module .dek{font-size:1.02rem; color:var(--ink-soft); margin-bottom:1.6rem;}
+
+.recognize{
+  font-size:0.95rem;
+  color:var(--ink-soft);
+  background:var(--white);
+  border:1px solid var(--line);
+  padding:1rem 1.2rem;
+  margin-bottom:1.6rem;
+  border-radius:2px;
+}
+.recognize strong{color:var(--ink); font-family:'Source Serif 4', serif; font-weight:600; font-size:0.98rem;}
+
+.steps{margin:0 0 1.6rem 0; padding:0; list-style:none; counter-reset:step;}
+.steps li{
+  counter-increment:step;
+  position:relative;
+  padding:0.15rem 0 1.1rem 2.6rem;
+  color:var(--ink-soft);
+}
+.steps li::before{
+  content:counter(step);
+  position:absolute;
+  left:0; top:0.15rem;
+  width:1.7rem; height:1.7rem;
+  border-radius:50%;
+  background:var(--teal);
+  color:var(--white);
+  font-family:'Source Serif 4', serif;
+  font-size:0.9rem;
+  display:flex; align-items:center; justify-content:center;
+}
+.steps li strong{color:var(--ink); font-weight:600;}
+
+.caution{
+  border-left:3px solid var(--brick);
+  padding:0.9rem 1.2rem;
+  margin:1.4rem 0;
+  background:#F7EAE7;
+  font-size:0.94rem;
+  color:#5C241C;
+}
+.caution strong{color:var(--brick);}
+
+.seek-care{
+  border-left:3px solid var(--gold);
+  padding:0.9rem 1.2rem;
+  margin:1.4rem 0 0;
+  background:var(--paper-2);
+  font-size:0.94rem;
+  color:var(--ink-soft);
+}
+.seek-care strong{color:var(--ink); font-family:'Source Serif 4', serif; font-weight:600;}
+
+/* ---------- Quick reference ---------- */
+.quickref{
+  max-width:900px;
+  padding:3rem 0 1rem;
+  border-top:1px solid var(--line);
+}
+.quickref h2{font-size:1.85rem; margin-bottom:1.6rem;}
+.grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit, minmax(220px, 1fr));
+  gap:1px;
+  background:var(--line);
+  border:1px solid var(--line);
+}
+.grid .cell{background:var(--white); padding:1.1rem 1.2rem;}
+.grid .cell h4{font-family:'Source Serif 4', serif; font-size:1.02rem; margin:0 0 0.4rem; color:var(--teal-deep);}
+.grid .cell p{font-size:0.9rem; margin:0; color:var(--ink-soft); max-width:none;}
+
+/* ---------- Sources / footer ---------- */
+.sources{
+  max-width:66ch;
+  padding:3rem 0 1rem;
+  border-top:1px solid var(--line);
+  font-size:0.9rem;
+  color:var(--ink-soft);
+}
+.sources h3{font-size:1.1rem;}
+.sources ul{padding-left:1.2rem;}
+.sources li{margin-bottom:0.4rem;}
+
+.disclaimer{
+  max-width:66ch;
+  font-size:0.86rem;
+  color:var(--ink-soft);
+  padding:1.4rem 1.6rem;
+  background:var(--paper-2);
+  border-left:3px solid var(--ink-soft);
+  margin-top:2rem;
+}
+
+footer{
+  text-align:center;
+  padding:2.5rem 1.5rem 3rem;
+  font-size:0.85rem;
+  color:var(--ink-soft);
+}
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="hero-inner">
+    <div class="hero-text">
+      <div class="hero-kicker">Medixa · Pre-Med Course</div>
+      <h1>First Aid</h1>
+      <p>The first few minutes of an emergency decide what happens in all the minutes after. This course walks through the responses every clinician-in-training should know cold — CPR, choking, bleeding, burns, shock, fractures, and nosebleeds.</p>
+    </div>
+    <div class="hero-emergency">
+      <div class="num">911</div>
+      <div class="label">or your local emergency number (e.g. 123 / 122) — always the first step in any of the scenarios below.</div>
+    </div>
+  </div>
+</header>
+
+<div class="layout">
+  <nav class="toc">
+    <div class="toc-title">Contents</div>
+    <ol>
+      <li><a href="#survey">Before you start</a></li>
+      <li><a href="#cpr">1 · CPR</a></li>
+      <li><a href="#choking">2 · Choking</a></li>
+      <li><a href="#bleeding">3 · Severe bleeding</a></li>
+      <li><a href="#burns">4 · Burns</a></li>
+      <li><a href="#shock">5 · Shock</a></li>
+      <li><a href="#fractures">6 · Fractures &amp; sprains</a></li>
+      <li><a href="#nosebleed">7 · Nosebleeds</a></li>
+      <li><a href="#quickref">Quick reference</a></li>
+      <li><a href="#sources">Sources</a></li>
+    </ol>
+  </nav>
+
+  <main>
+    <div class="intro">
+      <p>First aid is the care given to an injured or suddenly ill person before trained help arrives. It rarely cures anything — its job is to stop a situation from getting worse: to keep an airway open, slow a bleed, or hold off shock for the few extra minutes an ambulance needs. Every module below follows the same shape: how to recognize the problem, what to do immediately, and when it needs more than first aid.</p>
+    </div>
+
+    <section id="survey" class="primary-survey">
+      <h3>Before you start: the primary check</h3>
+      <p style="margin-bottom:0.6rem;">Whatever the emergency, run through this sequence first. It tells you what you're actually dealing with before you commit to a specific response.</p>
+      <ol>
+        <li>Make sure the scene is safe to approach — for you and the person.</li>
+        <li>Check responsiveness: tap the shoulders and ask loudly, "Are you OK?"</li>
+        <li>Call for emergency help, or send someone else to call while you stay with the person.</li>
+        <li>Look, listen, and feel for breathing; check for a pulse.</li>
+        <li>Control any visible severe bleeding with direct pressure.</li>
+        <li>If the person is unconscious but breathing normally, place them in the recovery position on their side.</li>
+      </ol>
+    </section>
+
+    <!-- MODULE 1: CPR -->
+    <article class="module" id="cpr">
+      <div class="module-number">Module 1</div>
+      <h2>CPR</h2>
+      <p class="dek">Cardiopulmonary resuscitation keeps blood moving to the brain and heart when the heart has stopped. Chest compressions matter more than anything else you do here.</p>
+
+      <div class="recognize"><strong>When to start:</strong> the person doesn't respond to voice or touch, and isn't breathing normally (or at all). Don't wait for a pulse check to talk yourself out of starting.</div>
+
+      <ol class="steps">
+        <li><strong>Get help moving first.</strong> Call emergency services or have a bystander call, and ask someone to bring an AED if one is nearby.</li>
+        <li><strong>Position the person</strong> on their back on a firm, flat surface.</li>
+        <li><strong>Hand placement.</strong> Place the heel of one hand on the center of the chest, between the nipples, and your other hand on top, fingers interlaced.</li>
+        <li><strong>Compress hard and fast.</strong> Push straight down about 2 inches (5 cm), at a rate of 100–120 compressions per minute — roughly the tempo of a fast heartbeat. Let the chest fully rise back up between compressions.</li>
+        <li><strong>Add breaths if you're trained and willing:</strong> 30 compressions, then 2 rescue breaths, tilting the head back and lifting the chin to open the airway. If you're not trained or comfortable with breaths, continuous hands-only compressions are still highly effective.</li>
+        <li><strong>Use the AED as soon as it arrives</strong> — turn it on and follow its voice prompts; it will tell you if and when a shock is advised.</li>
+        <li><strong>Keep going</strong> until the person starts breathing on their own, professional responders take over, or you're physically unable to continue.</li>
+      </ol>
+
+      <div class="caution"><strong>This page is not a substitute for a certified CPR course.</strong> Hands-on practice with a manikin is the only way to build real muscle memory for depth, rate, and hand placement.</div>
+    </article>
+
+    <!-- MODULE 2: CHOKING -->
+    <article class="module" id="choking">
+      <div class="module-number">Module 2</div>
+      <h2>Choking</h2>
+      <p class="dek">An airway that's fully blocked cuts off oxygen within minutes. Acting fast — and correctly — is what makes the difference.</p>
+
+      <div class="recognize"><strong>Recognize it:</strong> the person clutches at their throat, can't speak, cough, or breathe, and may have bluish lips or skin. If they can still cough forcefully or speak, the airway isn't fully blocked yet — encourage them to keep coughing rather than intervening.</div>
+
+      <ol class="steps">
+        <li><strong>Confirm it's a full obstruction.</strong> Ask, "Are you choking?" If they nod and can't respond verbally, act immediately.</li>
+        <li><strong>Give 5 back blows.</strong> Stand slightly behind and to the side, support their chest with one hand, and strike firmly between the shoulder blades with the heel of your other hand.</li>
+        <li><strong>Follow with 5 abdominal thrusts.</strong> Stand behind the person, wrap your arms around their waist, make a fist with the thumb side against their abdomen just above the navel, grasp your fist with your other hand, and pull sharply inward and upward.</li>
+        <li><strong>Alternate</strong> 5 back blows and 5 abdominal thrusts until the object is expelled or the person can breathe, cough, or speak again.</li>
+        <li><strong>If the person becomes unconscious,</strong> lower them carefully to the ground, call for emergency help if not already done, and begin CPR — checking the mouth for a visible object before rescue breaths, but never doing a blind finger sweep.</li>
+      </ol>
+
+      <div class="caution"><strong>Infants under 1 year:</strong> use back blows and chest thrusts instead of abdominal thrusts — a baby's abdomen and organs are too fragile for the standard technique. This needs hands-on instruction to do safely.</div>
+    </article>
+
+    <!-- MODULE 3: BLEEDING -->
+    <article class="module" id="bleeding">
+      <div class="module-number">Module 3</div>
+      <h2>Severe bleeding</h2>
+      <p class="dek">Most cuts stop bleeding on their own. A deep wound or one with spurting blood won't, and the goal shifts to controlling blood loss and preventing shock until help arrives.</p>
+
+      <div class="recognize"><strong>Recognize severe bleeding:</strong> blood that spurts or flows steadily and doesn't slow, a wound that's deep or wide, or bleeding that soaks through dressings quickly.</div>
+
+      <ol class="steps">
+        <li><strong>Protect yourself first</strong> — gloves if you have them.</li>
+        <li><strong>Elevate the injured area</strong> above the level of the heart if possible, unless you suspect a fracture.</li>
+        <li><strong>Apply firm, direct pressure</strong> with a clean cloth or gauze pressed straight onto the wound.</li>
+        <li><strong>Don't lift the dressing to check.</strong> If blood soaks through, add more layers on top rather than removing the first one — lifting it disturbs any clot that's forming.</li>
+        <li><strong>If bleeding doesn't slow</strong> with direct pressure and elevation, add pressure on the nearest artery between the wound and the heart, pressing it firmly against the underlying bone.</li>
+        <li><strong>For life-threatening bleeding from a limb</strong> that direct pressure can't control, a tourniquet placed a few inches above the wound (never directly on a joint) can stop blood loss — note the time it was applied for the responders who take over.</li>
+        <li><strong>Watch for shock</strong> while you wait for help (see Module 5).</li>
+      </ol>
+
+      <div class="seek-care"><strong>Get emergency care</strong> for any wound that's deep, won't stop bleeding, is caused by a puncture, or exposes muscle, fat, or bone.</div>
+    </article>
+
+    <!-- MODULE 4: BURNS -->
+    <article class="module" id="burns">
+      <div class="module-number">Module 4</div>
+      <h2>Burns</h2>
+      <p class="dek">The first ten minutes after a burn — cooling it properly — do more to limit damage than almost anything that happens later.</p>
+
+      <div class="recognize"><strong>Recognize severity:</strong> redness and pain alone suggest a minor (superficial) burn. Blistering, white or charred skin, or a burn larger than the person's palm point toward something that needs medical attention.</div>
+
+      <ol class="steps">
+        <li><strong>Remove the source first</strong> — move the person away from flame, chemicals, or an electrical current, without putting yourself at risk.</li>
+        <li><strong>Cool the burn</strong> under cool (not ice-cold) running water for at least 10 minutes, or cover it with a clean cloth soaked in cool water.</li>
+        <li><strong>Remove rings, watches, or tight clothing</strong> near the burn before swelling sets in.</li>
+        <li><strong>Cover loosely</strong> with a clean, non-fluffy dressing or cling film — don't wrap it tightly.</li>
+        <li><strong>Leave blisters intact.</strong> Breaking them raises the risk of infection.</li>
+        <li><strong>Don't apply ice, butter, oil, or toothpaste</strong> to a burn — they trap heat or introduce contamination.</li>
+      </ol>
+
+      <div class="seek-care"><strong>Get emergency care</strong> for burns that are large, deep, on the face, hands, feet, or genitals, or caused by chemicals or electricity — these need more than first aid can offer.</div>
+    </article>
+
+    <!-- MODULE 5: SHOCK -->
+    <article class="module" id="shock">
+      <div class="module-number">Module 5</div>
+      <h2>Shock</h2>
+      <p class="dek">Shock is the body's circulation failing to deliver enough blood to vital organs. It can follow blood loss, severe infection, a bad allergic reaction, dehydration, or major trauma — and it can be fatal if untreated.</p>
+
+      <div class="recognize"><strong>Recognize it:</strong> cool, clammy, or pale skin; a rapid, weak pulse; fast, shallow breathing; confusion, restlessness, or extreme weakness; nausea; and, if it progresses, loss of consciousness.</div>
+
+      <ol class="steps">
+        <li><strong>Call for emergency help</strong> if you suspect shock — it's always a medical emergency.</li>
+        <li><strong>Lay the person down</strong> and, if it doesn't cause pain or isn't contraindicated by a head, neck, back, or leg injury, raise their legs slightly.</li>
+        <li><strong>Keep them still, warm, and calm.</strong> Loosen any tight clothing.</li>
+        <li><strong>Don't give food or drink</strong> — it can cause vomiting or choking, and may complicate care if surgery is needed.</li>
+        <li><strong>If they vomit or bleed from the mouth</strong> and you don't suspect a spinal injury, turn them onto their side to keep the airway clear.</li>
+        <li><strong>Monitor breathing and responsiveness</strong> continuously until help arrives, and begin CPR if they stop breathing normally.</li>
+      </ol>
+    </article>
+
+    <!-- MODULE 6: FRACTURES -->
+    <article class="module" id="fractures">
+      <div class="module-number">Module 6</div>
+      <h2>Fractures &amp; sprains</h2>
+      <p class="dek">Most broken bones aren't immediately life-threatening, but they always need medical evaluation — and the wrong first aid can turn a clean break into a more complicated one.</p>
+
+      <div class="recognize"><strong>Recognize it:</strong> intense pain, swelling, visible deformity, or pain that worsens with any movement of the area. A fracture isn't always visible or obvious from the outside.</div>
+
+      <ol class="steps">
+        <li><strong>Call for help</strong> and keep the person still — don't try to straighten or realign the injury yourself.</li>
+        <li><strong>Immobilize only if necessary</strong> — for example, if the person must be moved before help arrives. Support the joints above and below the injury with a splint and soft padding.</li>
+        <li><strong>Check circulation beyond the injury.</strong> If the limb below the fracture looks pale, cold, or bluish, this is a sign blood flow is compromised and the person needs urgent transport — this situation calls for trained responders, not solo intervention.</li>
+        <li><strong>Apply a cold pack</strong> wrapped in a cloth to the area to reduce swelling and pain — never place ice directly on skin.</li>
+        <li><strong>Don't let the person eat or drink</strong> in case surgery is needed later.</li>
+      </ol>
+
+      <div class="seek-care"><strong>Get medical evaluation</strong> for any suspected fracture, even if the person can still move the area — some fractures are only confirmed by imaging.</div>
+    </article>
+
+    <!-- MODULE 7: NOSEBLEED -->
+    <article class="module" id="nosebleed">
+      <div class="module-number">Module 7</div>
+      <h2>Nosebleeds</h2>
+      <p class="dek">Nosebleeds look alarming but are rarely dangerous, and most respond well to a few minutes of steady, correct pressure.</p>
+
+      <ol class="steps">
+        <li><strong>Sit the person upright</strong> and have them lean slightly forward — tilting the head back lets blood run down the throat, which can cause coughing or vomiting.</li>
+        <li><strong>Pinch the soft, lower part of the nose</strong> firmly, just below the bony bridge, using thumb and finger.</li>
+        <li><strong>Hold continuously for about 10 minutes</strong> without checking early — releasing pressure too soon restarts the bleed.</li>
+        <li><strong>Breathe through the mouth</strong> while holding pressure, and apply a cold compress to the bridge of the nose if available.</li>
+        <li><strong>Avoid blowing the nose, bending over, or strenuous activity</strong> for several hours afterward, which can dislodge the clot.</li>
+      </ol>
+
+      <div class="seek-care"><strong>Get emergency care</strong> if bleeding hasn't stopped after 20 minutes of continuous pressure, is unusually heavy, or follows a blow to the head.</div>
+    </article>
+
+    <!-- QUICK REFERENCE -->
+    <section id="quickref" class="quickref">
+      <h2>Quick reference</h2>
+      <div class="grid">
+        <div class="cell"><h4>CPR rate</h4><p>100–120 compressions/min, ~2 in (5 cm) deep, full recoil between pushes.</p></div>
+        <div class="cell"><h4>CPR cycle</h4><p>30 compressions : 2 breaths, or continuous hands-only if untrained.</p></div>
+        <div class="cell"><h4>Choking</h4><p>5 back blows, then 5 abdominal thrusts. Repeat until clear or unconscious.</p></div>
+        <div class="cell"><h4>Bleeding</h4><p>Elevate + direct pressure. Add layers, don't remove the first dressing.</p></div>
+        <div class="cell"><h4>Burns</h4><p>Cool water, 10+ minutes. No ice, butter, or ointments on serious burns.</p></div>
+        <div class="cell"><h4>Shock</h4><p>Lay flat, raise legs, keep warm, nothing by mouth, call for help.</p></div>
+        <div class="cell"><h4>Fracture</h4><p>Don't move or straighten. Splint only if the person must be moved.</p></div>
+        <div class="cell"><h4>Nosebleed</h4><p>Sit forward, pinch soft nose for 10 min straight, breathe through mouth.</p></div>
+      </div>
+    </section>
+
+    <!-- SOURCES -->
+    <section id="sources" class="sources">
+      <h3>Sources &amp; further reading</h3>
+      <p>This module draws on guidance from Harvard Health Publishing's Emergencies and First Aid series, along with the American Heart Association's first aid guidelines and Mayo Clinic's first aid reference. For full clinical detail, read the originals directly:</p>
+      <ul>
+        <li>Harvard Health Publishing — <a href="https://www.health.harvard.edu/heart-health/emergencies-and-first-aid-cardiopulmonary-resuscitation" target="_blank" rel="noopener">Cardiopulmonary Resuscitation</a></li>
+        <li>Harvard Health Publishing — <a href="https://www.health.harvard.edu/staying-healthy/emergencies-and-first-aid-choking" target="_blank" rel="noopener">Choking</a></li>
+        <li>Harvard Health Publishing — <a href="https://www.health.harvard.edu/staying-healthy/emergencies-and-first-aid-bleeding" target="_blank" rel="noopener">Bleeding</a></li>
+        <li>Harvard Health Publishing — <a href="https://www.health.harvard.edu/healthy-aging-and-longevity/emergencies-and-first-aid-direct-pressure-to-stop-bleeding" target="_blank" rel="noopener">Direct Pressure to Stop Bleeding</a></li>
+        <li>Harvard Health Publishing — <a href="https://www.health.harvard.edu/pain/emergencies-and-first-aid-broken-bones" target="_blank" rel="noopener">Broken Bones</a></li>
+        <li>Harvard Health Publishing — <a href="https://www.health.harvard.edu/staying-healthy/emergencies-and-first-aid-how-to-stop-a-nosebleed" target="_blank" rel="noopener">How to Stop a Nosebleed</a></li>
+        <li>Harvard Health Publishing — <a href="https://www.health.harvard.edu/healthy-aging-and-longevity/emergencies-and-first-aid-emergency-checklist" target="_blank" rel="noopener">Emergency Checklist</a></li>
+        <li>Mayo Clinic — <a href="https://www.mayoclinic.org/first-aid/first-aid-shock/basics/art-20056620" target="_blank" rel="noopener">Shock: First Aid</a></li>
+      </ul>
+
+      <div class="disclaimer">This page is for study purposes on Medixa and is not a substitute for a certified first aid or CPR course, professional medical advice, or emergency services. In a real emergency, call your local emergency number immediately.</div>
+    </section>
+  </main>
+</div>
+
+<footer>Medixa — study content for pre-med students</footer>
+
+</body>
+</html>
