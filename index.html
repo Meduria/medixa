@@ -1,0 +1,504 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Medixa — Study medicine, properly</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,500&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --off-white:      #FAF6F0;
+    --off-white-2:    #F1E8DA;
+    --cherry:         #9C1F3B;
+    --cherry-bright:  #C8283F;
+    --cherry-wash:    #F6E4E7;
+    --ink:            #241E18;
+    --stone:          #766B5F;
+    --line:           #E3D7C3;
+    --radius-card:    3px;
+    --max-w:          1120px;
+  }
+
+  *{ box-sizing:border-box; }
+  html{ scroll-behavior:smooth; }
+
+  @media (prefers-reduced-motion: reduce){
+    html{ scroll-behavior:auto; }
+    *{ animation-duration:0.001ms !important; transition-duration:0.001ms !important; }
+  }
+
+  body{
+    margin:0;
+    background:var(--off-white);
+    color:var(--ink);
+    font-family:'Inter', sans-serif;
+    -webkit-font-smoothing:antialiased;
+  }
+
+  a{ color:inherit; }
+
+  /* ---------- top bar ---------- */
+  .topbar{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    max-width:var(--max-w);
+    margin:0 auto;
+    padding:28px 24px 20px;
+  }
+  .wordmark{
+    font-family:'Newsreader', serif;
+    font-weight:600;
+    font-size:22px;
+    letter-spacing:0.01em;
+    text-decoration:none;
+    display:flex;
+    align-items:baseline;
+    gap:2px;
+  }
+  .wordmark .dot{ color:var(--cherry); font-size:22px; line-height:0; }
+
+  .topbar nav{
+    display:flex;
+    gap:32px;
+    font-size:14.5px;
+  }
+  .topbar nav a{
+    text-decoration:none;
+    color:var(--stone);
+    padding-bottom:3px;
+    border-bottom:1px solid transparent;
+  }
+  .topbar nav a:hover{ color:var(--ink); border-color:var(--line); }
+  .topbar nav a.current{ color:var(--ink); border-color:var(--cherry); }
+
+  @media (max-width:720px){
+    .topbar nav{ display:none; }
+  }
+
+  /* ---------- hero ---------- */
+  .hero{
+    max-width:var(--max-w);
+    margin:0 auto;
+    padding:44px 24px 40px;
+    border-bottom:1px solid var(--line);
+  }
+  .hero h1{
+    font-family:'Newsreader', serif;
+    font-weight:500;
+    font-size:clamp(32px, 4.5vw, 48px);
+    line-height:1.12;
+    letter-spacing:-0.01em;
+    margin:0 0 14px;
+    max-width:16ch;
+  }
+  .hero h1 em{
+    font-style:italic;
+    color:var(--cherry);
+  }
+
+  .hero p.lede{
+    font-size:16px;
+    line-height:1.55;
+    color:var(--stone);
+    max-width:48ch;
+    margin:0;
+  }
+
+  /* ---------- filter bar ---------- */
+  .catalog{
+    max-width:var(--max-w);
+    margin:0 auto;
+    padding:52px 24px 96px;
+  }
+
+  .catalog-head{
+    display:flex;
+    justify-content:space-between;
+    align-items:flex-end;
+    flex-wrap:wrap;
+    gap:20px;
+    margin-bottom:32px;
+  }
+
+  .catalog-head h2{
+    font-family:'Newsreader', serif;
+    font-weight:500;
+    font-size:26px;
+    margin:0;
+  }
+
+  .filters{
+    display:flex;
+    gap:4px;
+    background:var(--off-white-2);
+    padding:4px;
+    border-radius:999px;
+    border:1px solid var(--line);
+  }
+  .filters button{
+    appearance:none;
+    border:none;
+    background:transparent;
+    font-family:'Inter', sans-serif;
+    font-size:13.5px;
+    font-weight:500;
+    color:var(--stone);
+    padding:8px 16px;
+    border-radius:999px;
+    cursor:pointer;
+    transition:background 0.18s ease, color 0.18s ease;
+  }
+  .filters button:hover{ color:var(--ink); }
+  .filters button.active{
+    background:var(--ink);
+    color:var(--off-white);
+  }
+  .filters button:focus-visible,
+  .card:focus-visible,
+  .topbar a:focus-visible{
+    outline:2px solid var(--cherry);
+    outline-offset:2px;
+  }
+
+  /* ---------- grid ---------- */
+  .grid{
+    display:grid;
+    grid-template-columns:repeat(3, 1fr);
+    gap:20px;
+  }
+  @media (max-width:900px){
+    .grid{ grid-template-columns:repeat(2, 1fr); }
+  }
+  @media (max-width:600px){
+    .grid{ grid-template-columns:1fr; }
+  }
+
+  .card{
+    position:relative;
+    display:flex;
+    flex-direction:column;
+    justify-content:space-between;
+    min-height:210px;
+    padding:22px;
+    background:var(--off-white);
+    border:1px solid var(--line);
+    border-radius:var(--radius-card);
+    text-decoration:none;
+    color:var(--ink);
+    transition:opacity 0.22s ease, transform 0.22s ease, max-height 0.22s ease, margin 0.22s ease, padding 0.22s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+    overflow:hidden;
+  }
+
+  .card.is-hidden{
+    opacity:0;
+    transform:scale(0.96);
+    max-height:0;
+    min-height:0;
+    padding-top:0;
+    padding-bottom:0;
+    border-width:0;
+    pointer-events:none;
+  }
+
+  .card .index{
+    font-family:'Newsreader', serif;
+    font-style:italic;
+    font-size:13px;
+    color:var(--stone);
+  }
+
+  .card h3{
+    font-family:'Newsreader', serif;
+    font-weight:500;
+    font-size:20px;
+    line-height:1.25;
+    margin:10px 0 8px;
+  }
+
+  .card p{
+    font-size:13.5px;
+    line-height:1.55;
+    color:var(--stone);
+    margin:0;
+  }
+
+  .card .foot{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    margin-top:18px;
+    padding-top:14px;
+    border-top:1px solid var(--line);
+  }
+
+  .tag{
+    font-size:11.5px;
+    font-weight:500;
+    color:var(--stone);
+  }
+
+  .status{
+    font-size:13px;
+    font-weight:500;
+  }
+
+  /* live / real card */
+  .card.is-live{
+    border-color:var(--cherry);
+    box-shadow:0 1px 0 var(--cherry);
+  }
+  .card.is-live:hover{
+    background:var(--cherry-wash);
+    transform:translateY(-2px);
+    box-shadow:0 8px 20px -12px rgba(156,31,59,0.45);
+  }
+  .card.is-live .status{ color:var(--cherry); }
+  .card.is-live .status::after{
+    content:"→";
+    margin-left:4px;
+    display:inline-block;
+    transition:transform 0.18s ease;
+  }
+  .card.is-live:hover .status::after{ transform:translateX(3px); }
+
+  /* pending / placeholder cards */
+  .card.is-pending{ cursor:default; }
+  .card.is-pending .status{ color:var(--stone); }
+  .card.is-pending::after{
+    content:"";
+    position:absolute;
+    inset:0;
+    background:repeating-linear-gradient(
+      -45deg,
+      transparent,
+      transparent 10px,
+      rgba(36,30,24,0.02) 10px,
+      rgba(36,30,24,0.02) 20px
+    );
+    pointer-events:none;
+  }
+
+  /* ---------- empty state ---------- */
+  .empty{
+    display:none;
+    padding:60px 0;
+    text-align:center;
+    color:var(--stone);
+    font-size:14.5px;
+  }
+  .empty.show{ display:block; }
+
+  /* ---------- footer ---------- */
+  footer{
+    border-top:1px solid var(--line);
+    padding:28px 24px;
+  }
+  footer .inner{
+    max-width:var(--max-w);
+    margin:0 auto;
+    display:flex;
+    justify-content:space-between;
+    flex-wrap:wrap;
+    gap:8px;
+    font-size:13px;
+    color:var(--stone);
+  }
+  footer a{
+    color:var(--cherry);
+    text-decoration:none;
+    border-bottom:1px solid transparent;
+  }
+  footer a:hover{ border-color:var(--cherry); }
+
+  /* entrance */
+  .fade-in{
+    animation:fadeUp 0.6s ease both;
+  }
+  @keyframes fadeUp{
+    from{ opacity:0; transform:translateY(10px); }
+    to{ opacity:1; transform:translateY(0); }
+  }
+</style>
+</head>
+<body>
+
+  <header class="topbar">
+    <a class="wordmark" href="#top">medixa<span class="dot">.</span></a>
+    <nav>
+      <a href="#top" class="current">Home</a>
+      <a href="#catalog">Catalog</a>
+      <a href="#">Articles</a>
+      <a href="#">About</a>
+    </nav>
+  </header>
+
+  <section class="hero" id="top">
+    <div class="fade-in">
+      <h1>Study medicine like it's <em>meant</em> to be studied.</h1>
+      <p class="lede">One place for your courses, articles, and notes — organized like a curriculum, not a blog.</p>
+    </div>
+  </section>
+
+  <section class="catalog" id="catalog">
+    <div class="catalog-head">
+      <h2>The catalog</h2>
+      <div class="filters" role="tablist" aria-label="Filter catalog by type">
+        <button class="active" data-filter="all" role="tab" aria-selected="true">All</button>
+        <button data-filter="courses" role="tab" aria-selected="false">Courses</button>
+        <button data-filter="articles" role="tab" aria-selected="false">Articles</button>
+        <button data-filter="other" role="tab" aria-selected="false">Other</button>
+      </div>
+    </div>
+
+    <div class="grid" id="grid">
+
+      <a href="/courses/pre-med.html" class="card is-live" data-category="courses">
+        <span class="index">01</span>
+        <div>
+          <h3>Pre&#8209;Med Foundations</h3>
+          <p>Memphis pre-med medical course — Biochemistry, Physiology, Histology fundamentals — rebuilt for how med students actually revise.</p>
+        </div>
+        <div class="foot">
+          <span class="tag">Course</span>
+          <span class="status">Start course</span>
+        </div>
+      </a>
+
+      <div class="card is-pending" data-category="courses" tabindex="0">
+        <span class="index">02</span>
+        <div>
+          <h3>Human Anatomy I</h3>
+          <p>Regional anatomy from the thorax to the pelvis, with labelled dissection plates and review questions.</p>
+        </div>
+        <div class="foot">
+          <span class="tag">Course</span>
+          <span class="status">Coming soon</span>
+        </div>
+      </div>
+
+      <div class="card is-pending" data-category="courses" tabindex="0">
+        <span class="index">03</span>
+        <div>
+          <h3>Biochemistry Essentials</h3>
+          <p>Metabolic pathways and enzyme kinetics, distilled into the version you actually need for exams.</p>
+        </div>
+        <div class="foot">
+          <span class="tag">Course</span>
+          <span class="status">Coming soon</span>
+        </div>
+      </div>
+
+      <div class="card is-pending" data-category="articles" tabindex="0">
+        <span class="index">04</span>
+        <div>
+          <h3>Reading an ECG under pressure</h3>
+          <p>A field guide to the rhythms you're most likely to be quizzed on during clinical rounds.</p>
+        </div>
+        <div class="foot">
+          <span class="tag">Article</span>
+          <span class="status">Coming soon</span>
+        </div>
+      </div>
+
+      <div class="card is-pending" data-category="articles" tabindex="0">
+        <span class="index">05</span>
+        <div>
+          <h3>Why the Krebs cycle keeps tripping people up</h3>
+          <p>The three points in the cycle where most students lose the thread — and how to hold onto it.</p>
+        </div>
+        <div class="foot">
+          <span class="tag">Article</span>
+          <span class="status">Coming soon</span>
+        </div>
+      </div>
+
+      <div class="card is-pending" data-category="articles" tabindex="0">
+        <span class="index">06</span>
+        <div>
+          <h3>Building a dissection-lab study routine</h3>
+          <p>What to review before the table, and what to leave until after — from students a year ahead of you.</p>
+        </div>
+        <div class="foot">
+          <span class="tag">Article</span>
+          <span class="status">Coming soon</span>
+        </div>
+      </div>
+
+      <div class="card is-pending" data-category="other" tabindex="0">
+        <span class="index">07</span>
+        <div>
+          <h3>Drug-name flashcard deck</h3>
+          <p>A running, searchable deck of generic and brand names grouped by drug class.</p>
+        </div>
+        <div class="foot">
+          <span class="tag">Reference</span>
+          <span class="status">Coming soon</span>
+        </div>
+      </div>
+
+      <div class="card is-pending" data-category="other" tabindex="0">
+        <span class="index">08</span>
+        <div>
+          <h3>Lab value reference sheet</h3>
+          <p>Normal ranges for the panels you'll be asked about most, kept on one page.</p>
+        </div>
+        <div class="foot">
+          <span class="tag">Reference</span>
+          <span class="status">Coming soon</span>
+        </div>
+      </div>
+
+      <div class="card is-pending" data-category="other" tabindex="0">
+        <span class="index">09</span>
+        <div>
+          <h3>Exam-season discussion forum</h3>
+          <p>A place to compare notes with other students preparing for the same block.</p>
+        </div>
+        <div class="foot">
+          <span class="tag">Community</span>
+          <span class="status">Coming soon</span>
+        </div>
+      </div>
+
+    </div>
+
+    <p class="empty" id="empty">Nothing filed under this category yet — check back soon.</p>
+  </section>
+
+  <footer>
+    <div class="inner">
+      <span>&copy; 2026 Medixa</span>
+      <span>Built by Omar — <a href="https://omar-momen.vercel.app" target="_blank" rel="noopener">His personal website</a></span>
+    </div>
+  </footer>
+
+<script>
+  const buttons = document.querySelectorAll('.filters button');
+  const cards = document.querySelectorAll('.card');
+  const empty = document.getElementById('empty');
+
+  buttons.forEach(btn => {
+    btn.addEventListener('click', () => {
+      buttons.forEach(b => { b.classList.remove('active'); b.setAttribute('aria-selected','false'); });
+      btn.classList.add('active');
+      btn.setAttribute('aria-selected','true');
+
+      const filter = btn.dataset.filter;
+      let visibleCount = 0;
+
+      cards.forEach(card => {
+        const match = filter === 'all' || card.dataset.category === filter;
+        card.classList.toggle('is-hidden', !match);
+        if (match) visibleCount++;
+      });
+
+      empty.classList.toggle('show', visibleCount === 0);
+    });
+  });
+</script>
+
+</body>
+</html>
