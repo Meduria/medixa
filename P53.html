@@ -1,0 +1,516 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>P53 — The Guardian of the Genome | Medixa</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,500&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --off-white:      #FAF6F0;
+    --off-white-2:    #F1E8DA;
+    --cherry:         #9C1F3B;
+    --cherry-bright:  #C8283F;
+    --cherry-wash:    #F6E4E7;
+    --ink:            #241E18;
+    --stone:          #766B5F;
+    --line:           #E3D7C3;
+    --radius-card:    3px;
+    --max-w:          1120px;
+    --max-w-article:  760px;
+  }
+
+  *{ box-sizing:border-box; }
+  html{ scroll-behavior:smooth; }
+
+  @media (prefers-reduced-motion: reduce){
+    html{ scroll-behavior:auto; }
+    *{ animation-duration:0.001ms !important; transition-duration:0.001ms !important; }
+  }
+
+  body{
+    margin:0;
+    background:var(--off-white);
+    color:var(--ink);
+    font-family:'Inter', sans-serif;
+    -webkit-font-smoothing:antialiased;
+  }
+
+  a{ color:inherit; }
+
+  /* ---------- top bar ---------- */
+  .topbar{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    max-width:var(--max-w);
+    margin:0 auto;
+    padding:28px 24px 20px;
+  }
+  .wordmark{
+    font-family:'Newsreader', serif;
+    font-weight:600;
+    font-size:22px;
+    letter-spacing:0.01em;
+    text-decoration:none;
+    display:flex;
+    align-items:baseline;
+    gap:2px;
+  }
+  .wordmark .dot{ color:var(--cherry); font-size:22px; line-height:0; }
+
+  .topbar nav{
+    display:flex;
+    gap:32px;
+    font-size:14.5px;
+  }
+  .topbar nav a{
+    text-decoration:none;
+    color:var(--stone);
+    padding-bottom:3px;
+    border-bottom:1px solid transparent;
+  }
+  .topbar nav a:hover{ color:var(--ink); border-color:var(--line); }
+  .topbar nav a.current{ color:var(--ink); border-color:var(--cherry); }
+
+  @media (max-width:720px){
+    .topbar nav{ display:none; }
+  }
+
+  /* ---------- breadcrumb ---------- */
+  .crumb{
+    max-width:var(--max-w-article);
+    margin:0 auto;
+    padding:0 24px;
+    font-size:13px;
+    color:var(--stone);
+  }
+  .crumb a{ text-decoration:none; color:var(--stone); border-bottom:1px solid var(--line); }
+  .crumb a:hover{ color:var(--cherry); border-color:var(--cherry); }
+
+  /* ---------- article header ---------- */
+  .article-head{
+    max-width:var(--max-w-article);
+    margin:0 auto;
+    padding:20px 24px 36px;
+    border-bottom:1px solid var(--line);
+  }
+  .kicker{
+    display:inline-flex;
+    align-items:center;
+    gap:8px;
+    font-size:12.5px;
+    font-weight:600;
+    letter-spacing:0.04em;
+    text-transform:uppercase;
+    color:var(--cherry);
+    margin-bottom:16px;
+  }
+  .kicker::before{
+    content:"";
+    width:6px; height:6px;
+    border-radius:50%;
+    background:var(--cherry);
+    display:inline-block;
+  }
+  .article-head h1{
+    font-family:'Newsreader', serif;
+    font-weight:500;
+    font-size:clamp(30px, 5vw, 44px);
+    line-height:1.14;
+    letter-spacing:-0.01em;
+    margin:0 0 14px;
+  }
+  .article-head h1 em{ font-style:italic; color:var(--cherry); }
+
+  .article-head p.lede{
+    font-size:16.5px;
+    line-height:1.6;
+    color:var(--stone);
+    margin:0 0 22px;
+  }
+
+  .meta-row{
+    display:flex;
+    align-items:center;
+    gap:14px;
+    font-size:13px;
+    color:var(--stone);
+  }
+  .meta-row .tag{
+    font-size:11.5px;
+    font-weight:600;
+    letter-spacing:0.02em;
+    text-transform:uppercase;
+    color:var(--cherry);
+    background:var(--cherry-wash);
+    padding:4px 10px;
+    border-radius:999px;
+  }
+  .meta-row .sep{ color:var(--line); }
+
+  /* ---------- article body ---------- */
+  .article-body{
+    max-width:var(--max-w-article);
+    margin:0 auto;
+    padding:44px 24px 24px;
+    font-size:16.5px;
+    line-height:1.72;
+  }
+
+  .article-body h2{
+    font-family:'Newsreader', serif;
+    font-weight:500;
+    font-size:26px;
+    letter-spacing:-0.005em;
+    margin:48px 0 18px;
+    padding-top:2px;
+  }
+  .article-body h2:first-child{ margin-top:0; }
+
+  .article-body h3{
+    font-family:'Newsreader', serif;
+    font-weight:500;
+    font-style:italic;
+    font-size:19px;
+    color:var(--cherry);
+    margin:30px 0 10px;
+  }
+
+  .article-body p{ margin:0 0 20px; color:var(--ink); }
+  .article-body p.muted{ color:var(--stone); font-size:14.5px; }
+
+  .article-body strong{ font-weight:600; }
+  .article-body sup{
+    font-size:12px;
+    color:var(--cherry);
+    font-weight:600;
+  }
+  .article-body sup a{ text-decoration:none; color:var(--cherry); }
+
+  .article-body ul, .article-body ol{
+    margin:0 0 22px;
+    padding-left:22px;
+  }
+  .article-body li{ margin-bottom:9px; }
+  .article-body ul li::marker{ color:var(--cherry); }
+
+  /* pull quote, in original source phrasing */
+  blockquote{
+    margin:32px 0;
+    padding:4px 0 4px 22px;
+    border-left:2px solid var(--cherry);
+    font-family:'Newsreader', serif;
+    font-style:italic;
+    font-size:19px;
+    line-height:1.5;
+    color:var(--ink);
+  }
+  blockquote cite{
+    display:block;
+    margin-top:10px;
+    font-family:'Inter', sans-serif;
+    font-style:normal;
+    font-size:12.5px;
+    color:var(--stone);
+  }
+
+  /* diagram card */
+  .figure{
+    margin:36px 0;
+    border:1px solid var(--line);
+    border-radius:var(--radius-card);
+    background:var(--off-white-2);
+    padding:22px 18px 16px;
+  }
+  .figure svg{ display:block; width:100%; height:auto; }
+  .figure figcaption{
+    margin-top:12px;
+    font-size:13px;
+    color:var(--stone);
+    line-height:1.5;
+  }
+
+  /* callout / key takeaways */
+  .callout{
+    margin:36px 0;
+    padding:24px 24px 20px;
+    background:var(--cherry-wash);
+    border:1px solid var(--line);
+    border-radius:var(--radius-card);
+  }
+  .callout h4{
+    font-family:'Newsreader', serif;
+    font-weight:600;
+    font-size:16px;
+    color:var(--cherry);
+    margin:0 0 12px;
+  }
+  .callout ul{ margin:0; padding-left:20px; }
+  .callout li{ margin-bottom:8px; color:var(--ink); font-size:15px; }
+  .callout li::marker{ color:var(--cherry); }
+
+  /* term table */
+  .fact-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:1px;
+    background:var(--line);
+    border:1px solid var(--line);
+    border-radius:var(--radius-card);
+    overflow:hidden;
+    margin:32px 0;
+    font-size:14px;
+  }
+  .fact{
+    background:var(--off-white);
+    padding:14px 16px;
+  }
+  .fact .k{
+    display:block;
+    font-size:11px;
+    font-weight:600;
+    letter-spacing:0.03em;
+    text-transform:uppercase;
+    color:var(--stone);
+    margin-bottom:4px;
+  }
+  .fact .v{ color:var(--ink); font-weight:500; }
+  @media (max-width:560px){
+    .fact-grid{ grid-template-columns:1fr; }
+  }
+
+  /* ---------- references ---------- */
+  .references{
+    max-width:var(--max-w-article);
+    margin:0 auto;
+    padding:8px 24px 80px;
+  }
+  .references h2{
+    font-family:'Newsreader', serif;
+    font-weight:500;
+    font-size:22px;
+    margin:0 0 18px;
+  }
+  .references ol{ margin:0; padding-left:22px; }
+  .references li{
+    margin-bottom:14px;
+    font-size:14px;
+    line-height:1.6;
+    color:var(--stone);
+  }
+  .references li a{
+    color:var(--cherry);
+    text-decoration:none;
+    border-bottom:1px solid transparent;
+    word-break:break-word;
+  }
+  .references li a:hover{ border-color:var(--cherry); }
+  .references .src-name{ color:var(--ink); font-weight:500; }
+
+  /* ---------- next / back nav ---------- */
+  .article-nav{
+    max-width:var(--max-w-article);
+    margin:0 auto;
+    padding:0 24px 60px;
+  }
+  .back-link{
+    display:inline-flex;
+    align-items:center;
+    gap:8px;
+    font-size:14px;
+    font-weight:500;
+    color:var(--cherry);
+    text-decoration:none;
+    border-bottom:1px solid transparent;
+  }
+  .back-link:hover{ border-color:var(--cherry); }
+
+  /* ---------- footer ---------- */
+  footer{
+    border-top:1px solid var(--line);
+    padding:28px 24px;
+  }
+  footer .inner{
+    max-width:var(--max-w);
+    margin:0 auto;
+    display:flex;
+    justify-content:space-between;
+    flex-wrap:wrap;
+    gap:8px;
+    font-size:13px;
+    color:var(--stone);
+  }
+  footer a{
+    color:var(--cherry);
+    text-decoration:none;
+    border-bottom:1px solid transparent;
+  }
+  footer a:hover{ border-color:var(--cherry); }
+
+  .fade-in{ animation:fadeUp 0.6s ease both; }
+  @keyframes fadeUp{
+    from{ opacity:0; transform:translateY(10px); }
+    to{ opacity:1; transform:translateY(0); }
+  }
+</style>
+</head>
+<body>
+
+  <header class="topbar">
+    <a class="wordmark" href="index.html">medixa<span class="dot">.</span></a>
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="index.html#catalog">Catalog</a>
+      <a href="#" class="current">Articles</a>
+      <a href="#">About</a>
+    </nav>
+  </header>
+
+  <p class="crumb"><a href="index.html">Home</a> &nbsp;/&nbsp; <a href="index.html#catalog">Articles</a> &nbsp;/&nbsp; P53</p>
+
+  <article>
+    <div class="article-head fade-in">
+      <span class="kicker">Molecular Biology · Oncology</span>
+      <h1>P53: The <em>Guardian</em> of the Genome</h1>
+      <p class="lede">How a single tumor-suppressor protein decides whether a damaged cell repairs itself, stops dividing, or is cleared away — and what happens to the body when that decision-maker is lost.</p>
+      <div class="meta-row">
+        <span class="tag">Genetics</span>
+        <span class="sep">•</span>
+        <span>Undergraduate / pre-med level</span>
+        <span class="sep">•</span>
+        <span>4 min read</span>
+      </div>
+    </div>
+
+    <div class="article-body">
+
+      <h2>What is the TP53 gene?</h2>
+      <p><strong>TP53</strong> is the gene that carries the instructions for building a protein called <strong>p53</strong>. In humans, TP53 is located on the short arm of chromosome 17, at position 17p13.1, and encodes a 393-amino-acid nuclear phosphoprotein.<sup><a href="#ref1">[1]</a><a href="#ref3">[3]</a></sup></p>
+      <p>p53 sits inside the nucleus of almost every cell in the body, where it acts as a transcription factor — a protein that switches other genes on or off. Its job is to monitor the cell for damage and abnormal stress, including exposure to ultraviolet (UV) radiation, ionizing radiation, and other genotoxic insults, and to organize the cell's response accordingly.<sup><a href="#ref2">[2]</a></sup> Because this surveillance role sits upstream of so many protective pathways, p53 is widely referred to as the <strong>"guardian of the genome."</strong></p>
+
+      <div class="fact-grid">
+        <div class="fact"><span class="k">Gene</span><span class="v">TP53</span></div>
+        <div class="fact"><span class="k">Protein</span><span class="v">p53 (53 kDa)</span></div>
+        <div class="fact"><span class="k">Location</span><span class="v">Chromosome 17p13.1</span></div>
+        <div class="fact"><span class="k">Length</span><span class="v">393 amino acids</span></div>
+        <div class="fact"><span class="k">Class</span><span class="v">Tumor suppressor / transcription factor</span></div>
+        <div class="fact"><span class="k">Associated syndrome</span><span class="v">Li-Fraumeni syndrome</span></div>
+      </div>
+
+      <h2>How p53 works: the DNA-binding checkpoint</h2>
+      <p>Under normal, unstressed conditions, p53 is kept at low levels in the cell. Once stress signals appear — most importantly, DNA damage — p53 accumulates and binds directly to specific sequences of DNA. This binding stimulates the transcription of a second gene, which produces a protein called <strong>p21</strong>.<sup><a href="#ref1">[1]</a></sup></p>
+      <p>p21 functions as a "stop signal" for the cell cycle. It does this by forming a complex with a cell-division-driving enzyme called <strong>CDK2</strong> (cyclin-dependent kinase 2). When p21 is bound to CDK2, the cell is blocked from progressing into the next stage of division, giving it time to repair its DNA — or, if the damage is too severe, to activate programmed cell death (apoptosis) instead.<sup><a href="#ref1">[1]</a></sup></p>
+
+      <div class="figure">
+        <svg viewBox="0 0 680 260" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="figTitle figDesc">
+          <title id="figTitle">Simplified p53 signaling pathway</title>
+          <desc id="figDesc">DNA damage activates p53, which binds DNA and induces p21, which then binds CDK2 to arrest the cell cycle.</desc>
+
+          <!-- step 1: stress -->
+          <g>
+            <rect x="10" y="90" width="130" height="70" rx="3" fill="#F1E8DA" stroke="#E3D7C3"/>
+            <text x="75" y="118" text-anchor="middle" font-family="Inter, sans-serif" font-size="12" font-weight="600" fill="#241E18">DNA damage</text>
+            <text x="75" y="135" text-anchor="middle" font-family="Inter, sans-serif" font-size="10.5" fill="#766B5F">UV, radiation,</text>
+            <text x="75" y="148" text-anchor="middle" font-family="Inter, sans-serif" font-size="10.5" fill="#766B5F">cellular stress</text>
+          </g>
+
+          <path d="M145 125 L185 125" stroke="#9C1F3B" stroke-width="1.5" marker-end="url(#arrow)"/>
+
+          <!-- step 2: p53 -->
+          <g>
+            <rect x="190" y="80" width="130" height="90" rx="3" fill="#F6E4E7" stroke="#9C1F3B"/>
+            <text x="255" y="112" text-anchor="middle" font-family="Newsreader, serif" font-style="italic" font-size="16" fill="#9C1F3B">p53</text>
+            <text x="255" y="132" text-anchor="middle" font-family="Inter, sans-serif" font-size="10.5" fill="#241E18">accumulates &amp;</text>
+            <text x="255" y="146" text-anchor="middle" font-family="Inter, sans-serif" font-size="10.5" fill="#241E18">binds DNA</text>
+          </g>
+
+          <path d="M325 125 L365 125" stroke="#9C1F3B" stroke-width="1.5" marker-end="url(#arrow)"/>
+
+          <!-- step 3: p21 -->
+          <g>
+            <rect x="370" y="90" width="120" height="70" rx="3" fill="#F1E8DA" stroke="#E3D7C3"/>
+            <text x="430" y="120" text-anchor="middle" font-family="Inter, sans-serif" font-size="12" font-weight="600" fill="#241E18">p21 protein</text>
+            <text x="430" y="137" text-anchor="middle" font-family="Inter, sans-serif" font-size="10.5" fill="#766B5F">"stop signal"</text>
+            <text x="430" y="150" text-anchor="middle" font-family="Inter, sans-serif" font-size="10.5" fill="#766B5F">produced</text>
+          </g>
+
+          <path d="M495 125 L535 125" stroke="#9C1F3B" stroke-width="1.5" marker-end="url(#arrow)"/>
+
+          <!-- step 4: cdk2 arrest -->
+          <g>
+            <rect x="540" y="75" width="130" height="100" rx="3" fill="#F6E4E7" stroke="#9C1F3B"/>
+            <text x="605" y="105" text-anchor="middle" font-family="Inter, sans-serif" font-size="12" font-weight="600" fill="#241E18">p21–CDK2</text>
+            <text x="605" y="122" text-anchor="middle" font-family="Inter, sans-serif" font-size="10.5" fill="#241E18">complex</text>
+            <text x="605" y="142" text-anchor="middle" font-family="Inter, sans-serif" font-size="10.5" fill="#9C1F3B" font-weight="600">Cell cycle arrest</text>
+            <text x="605" y="157" text-anchor="middle" font-family="Inter, sans-serif" font-size="10.5" fill="#766B5F">(G1 → S blocked)</text>
+          </g>
+
+          <!-- bottom branch: mutant p53 -->
+          <path d="M255 170 L255 210 L605 210 L605 175" stroke="#766B5F" stroke-width="1.2" stroke-dasharray="4 3" fill="none" marker-end="url(#arrowmuted)"/>
+          <text x="430" y="228" text-anchor="middle" font-family="Inter, sans-serif" font-style="italic" font-size="11" fill="#766B5F">If p53 is mutated, it cannot bind DNA — p21 is never made, and the "stop signal" is lost</text>
+
+          <defs>
+            <marker id="arrow" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto">
+              <path d="M0,0 L8,4 L0,8 Z" fill="#9C1F3B"/>
+            </marker>
+            <marker id="arrowmuted" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto">
+              <path d="M0,0 L8,4 L0,8 Z" fill="#766B5F"/>
+            </marker>
+          </defs>
+        </svg>
+        <figcaption>Schematic overview of the p53 → p21 → CDK2 checkpoint. This is an original simplified diagram for teaching purposes, not a reproduction of any published figure.</figcaption>
+      </div>
+
+      <h2>When p53 loses its function</h2>
+      <p>Mutant p53 can no longer bind DNA effectively. Without that binding, p21 is never produced, the "stop signal" is never issued, and cells continue dividing without the normal checkpoint in place. Over time, this uncontrolled division can lead to tumor formation.<sup><a href="#ref1">[1]</a></sup> TP53 is, in fact, the single most frequently altered gene across human cancers, with inactivating mutations found in roughly half of all malignancies studied.<sup><a href="#ref3">[3]</a></sup></p>
+
+      <h3>Inherited loss: Li-Fraumeni syndrome</h3>
+      <p>Everyone normally inherits two working copies of TP53, one from each parent. People who inherit only one functional copy start life with a reduced safety margin: a single further mutation or loss of the remaining copy in any cell removes p53 function there entirely. Clinically, this inherited predisposition is known as <strong>Li-Fraumeni syndrome</strong>, and it is associated with a strikingly high lifetime risk of cancer, often appearing as tumors in several different tissues from early adulthood onward — including breast, bone, soft-tissue, brain, and adrenal cancers.<sup><a href="#ref1">[1]</a><a href="#ref2">[2]</a></sup></p>
+
+      <blockquote>
+        It is clear that p53 is just one component of a network of events that culminate in tumor formation.
+        <cite>— NCBI Bookshelf, <em>Genes and Disease</em>, "The p53 tumor suppressor protein"</cite>
+      </blockquote>
+
+      <p>That framing matters clinically: a TP53 mutation rarely acts alone. It is best understood as the loss of one critical checkpoint within a much larger network of tumor-suppressor and repair pathways, which is also why cancer risk and presentation vary so widely even among people who carry the same inherited change.</p>
+
+      <div class="callout">
+        <h4>Key takeaways</h4>
+        <ul>
+          <li>TP53 (chromosome 17p13.1) encodes p53, a transcription factor and tumor suppressor.</li>
+          <li>p53 senses cellular stress and DNA damage, then binds DNA to switch on p21.</li>
+          <li>p21 pairs with CDK2 to halt the cell cycle, allowing repair or triggering apoptosis.</li>
+          <li>Loss-of-function TP53 mutations remove this checkpoint, permitting uncontrolled division.</li>
+          <li>Inherited TP53 mutations cause Li-Fraumeni syndrome, a hereditary cancer predisposition.</li>
+        </ul>
+      </div>
+
+    </div>
+
+    <section class="references">
+      <h2>Sources</h2>
+      <ol>
+        <li id="ref1"><span class="src-name">National Center for Biotechnology Information (NCBI Bookshelf).</span> "The p53 tumor suppressor protein." <em>Genes and Disease.</em> National Library of Medicine (US). <a href="https://www.ncbi.nlm.nih.gov/books/NBK22268/" target="_blank" rel="noopener">ncbi.nlm.nih.gov/books/NBK22268</a></li>
+        <li id="ref2"><span class="src-name">MedlinePlus Genetics, U.S. National Library of Medicine.</span> "TP53 gene." <a href="https://medlineplus.gov/genetics/gene/tp53/" target="_blank" rel="noopener">medlineplus.gov/genetics/gene/tp53</a></li>
+        <li id="ref3"><span class="src-name">Hu, J., Cao, J., Topatana, W. et al.</span> "Targeting p53 pathways: mechanisms, structures, and advances in therapy." <em>Signal Transduction and Targeted Therapy</em>, Nature (2023). <a href="https://www.nature.com/articles/s41392-023-01347-1" target="_blank" rel="noopener">nature.com/articles/s41392-023-01347-1</a></li>
+      </ol>
+      <p class="muted">This page is for educational, pre-med study purposes and is not a substitute for a genetic counselor or clinician.</p>
+    </section>
+
+    <div class="article-nav">
+      <a class="back-link" href="index.html">&larr; Back to the catalog</a>
+    </div>
+  </article>
+
+  <footer>
+    <div class="inner">
+      <span>&copy; 2026 Medixa</span>
+      <span>Built by Omar — <a href="https://omar-momen.vercel.app" target="_blank" rel="noopener">His personal website</a></span>
+    </div>
+  </footer>
+
+</body>
+</html>
