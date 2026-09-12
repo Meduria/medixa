@@ -330,8 +330,7 @@
     <nav>
       <a href="#top" class="current">Home</a>
       <a href="#catalog">Catalog</a>
-      <a href="#">Articles</a>
-      <a href="#">About</a>
+      <a href="#articles">Articles</a>
     </nav>
   </header>
 
@@ -348,7 +347,7 @@
       <div class="filters" role="tablist" aria-label="Filter catalog by type">
         <button class="active" data-filter="all" role="tab" aria-selected="true">All</button>
         <button data-filter="courses" role="tab" aria-selected="false">Courses</button>
-        <button data-filter="articles" role="tab" aria-selected="false">Articles</button>
+        <button data-filter="articles" role="tab" id="articles" aria-selected="false">Articles</button>
         <button data-filter="other" role="tab" aria-selected="false">Other</button>
       </div>
     </div>
@@ -389,7 +388,7 @@
           <span class="status">Start reading</span>
       </div>
       </a>
-      <div class="card is-pending" data-category="articles" tabindex="0">
+        <a href="ECG.html" class="card is-live" data-category="articles">
         <span class="index">04</span>
         <div>
           <h3>Reading an ECG under pressure</h3>
@@ -399,7 +398,7 @@
           <span class="tag">Article</span>
           <span class="status">Coming soon</span>
         </div>
-      </div>
+        </a>
 
     </div>
 
