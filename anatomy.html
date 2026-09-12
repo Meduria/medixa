@@ -1,0 +1,835 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Medixa — Human Body Explorer</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,500&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --off-white:      #FAF6F0;
+    --off-white-2:    #F1E8DA;
+    --cherry:         #9C1F3B;
+    --cherry-bright:  #C8283F;
+    --cherry-wash:    #F6E4E7;
+    --gold:           #B5892A;
+    --gold-wash:      #F7EFDC;
+    --ink:            #241E18;
+    --stone:          #766B5F;
+    --line:           #E3D7C3;
+    --radius-card:    3px;
+    --max-w:          1120px;
+  }
+
+  *{ box-sizing:border-box; }
+  html{ scroll-behavior:smooth; }
+
+  @media (prefers-reduced-motion: reduce){
+    html{ scroll-behavior:auto; }
+    *{ animation-duration:0.001ms !important; transition-duration:0.001ms !important; }
+  }
+
+  body{
+    margin:0;
+    background:var(--off-white);
+    color:var(--ink);
+    font-family:'Inter', sans-serif;
+    -webkit-font-smoothing:antialiased;
+  }
+
+  a{ color:inherit; }
+  h1,h2,h3{ font-family:'Newsreader', serif; font-weight:500; margin:0; }
+
+  /* ---------- top bar ---------- */
+  .topbar{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    max-width:var(--max-w);
+    margin:0 auto;
+    padding:28px 24px 20px;
+  }
+  .wordmark{
+    font-family:'Newsreader', serif;
+    font-weight:600;
+    font-size:22px;
+    text-decoration:none;
+    display:flex;
+    align-items:baseline;
+    gap:2px;
+  }
+  .wordmark .dot{ color:var(--cherry); font-size:22px; line-height:0; }
+  .crumb{
+    font-size:13.5px;
+    color:var(--stone);
+    text-decoration:none;
+    border-bottom:1px solid transparent;
+  }
+  .crumb:hover{ color:var(--ink); border-color:var(--line); }
+
+  /* ---------- hero ---------- */
+  .hero{
+    max-width:var(--max-w);
+    margin:0 auto;
+    padding:36px 24px 40px;
+    border-bottom:1px solid var(--line);
+  }
+  .eyebrow-line{
+    display:flex; align-items:center; gap:10px;
+    font-size:13px; color:var(--stone); margin-bottom:16px;
+  }
+  .eyebrow-line span.rule{ width:28px; height:1px; background:var(--cherry); display:inline-block; }
+  .hero h1{
+    font-size:clamp(30px, 4.2vw, 44px);
+    line-height:1.15;
+    letter-spacing:-0.01em;
+    max-width:20ch;
+    margin-bottom:14px;
+  }
+  .hero h1 em{ font-style:italic; color:var(--cherry); }
+  .hero p.lede{
+    font-size:16px; line-height:1.6; color:var(--stone); max-width:56ch; margin:0 0 20px;
+  }
+  .hero-stats{ display:flex; gap:28px; flex-wrap:wrap; }
+  .hero-stats div{ display:flex; flex-direction:column; gap:2px; }
+  .hero-stats .num{ font-family:'Newsreader', serif; font-size:26px; color:var(--cherry); }
+  .hero-stats .lbl{ font-size:12.5px; color:var(--stone); }
+
+  /* ---------- explorer ---------- */
+  .explorer{
+    max-width:var(--max-w);
+    margin:0 auto;
+    padding:48px 24px 20px;
+  }
+  .explorer-head{
+    display:flex; justify-content:space-between; align-items:flex-end; flex-wrap:wrap; gap:16px;
+    margin-bottom:22px;
+  }
+  .explorer-head h2{ font-size:24px; }
+  .explorer-head p{ font-size:13.5px; color:var(--stone); margin:6px 0 0; max-width:46ch; }
+
+  .filters{
+    display:flex; flex-wrap:wrap; gap:6px;
+    background:var(--off-white-2);
+    padding:6px; border-radius:14px; border:1px solid var(--line);
+    margin-bottom:28px;
+  }
+  .filters button{
+    appearance:none; border:none; background:transparent;
+    font-family:'Inter', sans-serif; font-size:12.5px; font-weight:500;
+    color:var(--stone); padding:7px 13px; border-radius:10px; cursor:pointer;
+    transition:background 0.18s ease, color 0.18s ease;
+    white-space:nowrap;
+  }
+  .filters button:hover{ color:var(--ink); }
+  .filters button.active{ background:var(--ink); color:var(--off-white); }
+  .filters button:focus-visible,
+  .hotspot:focus-visible,
+  summary:focus-visible,
+  .quiz-opt:focus-visible,
+  .crumb:focus-visible{ outline:2px solid var(--cherry); outline-offset:2px; }
+
+  .explorer-grid{
+    display:grid;
+    grid-template-columns:1.05fr 0.95fr;
+    gap:28px;
+    align-items:start;
+  }
+  @media (max-width:860px){
+    .explorer-grid{ grid-template-columns:1fr; }
+  }
+
+  .figure-wrap{
+    background:var(--off-white-2);
+    border:1px solid var(--line);
+    border-radius:var(--radius-card);
+    padding:20px;
+    position:relative;
+  }
+  .figure-wrap svg{ width:100%; height:auto; display:block; }
+
+  .body-outline{ fill:var(--off-white); stroke:var(--ink); stroke-width:2.2; }
+
+  .hotspot{ cursor:pointer; }
+  .hotspot circle.ring{
+    fill:none; stroke:var(--cherry); stroke-width:1.4; opacity:0;
+    transition:opacity 0.2s ease, r 0.2s ease;
+  }
+  .hotspot circle.dot{
+    fill:var(--cherry); stroke:var(--off-white); stroke-width:2;
+    transition:fill 0.18s ease, transform 0.18s ease, opacity 0.18s ease;
+    transform-origin:center;
+    transform-box:fill-box;
+  }
+  .hotspot:hover circle.dot{ transform:scale(1.3); }
+  .hotspot.active circle.dot{ fill:var(--gold); transform:scale(1.4); }
+  .hotspot.active circle.ring{ opacity:1; r:11; }
+  .hotspot.dim circle.dot{ opacity:0.18; }
+  .hotspot.dim{ pointer-events:none; }
+
+  @keyframes pulse{
+    0%{ r:6.5; opacity:0.55; }
+    100%{ r:13; opacity:0; }
+  }
+  .hotspot circle.pulse{
+    fill:none; stroke:var(--cherry); stroke-width:1.2;
+    animation:pulse 2.4s ease-out infinite;
+    transform-origin:center; transform-box:fill-box;
+  }
+  .hotspot.dim circle.pulse{ display:none; }
+
+  .figure-hint{
+    margin-top:14px; font-size:12.5px; color:var(--stone); text-align:center;
+  }
+
+  /* info panel */
+  .panel{
+    background:var(--off-white);
+    border:1px solid var(--line);
+    border-radius:var(--radius-card);
+    padding:26px;
+    min-height:360px;
+    display:flex; flex-direction:column;
+  }
+  .panel .idx{ font-family:'Newsreader', serif; font-style:italic; font-size:13px; color:var(--stone); }
+  .panel h3{ font-size:22px; margin:8px 0 4px; }
+  .panel .system-name{ font-size:12.5px; color:var(--cherry); font-weight:600; margin-bottom:14px; }
+  .panel .note{ font-size:14.5px; line-height:1.6; color:var(--ink); margin:0 0 18px; }
+  .panel .quickfacts{ list-style:none; margin:0 0 22px; padding:0; display:flex; flex-direction:column; gap:9px; }
+  .panel .quickfacts li{
+    font-size:13px; line-height:1.5; color:var(--stone); padding-left:16px; position:relative;
+  }
+  .panel .quickfacts li::before{
+    content:""; position:absolute; left:0; top:7px; width:6px; height:6px; border-radius:50%; background:var(--gold);
+  }
+  .panel .cta{
+    margin-top:auto;
+    align-self:flex-start;
+    font-size:13px; font-weight:500; color:var(--cherry);
+    background:none; border:none; padding:0; cursor:pointer;
+    border-bottom:1px solid var(--cherry-wash);
+  }
+  .panel .cta:hover{ border-color:var(--cherry); }
+  .panel.empty{ align-items:center; justify-content:center; text-align:center; color:var(--stone); }
+  .panel.empty .idx{ display:none; }
+  .panel.empty p{ font-size:14px; max-width:32ch; margin:0; }
+
+  /* ---------- reference / modules ---------- */
+  .reference{
+    max-width:var(--max-w);
+    margin:0 auto;
+    padding:56px 24px 20px;
+    border-top:1px solid var(--line);
+  }
+  .reference h2{ font-size:24px; margin-bottom:6px; }
+  .reference > p{ font-size:13.5px; color:var(--stone); max-width:56ch; margin:0 0 28px; }
+
+  details.module{
+    border:1px solid var(--line);
+    border-radius:var(--radius-card);
+    margin-bottom:10px;
+    background:var(--off-white);
+    overflow:hidden;
+    scroll-margin-top:24px;
+  }
+  details.module[open]{ border-color:var(--cherry); }
+  details.module summary{
+    list-style:none; cursor:pointer;
+    display:flex; align-items:center; justify-content:space-between; gap:16px;
+    padding:18px 22px;
+  }
+  details.module summary::-webkit-details-marker{ display:none; }
+  .summary-left{ display:flex; align-items:baseline; gap:14px; }
+  .summary-left .mno{ font-family:'Newsreader', serif; font-style:italic; color:var(--stone); font-size:14px; }
+  .summary-left h3{ font-size:18px; }
+  .summary-right{
+    width:22px; height:22px; border-radius:50%; border:1px solid var(--line);
+    display:flex; align-items:center; justify-content:center; flex-shrink:0;
+    font-size:14px; color:var(--stone); transition:transform 0.2s ease;
+  }
+  details.module[open] .summary-right{ transform:rotate(45deg); color:var(--cherry); border-color:var(--cherry); }
+  .module-body{ padding:0 22px 22px; }
+  .module-body p.blurb{ font-size:14px; line-height:1.6; color:var(--stone); margin:0 0 16px; max-width:64ch; }
+  .module-body ul{ margin:0; padding:0; list-style:none; display:grid; grid-template-columns:1fr 1fr; gap:10px 22px; }
+  @media (max-width:640px){ .module-body ul{ grid-template-columns:1fr; } }
+  .module-body li{
+    font-size:13.5px; line-height:1.55; color:var(--ink); padding-left:16px; position:relative;
+  }
+  .module-body li::before{
+    content:""; position:absolute; left:0; top:7px; width:6px; height:6px; border-radius:50%; background:var(--cherry);
+  }
+
+  /* ---------- quiz ---------- */
+  .quiz-section{
+    max-width:var(--max-w);
+    margin:0 auto;
+    padding:56px 24px 90px;
+    border-top:1px solid var(--line);
+  }
+  .quiz-section h2{ font-size:24px; margin-bottom:6px; }
+  .quiz-section > p{ font-size:13.5px; color:var(--stone); max-width:56ch; margin:0 0 26px; }
+
+  .quiz-card{
+    background:var(--off-white-2);
+    border:1px solid var(--line);
+    border-radius:var(--radius-card);
+    padding:32px;
+    max-width:640px;
+  }
+  .quiz-start{
+    display:flex; align-items:center; justify-content:space-between; gap:20px; flex-wrap:wrap;
+  }
+  .quiz-start p{ margin:0; font-size:14px; color:var(--stone); max-width:36ch; }
+  .btn-primary{
+    appearance:none; border:none; cursor:pointer;
+    background:var(--cherry); color:var(--off-white);
+    font-family:'Inter', sans-serif; font-size:13.5px; font-weight:600;
+    padding:12px 22px; border-radius:999px;
+    transition:background 0.18s ease, transform 0.18s ease;
+    white-space:nowrap;
+  }
+  .btn-primary:hover{ background:var(--cherry-bright); transform:translateY(-1px); }
+
+  .quiz-progress{ display:flex; gap:6px; margin-bottom:20px; }
+  .quiz-progress span{ height:4px; flex:1; border-radius:2px; background:var(--line); }
+  .quiz-progress span.done{ background:var(--gold); }
+  .quiz-progress span.current{ background:var(--cherry); }
+
+  .quiz-q-label{ font-size:12px; color:var(--stone); margin-bottom:8px; }
+  .quiz-q{ font-size:18px; line-height:1.4; margin-bottom:20px; }
+  .quiz-options{ display:flex; flex-direction:column; gap:10px; margin-bottom:18px; }
+  .quiz-opt{
+    text-align:left; appearance:none; cursor:pointer;
+    background:var(--off-white); border:1px solid var(--line); border-radius:10px;
+    padding:13px 16px; font-family:'Inter', sans-serif; font-size:14px; color:var(--ink);
+    transition:border-color 0.15s ease, background 0.15s ease;
+  }
+  .quiz-opt:hover:not(:disabled){ border-color:var(--cherry); }
+  .quiz-opt:disabled{ cursor:default; }
+  .quiz-opt.correct{ border-color:var(--gold); background:var(--gold-wash); }
+  .quiz-opt.incorrect{ border-color:var(--cherry); background:var(--cherry-wash); }
+
+  .quiz-explain{
+    font-size:13.5px; line-height:1.55; color:var(--stone);
+    background:var(--off-white); border:1px solid var(--line); border-radius:8px;
+    padding:14px 16px; margin-bottom:18px; display:none;
+  }
+  .quiz-explain.show{ display:block; }
+
+  .quiz-score{ text-align:center; padding:20px 0; }
+  .quiz-score .big{ font-family:'Newsreader', serif; font-size:44px; color:var(--cherry); margin-bottom:6px; }
+  .quiz-score p{ color:var(--stone); font-size:14px; margin:0 0 22px; }
+
+  .hidden{ display:none !important; }
+
+  /* ---------- footer ---------- */
+  footer{ border-top:1px solid var(--line); padding:28px 24px; }
+  footer .inner{
+    max-width:var(--max-w); margin:0 auto;
+    display:flex; justify-content:space-between; flex-wrap:wrap; gap:8px;
+    font-size:13px; color:var(--stone);
+  }
+  footer a{ color:var(--cherry); text-decoration:none; border-bottom:1px solid transparent; }
+  footer a:hover{ border-color:var(--cherry); }
+  footer .disclaimer{ max-width:var(--max-w); margin:0 auto 16px; font-size:12px; color:var(--stone); padding:0 24px; }
+
+  .fade-in{ animation:fadeUp 0.6s ease both; }
+  @keyframes fadeUp{ from{ opacity:0; transform:translateY(10px); } to{ opacity:1; transform:translateY(0); } }
+</style>
+</head>
+<body>
+
+  <header class="topbar">
+    <a class="wordmark" href="../index.html">medixa<span class="dot">.</span></a>
+    <a class="crumb" href="../index.html">← Back to catalog</a>
+  </header>
+
+  <section class="hero">
+    <div class="fade-in">
+      <div class="eyebrow-line"><span class="rule"></span> Human Anatomy I</div>
+      <h1>An interactive map of the <em>body</em> — every system, one figure.</h1>
+      <p class="lede">Tap a point on the figure to open a system, read the reference notes below, or test what stuck with the quiz at the end. Built for pre-med revision, not passive reading.</p>
+      <div class="hero-stats">
+        <div><span class="num">11</span><span class="lbl">body systems</span></div>
+        <div><span class="num">24</span><span class="lbl">explorable points</span></div>
+        <div><span class="num">206</span><span class="lbl">bones, for scale</span></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="explorer" id="explorer">
+    <div class="explorer-head">
+      <div>
+        <h2>Explore the figure</h2>
+        <p>Choose a system to filter the figure, or click any point directly. The panel on the right updates with what you select.</p>
+      </div>
+    </div>
+
+    <div class="filters" id="filters"></div>
+
+    <div class="explorer-grid">
+      <div class="figure-wrap">
+        <svg viewBox="0 0 400 720" xmlns="http://www.w3.org/2000/svg" aria-label="Diagram of the human body with interactive points">
+          <ellipse class="body-outline" cx="200" cy="55" rx="38" ry="46"/>
+          <rect class="body-outline" x="182" y="95" width="36" height="22" rx="6"/>
+          <path class="body-outline" d="M148,115 C130,120 118,150 116,190 L114,260 C113,290 120,315 135,335 L265,335 C280,315 287,290 286,260 L284,190 C282,150 270,120 252,115 C230,105 170,105 148,115 Z"/>
+          <rect class="body-outline" x="84" y="122" width="32" height="142" rx="15"/>
+          <rect class="body-outline" x="284" y="122" width="32" height="142" rx="15"/>
+          <rect class="body-outline" x="80" y="256" width="30" height="128" rx="14"/>
+          <rect class="body-outline" x="290" y="256" width="30" height="128" rx="14"/>
+          <ellipse class="body-outline" cx="95" cy="400" rx="19" ry="25"/>
+          <ellipse class="body-outline" cx="305" cy="400" rx="19" ry="25"/>
+          <rect class="body-outline" x="148" y="335" width="46" height="170" rx="20"/>
+          <rect class="body-outline" x="206" y="335" width="46" height="170" rx="20"/>
+          <rect class="body-outline" x="152" y="500" width="38" height="150" rx="17"/>
+          <rect class="body-outline" x="210" y="500" width="38" height="150" rx="17"/>
+          <ellipse class="body-outline" cx="171" cy="668" rx="29" ry="15"/>
+          <ellipse class="body-outline" cx="229" cy="668" rx="29" ry="15"/>
+          <g id="hotspots"></g>
+        </svg>
+        <p class="figure-hint">24 points across 11 systems — start anywhere.</p>
+      </div>
+
+      <div class="panel empty" id="panel">
+        <p>Nothing selected yet. Tap a point on the figure, or pick a system above, to see what's there.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="reference" id="reference">
+    <h2>The reference</h2>
+    <p>Every system, in full — the same content behind the figure above, laid out for reading straight through or reviewing before an exam.</p>
+    <div id="modules"></div>
+  </section>
+
+  <section class="quiz-section" id="quiz">
+    <h2>Test yourself</h2>
+    <p>Five random questions pulled from the full bank each time. Enough to check what's stuck without turning it into a slog.</p>
+    <div class="quiz-card" id="quizCard"></div>
+  </section>
+
+  <p class="disclaimer">Facts here are general anatomy & physiology reference points for study purposes — always check them against your course textbook and lecture material before an exam.</p>
+
+  <footer>
+    <div class="inner">
+      <span>&copy; 2026 Medixa</span>
+      <span>Built by Omar — <a href="https://omar-momen.vercel.app" target="_blank" rel="noopener">His personal website</a></span>
+    </div>
+  </footer>
+
+<script>
+/* ---------------- data ---------------- */
+
+const MODULES = [
+  { id:"skeletal", number:"01", name:"Skeletal system",
+    blurb:"The body's frame and mineral store — 206 bones in the adult skeleton, linked by joints that trade off stability against range of motion.",
+    facts:[
+      "Adults have 206 bones; newborns have closer to 300, many of which fuse together during growth.",
+      "Bone tissue stores most of the body's calcium and phosphate, and red marrow inside certain bones produces blood cells.",
+      "The femur (thigh bone) is the longest and strongest bone; the stapes in the middle ear is the smallest.",
+      "The spine has 33 vertebrae grouped into cervical, thoracic, lumbar, sacral and coccygeal regions.",
+      "Joints are classed as fibrous, cartilaginous, or synovial, depending on how much movement they allow."
+    ]},
+  { id:"muscular", number:"02", name:"Muscular system",
+    blurb:"Around 600 skeletal muscles working in opposing pairs, plus the smooth and cardiac muscle that keep organs and the heart moving without any conscious effort.",
+    facts:[
+      "Skeletal muscles work in pairs — one contracts while its partner relaxes to produce controlled movement.",
+      "There are three muscle types: skeletal (voluntary), smooth (organ walls, involuntary), and cardiac (heart only).",
+      "The masseter, at the jaw, produces the strongest bite force relative to its size of any muscle in the body.",
+      "Muscle contraction converts chemical energy from ATP into movement and heat — which is why shivering warms you up.",
+      "Regular resistance use increases muscle fiber size (hypertrophy); disuse leads to measurable loss within a couple of weeks (atrophy)."
+    ]},
+  { id:"circulatory", number:"03", name:"Circulatory system",
+    blurb:"A closed loop of roughly 5 liters of blood, pushed by the heart through two separate circuits, reaching almost every cell in the body.",
+    facts:[
+      "Adults carry about 5 liters of blood, roughly 7–8% of total body weight.",
+      "The heart beats around 100,000 times a day across two circuits: pulmonary (to the lungs) and systemic (to the body).",
+      "Laid end to end, the body's blood vessels would stretch roughly 100,000 km — enough to circle the earth twice.",
+      "Arteries generally carry oxygen-rich blood away from the heart; veins generally return it, with the pulmonary vessels being the exception.",
+      "Red blood cells carry oxygen via hemoglobin, white blood cells fight infection, and platelets seal off wounds."
+    ]},
+  { id:"respiratory", number:"04", name:"Respiratory system",
+    blurb:"The lungs exchange oxygen and carbon dioxide across a surface area close to a tennis court, folded into the chest cavity.",
+    facts:[
+      "Each lung contains roughly 300–500 million tiny air sacs called alveoli, where gas exchange happens.",
+      "At rest, adults breathe 12–20 times a minute, trading oxygen for carbon dioxide across the alveolar membrane.",
+      "The diaphragm, a dome-shaped muscle beneath the lungs, does most of the mechanical work of breathing.",
+      "The trachea splits into two bronchi, one per lung, which branch further into smaller bronchioles before reaching the alveoli."
+    ]},
+  { id:"digestive", number:"05", name:"Digestive system",
+    blurb:"A roughly 9-meter tube from mouth to anus, supported by the liver and pancreas, that breaks food down and absorbs what the body needs.",
+    facts:[
+      "The digestive tract runs about 9 meters total, through the esophagus, stomach, small intestine, and large intestine.",
+      "Stomach acid sits around pH 1.5–3.5 — strong enough to dissolve metal over time — but a regenerating mucus layer protects the stomach lining.",
+      "The liver performs over 500 distinct functions, including filtering blood, producing bile, and storing nutrients.",
+      "The small intestine, at roughly 6 meters, handles most nutrient absorption; the large intestine mainly reabsorbs water.",
+      "The pancreas contributes digestive enzymes to the small intestine and also releases insulin and glucagon into the blood."
+    ]},
+  { id:"nervous", number:"06", name:"Nervous system",
+    blurb:"The body's signaling network, split into a central command center and a peripheral wiring system reaching every limb and organ.",
+    facts:[
+      "The nervous system splits into the central nervous system (brain and spinal cord) and peripheral nervous system (nerves reaching the body).",
+      "The adult brain weighs about 1.4 kg but uses roughly 20% of the body's resting energy.",
+      "Neurons transmit signals electrically and chemically, at speeds up to around 120 meters per second in some fibers.",
+      "The peripheral nervous system splits further into the somatic branch (voluntary movement and sensation) and the autonomic branch, which itself divides into sympathetic ('fight or flight') and parasympathetic ('rest and digest') pathways."
+    ]},
+  { id:"lymphatic", number:"07", name:"Lymphatic & immune system",
+    blurb:"A drainage and defense network — lymph nodes, vessels, the spleen and thymus — that filters fluid and clears pathogens.",
+    facts:[
+      "Lymph nodes, vessels, the spleen, thymus, and tonsils together filter fluid and trap pathogens before they spread.",
+      "Lymph nodes swell during infection because immune cells multiply rapidly inside them to fight it off.",
+      "The lymphatic system also drains excess fluid from tissues back into the bloodstream, which is why blockages cause swelling (edema).",
+      "White blood cells produced and matured in lymphatic tissue are central to both immediate and long-term (adaptive) immune defense."
+    ]},
+  { id:"urinary", number:"08", name:"Urinary system",
+    blurb:"The kidneys filter the entire blood supply dozens of times a day, balancing fluid, salts, and waste before they leave the body.",
+    facts:[
+      "The kidneys filter the entire blood supply roughly 40 times a day, producing about 1–2 liters of urine.",
+      "Each kidney contains around a million tiny filtering units called nephrons.",
+      "The bladder typically holds 400–600 ml comfortably before signaling the urge to empty.",
+      "Beyond waste removal, the kidneys help regulate blood pressure, blood pH, and red blood cell production."
+    ]},
+  { id:"endocrine", number:"09", name:"Endocrine system",
+    blurb:"A set of glands releasing hormones straight into the bloodstream, coordinating growth, metabolism, and mood over minutes to years.",
+    facts:[
+      "Glands including the pituitary, thyroid, adrenal glands, and pancreas release hormones directly into the blood.",
+      "The pea-sized pituitary gland is often called the 'master gland' because it directs the activity of several other glands.",
+      "The thyroid, in the neck, sets the pace of metabolism throughout the body.",
+      "Hormonal effects can be slow to appear compared with nerve signals, but they tend to last far longer."
+    ]},
+  { id:"integumentary", number:"10", name:"Integumentary system",
+    blurb:"Skin is the body's largest organ — a three-layer barrier that regulates temperature, senses the world, and keeps infection out.",
+    facts:[
+      "Skin is made of three layers: the epidermis (outer barrier), dermis (nerves, vessels, glands), and hypodermis (fat and insulation).",
+      "An adult's skin covers roughly 1.5–2 square meters and weighs around 4 kg — making it the body's largest organ by surface area.",
+      "It regulates temperature through sweating and blood flow, senses touch, pain, and temperature, and forms the first barrier against infection.",
+      "The outer epidermis fully replaces itself roughly every four weeks."
+    ]},
+  { id:"senses", number:"11", name:"Special senses",
+    blurb:"The eyes and ears translate light and vibration into signals the brain can use — including three of the smallest bones in the body.",
+    facts:[
+      "The middle ear contains the body's three smallest bones — malleus, incus, and stapes — which amplify sound vibrations toward the inner ear.",
+      "The eye focuses light onto the retina, where photoreceptor cells convert it into signals carried by the optic nerve.",
+      "Balance relies on fluid-filled canals in the inner ear working together with the eyes and the brain.",
+      "Taste and smell receptors work together closely, which is why a blocked nose dulls the flavor of food."
+    ]}
+];
+
+const HOTSPOTS = [
+  { x:200, y:45,  system:"nervous",       label:"Brain",             note:"Uses about a fifth of the body's resting energy despite weighing only ~1.4 kg." },
+  { x:200, y:62,  system:"senses",        label:"Eyes",              note:"Focus light onto the retina, which converts it into signals along the optic nerve." },
+  { x:163, y:64,  system:"senses",        label:"Left ear",          note:"Houses the three smallest bones in the body, which amplify sound toward the inner ear." },
+  { x:237, y:64,  system:"senses",        label:"Right ear",         note:"Works with its counterpart and the eyes to maintain balance." },
+  { x:172, y:86,  system:"muscular",      label:"Masseter (jaw)",    note:"Pound for pound, the strongest muscle in the body for generating bite force." },
+  { x:200, y:108, system:"endocrine",     label:"Thyroid",           note:"Sets the pace of metabolism for nearly every cell in the body." },
+  { x:152, y:112, system:"lymphatic",     label:"Neck lymph nodes",  note:"Swell when immune cells multiply here to fight off an infection." },
+  { x:188, y:172, system:"circulatory",   label:"Heart",             note:"Beats roughly 100,000 times a day, pushing blood through two circuits." },
+  { x:150, y:165, system:"respiratory",   label:"Lungs",             note:"Together hold hundreds of millions of alveoli — a gas-exchange surface the size of a tennis court." },
+  { x:228, y:150, system:"skeletal",      label:"Ribcage",           note:"Twelve pairs of ribs shield the heart and lungs while still flexing with each breath." },
+  { x:200, y:222, system:"nervous",       label:"Spinal cord",       note:"Carries signals between the brain and the rest of the body along the length of the spine." },
+  { x:234, y:242, system:"digestive",     label:"Liver",             note:"Performs over 500 distinct jobs, from filtering blood to producing bile." },
+  { x:158, y:236, system:"digestive",     label:"Stomach",           note:"Its acid sits around pH 1.5–3.5 — strong enough to dissolve metal over time." },
+  { x:258, y:258, system:"urinary",       label:"Kidney",            note:"Filters the entire blood supply about 40 times a day." },
+  { x:200, y:302, system:"digestive",     label:"Intestines",        note:"Roughly 7.5 meters of small and large intestine handle absorption and water recovery." },
+  { x:200, y:326, system:"urinary",       label:"Bladder",           note:"Comfortably holds 400–600 ml before signaling the urge to empty." },
+  { x:112, y:180, system:"lymphatic",     label:"Armpit lymph nodes",note:"Part of the network that filters lymph fluid draining from the arm and chest wall." },
+  { x:160, y:338, system:"lymphatic",     label:"Groin lymph nodes", note:"Filter lymph draining from the legs before it rejoins the bloodstream." },
+  { x:100, y:190, system:"muscular",      label:"Biceps",            note:"Flexes the elbow — and relaxes as its opposing partner, the triceps, extends it." },
+  { x:305, y:320, system:"integumentary", label:"Skin (forearm)",    note:"Skin is the body's largest organ, replacing its outer layer roughly every four weeks." },
+  { x:95,  y:402, system:"skeletal",      label:"Hand bones",        note:"27 bones per hand give it the dexterity to grip, write, and manipulate fine tools." },
+  { x:171, y:420, system:"muscular",      label:"Quadriceps",        note:"A group of four muscles at the front of the thigh, key to standing and climbing stairs." },
+  { x:229, y:420, system:"skeletal",      label:"Femur",             note:"The longest and strongest bone in the body, running from hip to knee." },
+  { x:171, y:503, system:"skeletal",      label:"Knee joint",        note:"A hinge joint that takes several times body weight with every step." },
+  { x:229, y:575, system:"muscular",      label:"Calf muscle",       note:"Powers the push-off in every step, working with the Achilles tendon." },
+  { x:171, y:668, system:"skeletal",      label:"Foot bones",        note:"26 bones per foot absorb impact and help balance while standing or walking." }
+];
+
+const QUIZ = [
+  { q:"About how many bones does the adult human skeleton have?", options:["146","206","260","320"], correct:1,
+    explain:"Adults have 206 bones. Babies are born with closer to 300, and many fuse together as they grow." },
+  { q:"Which organ is generally described as the body's largest?", options:["Liver","Skin","Small intestine","Lungs"], correct:1,
+    explain:"Skin covers 1.5–2 square meters and weighs around 4 kg, making it the largest organ by surface area." },
+  { q:"Roughly how many times does the heart beat in a day?", options:["10,000","50,000","100,000","500,000"], correct:2,
+    explain:"The heart beats around 100,000 times a day, pushing blood through the pulmonary and systemic circuits." },
+  { q:"Which of these is NOT one of the three muscle types?", options:["Skeletal","Smooth","Cardiac","Elastic"], correct:3,
+    explain:"The three muscle types are skeletal (voluntary), smooth (organ walls), and cardiac (heart only)." },
+  { q:"The spleen, thymus, and lymph nodes belong to which system?", options:["Endocrine","Lymphatic / immune","Urinary","Digestive"], correct:1,
+    explain:"These structures filter fluid and pathogens as part of the lymphatic and immune system." },
+  { q:"What is the main job of red blood cells?", options:["Fighting infection","Clotting wounds","Carrying oxygen","Producing hormones"], correct:2,
+    explain:"Red blood cells use hemoglobin to carry oxygen from the lungs to the rest of the body." },
+  { q:"Roughly how long is the small intestine?", options:["1 meter","3 meters","6 meters","12 meters"], correct:2,
+    explain:"The small intestine is roughly 6 meters long and handles most nutrient absorption." },
+  { q:"Which muscle produces the strongest bite force relative to its size?", options:["Biceps","Masseter","Quadriceps","Deltoid"], correct:1,
+    explain:"The masseter, at the jaw, is the strongest muscle relative to its size for generating bite force." },
+  { q:"Which three bones amplify sound in the middle ear?", options:["Malleus, incus, stapes","Radius, ulna, humerus","Tibia, fibula, femur","Carpals, tarsals, phalanges"], correct:0,
+    explain:"The malleus, incus, and stapes are the three smallest bones in the body and sit in the middle ear." },
+  { q:"What is the outer layer of skin called?", options:["Dermis","Hypodermis","Epidermis","Cortex"], correct:2,
+    explain:"The epidermis is the outer barrier layer of skin; it fully replaces itself roughly every four weeks." },
+  { q:"About what share of the body's resting energy does the brain use?", options:["2%","20%","50%","80%"], correct:1,
+    explain:"Despite weighing only around 1.4 kg, the brain uses roughly 20% of the body's resting energy." },
+  { q:"Which branch of the nervous system controls voluntary movement?", options:["Autonomic", "Somatic", "Sympathetic", "Parasympathetic"], correct:1,
+    explain:"The somatic branch of the peripheral nervous system handles voluntary movement and sensation." },
+  { q:"Which gland is often called the body's 'master gland'?", options:["Thyroid","Adrenal gland","Pituitary gland","Pancreas"], correct:2,
+    explain:"The pea-sized pituitary gland directs the activity of several other endocrine glands." },
+  { q:"Roughly how many alveoli does each lung contain?", options:["A few thousand","A few hundred thousand","300–500 million","10 billion"], correct:2,
+    explain:"Each lung holds an estimated 300–500 million alveoli, giving a huge surface area for gas exchange." },
+  { q:"About how many nephrons does each kidney contain?", options:["About a thousand","About a hundred thousand","About a million","About a billion"], correct:2,
+    explain:"Each kidney contains roughly a million nephrons, its microscopic filtering units." },
+  { q:"Roughly what pH range is stomach acid?", options:["6.5–7.5 (neutral)","4.5–5.5 (mildly acidic)","1.5–3.5 (strongly acidic)","9–10 (alkaline)"], correct:2,
+    explain:"Stomach acid sits around pH 1.5–3.5, strong enough to dissolve metal over time." },
+  { q:"Put these spinal regions in order from top to bottom: lumbar, cervical, thoracic.", options:["Cervical, thoracic, lumbar","Thoracic, cervical, lumbar","Lumbar, thoracic, cervical","Cervical, lumbar, thoracic"], correct:0,
+    explain:"From the neck down, the spine runs cervical, then thoracic, then lumbar (followed by sacral and coccygeal)." },
+  { q:"Which fluid does the liver produce to help digest fat?", options:["Insulin","Bile","Mucus","Plasma"], correct:1,
+    explain:"The liver produces bile, which helps break down fats during digestion." },
+  { q:"About how much blood does an average adult carry?", options:["1 liter","5 liters","10 liters","15 liters"], correct:1,
+    explain:"Adults carry roughly 5 liters of blood, about 7–8% of total body weight." },
+  { q:"What is the longest bone in the human body?", options:["Humerus","Tibia","Femur","Fibula"], correct:2,
+    explain:"The femur, running from hip to knee, is both the longest and strongest bone in the body." }
+];
+
+const moduleById = Object.fromEntries(MODULES.map(m => [m.id, m]));
+
+/* ---------------- filters ---------------- */
+
+const filtersEl = document.getElementById("filters");
+let activeSystem = "all";
+
+function renderFilters(){
+  const all = document.createElement("button");
+  all.textContent = "All systems";
+  all.dataset.system = "all";
+  all.className = "active";
+  filtersEl.appendChild(all);
+
+  MODULES.forEach(m => {
+    const b = document.createElement("button");
+    b.textContent = m.name;
+    b.dataset.system = m.id;
+    filtersEl.appendChild(b);
+  });
+
+  filtersEl.addEventListener("click", e => {
+    const btn = e.target.closest("button");
+    if(!btn) return;
+    setActiveSystem(btn.dataset.system);
+  });
+}
+
+function setActiveSystem(sys){
+  activeSystem = sys;
+  filtersEl.querySelectorAll("button").forEach(b => b.classList.toggle("active", b.dataset.system === sys));
+  document.querySelectorAll(".hotspot").forEach(h => {
+    h.classList.toggle("dim", sys !== "all" && h.dataset.system !== sys);
+  });
+  if(sys !== "all") openModule(sys, false);
+}
+
+/* ---------------- hotspots ---------------- */
+
+const svgNS = "http://www.w3.org/2000/svg";
+const hotspotsGroup = document.getElementById("hotspots");
+
+function renderHotspots(){
+  HOTSPOTS.forEach((h, i) => {
+    const g = document.createElementNS(svgNS, "g");
+    g.setAttribute("class", "hotspot");
+    g.setAttribute("data-system", h.system);
+    g.setAttribute("tabindex", "0");
+    g.setAttribute("role", "button");
+    g.setAttribute("aria-label", h.label);
+
+    const pulse = document.createElementNS(svgNS, "circle");
+    pulse.setAttribute("class", "pulse");
+    pulse.setAttribute("cx", h.x); pulse.setAttribute("cy", h.y); pulse.setAttribute("r", 6.5);
+    pulse.style.animationDelay = (i * 0.15) + "s";
+
+    const ring = document.createElementNS(svgNS, "circle");
+    ring.setAttribute("class", "ring");
+    ring.setAttribute("cx", h.x); ring.setAttribute("cy", h.y); ring.setAttribute("r", 8);
+
+    const dot = document.createElementNS(svgNS, "circle");
+    dot.setAttribute("class", "dot");
+    dot.setAttribute("cx", h.x); dot.setAttribute("cy", h.y); dot.setAttribute("r", 5.5);
+
+    g.appendChild(pulse); g.appendChild(ring); g.appendChild(dot);
+
+    const activate = () => selectHotspot(h, g);
+    g.addEventListener("click", activate);
+    g.addEventListener("keydown", e => { if(e.key === "Enter" || e.key === " "){ e.preventDefault(); activate(); } });
+
+    hotspotsGroup.appendChild(g);
+  });
+}
+
+function selectHotspot(h, g){
+  document.querySelectorAll(".hotspot").forEach(el => el.classList.remove("active"));
+  g.classList.add("active");
+  setActiveSystem(h.system);
+  renderPanel(h);
+}
+
+/* ---------------- panel ---------------- */
+
+const panelEl = document.getElementById("panel");
+
+function renderPanel(h){
+  const m = moduleById[h.system];
+  panelEl.classList.remove("empty");
+  panelEl.innerHTML = `
+    <span class="idx">Module ${m.number}</span>
+    <h3>${h.label}</h3>
+    <div class="system-name">${m.name}</div>
+    <p class="note">${h.note}</p>
+    <ul class="quickfacts">
+      ${m.facts.slice(0,3).map(f => `<li>${f}</li>`).join("")}
+    </ul>
+    <button class="cta" data-open="${m.id}">Read the full module ↓</button>
+  `;
+  panelEl.querySelector(".cta").addEventListener("click", () => openModule(m.id, true));
+}
+
+/* ---------------- modules / reference ---------------- */
+
+const modulesEl = document.getElementById("modules");
+
+function renderModules(){
+  MODULES.forEach(m => {
+    const d = document.createElement("details");
+    d.className = "module";
+    d.id = "module-" + m.id;
+    d.innerHTML = `
+      <summary>
+        <div class="summary-left">
+          <span class="mno">${m.number}</span>
+          <h3>${m.name}</h3>
+        </div>
+        <span class="summary-right">+</span>
+      </summary>
+      <div class="module-body">
+        <p class="blurb">${m.blurb}</p>
+        <ul>${m.facts.map(f => `<li>${f}</li>`).join("")}</ul>
+      </div>
+    `;
+    modulesEl.appendChild(d);
+  });
+}
+
+function openModule(id, scroll){
+  document.querySelectorAll("details.module").forEach(d => {
+    d.open = (d.id === "module-" + id);
+  });
+  if(scroll){
+    const target = document.getElementById("module-" + id);
+    if(target) target.scrollIntoView({ behavior:"smooth", block:"center" });
+  }
+}
+
+/* ---------------- quiz ---------------- */
+
+const quizCard = document.getElementById("quizCard");
+let quizState = null;
+
+function shuffle(arr){
+  const a = [...arr];
+  for(let i = a.length - 1; i > 0; i--){
+    const j = Math.floor(Math.random() * (i + 1));
+    [a[i], a[j]] = [a[j], a[i]];
+  }
+  return a;
+}
+
+function renderQuizStart(){
+  quizCard.innerHTML = `
+    <div class="quiz-start">
+      <p>Five multiple-choice questions, drawn at random from a bank of ${QUIZ.length}.</p>
+      <button class="btn-primary" id="startQuiz">Start quiz</button>
+    </div>
+  `;
+  document.getElementById("startQuiz").addEventListener("click", startQuiz);
+}
+
+function startQuiz(){
+  const questions = shuffle(QUIZ).slice(0, 5);
+  quizState = { questions, index:0, score:0, answered:false };
+  renderQuizQuestion();
+}
+
+function renderQuizQuestion(){
+  const { questions, index, score } = quizState;
+  const q = questions[index];
+
+  const progress = questions.map((_, i) => {
+    const cls = i < index ? "done" : (i === index ? "current" : "");
+    return `<span class="${cls}"></span>`;
+  }).join("");
+
+  quizCard.innerHTML = `
+    <div class="quiz-progress">${progress}</div>
+    <div class="quiz-q-label">Question ${index + 1} of ${questions.length}</div>
+    <div class="quiz-q">${q.q}</div>
+    <div class="quiz-options">
+      ${q.options.map((opt, i) => `<button class="quiz-opt" data-i="${i}">${opt}</button>`).join("")}
+    </div>
+    <div class="quiz-explain" id="quizExplain"></div>
+  `;
+
+  quizCard.querySelectorAll(".quiz-opt").forEach(btn => {
+    btn.addEventListener("click", () => answerQuiz(parseInt(btn.dataset.i, 10)));
+  });
+}
+
+function answerQuiz(choice){
+  if(quizState.answered) return;
+  quizState.answered = true;
+  const { questions, index } = quizState;
+  const q = questions[index];
+  const correct = choice === q.correct;
+  if(correct) quizState.score++;
+
+  quizCard.querySelectorAll(".quiz-opt").forEach((btn, i) => {
+    btn.disabled = true;
+    if(i === q.correct) btn.classList.add("correct");
+    else if(i === choice) btn.classList.add("incorrect");
+  });
+
+  const explain = document.getElementById("quizExplain");
+  explain.textContent = q.explain;
+  explain.classList.add("show");
+
+  const next = document.createElement("button");
+  next.className = "btn-primary";
+  next.style.marginTop = "4px";
+  next.textContent = (index + 1 < questions.length) ? "Next question" : "See your score";
+  next.addEventListener("click", () => {
+    quizState.index++;
+    quizState.answered = false;
+    if(quizState.index < questions.length) renderQuizQuestion();
+    else renderQuizScore();
+  });
+  quizCard.appendChild(next);
+}
+
+function renderQuizScore(){
+  const { score, questions } = quizState;
+  quizCard.innerHTML = `
+    <div class="quiz-score">
+      <div class="big">${score} / ${questions.length}</div>
+      <p>${score === questions.length ? "Clean sweep." : score >= questions.length - 1 ? "Nearly there." : "Worth another pass through the modules."}</p>
+      <button class="btn-primary" id="retryQuiz">Try five more</button>
+    </div>
+  `;
+  document.getElementById("retryQuiz").addEventListener("click", startQuiz);
+}
+
+/* ---------------- init ---------------- */
+
+renderFilters();
+renderHotspots();
+renderModules();
+renderQuizStart();
+</script>
+
+</body>
+</html>
