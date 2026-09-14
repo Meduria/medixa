@@ -20,320 +20,159 @@
     --stone:          #766B5F;
     --line:           #E3D7C3;
     --radius-card:    3px;
-    --max-w:          1120px;
+    --max-w:          1160px;
   }
 
   *{ box-sizing:border-box; }
   html{ scroll-behavior:smooth; }
-
   @media (prefers-reduced-motion: reduce){
     html{ scroll-behavior:auto; }
     *{ animation-duration:0.001ms !important; transition-duration:0.001ms !important; }
   }
 
-  body{
-    margin:0;
-    background:var(--off-white);
-    color:var(--ink);
-    font-family:'Inter', sans-serif;
-    -webkit-font-smoothing:antialiased;
-  }
-
+  body{ margin:0; background:var(--off-white); color:var(--ink); font-family:'Inter', sans-serif; -webkit-font-smoothing:antialiased; }
   a{ color:inherit; }
   h1,h2,h3{ font-family:'Newsreader', serif; font-weight:500; margin:0; }
 
   /* ---------- top bar ---------- */
-  .topbar{
-    display:flex;
-    align-items:center;
-    justify-content:space-between;
-    max-width:var(--max-w);
-    margin:0 auto;
-    padding:28px 24px 20px;
-  }
-  .wordmark{
-    font-family:'Newsreader', serif;
-    font-weight:600;
-    font-size:22px;
-    text-decoration:none;
-    display:flex;
-    align-items:baseline;
-    gap:2px;
-  }
+  .topbar{ display:flex; align-items:center; justify-content:space-between; max-width:var(--max-w); margin:0 auto; padding:28px 24px 20px; }
+  .wordmark{ font-family:'Newsreader', serif; font-weight:600; font-size:22px; text-decoration:none; display:flex; align-items:baseline; gap:2px; }
   .wordmark .dot{ color:var(--cherry); font-size:22px; line-height:0; }
-  .crumb{
-    font-size:13.5px;
-    color:var(--stone);
-    text-decoration:none;
-    border-bottom:1px solid transparent;
-  }
+  .crumb{ font-size:13.5px; color:var(--stone); text-decoration:none; border-bottom:1px solid transparent; }
   .crumb:hover{ color:var(--ink); border-color:var(--line); }
 
   /* ---------- hero ---------- */
-  .hero{
-    max-width:var(--max-w);
-    margin:0 auto;
-    padding:36px 24px 40px;
-    border-bottom:1px solid var(--line);
-  }
-  .eyebrow-line{
-    display:flex; align-items:center; gap:10px;
-    font-size:13px; color:var(--stone); margin-bottom:16px;
-  }
+  .hero{ max-width:var(--max-w); margin:0 auto; padding:36px 24px 40px; border-bottom:1px solid var(--line); }
+  .eyebrow-line{ display:flex; align-items:center; gap:10px; font-size:13px; color:var(--stone); margin-bottom:16px; }
   .eyebrow-line span.rule{ width:28px; height:1px; background:var(--cherry); display:inline-block; }
-  .hero h1{
-    font-size:clamp(30px, 4.2vw, 44px);
-    line-height:1.15;
-    letter-spacing:-0.01em;
-    max-width:20ch;
-    margin-bottom:14px;
-  }
+  .hero h1{ font-size:clamp(30px, 4.2vw, 44px); line-height:1.15; letter-spacing:-0.01em; max-width:22ch; margin-bottom:14px; }
   .hero h1 em{ font-style:italic; color:var(--cherry); }
-  .hero p.lede{
-    font-size:16px; line-height:1.6; color:var(--stone); max-width:56ch; margin:0 0 20px;
-  }
+  .hero p.lede{ font-size:16px; line-height:1.6; color:var(--stone); max-width:58ch; margin:0 0 20px; }
   .hero-stats{ display:flex; gap:28px; flex-wrap:wrap; }
   .hero-stats div{ display:flex; flex-direction:column; gap:2px; }
   .hero-stats .num{ font-family:'Newsreader', serif; font-size:26px; color:var(--cherry); }
   .hero-stats .lbl{ font-size:12.5px; color:var(--stone); }
 
   /* ---------- explorer ---------- */
-  .explorer{
-    max-width:var(--max-w);
-    margin:0 auto;
-    padding:48px 24px 20px;
-  }
-  .explorer-head{
-    display:flex; justify-content:space-between; align-items:flex-end; flex-wrap:wrap; gap:16px;
-    margin-bottom:22px;
-  }
+  .explorer{ max-width:var(--max-w); margin:0 auto; padding:48px 24px 20px; }
+  .explorer-head{ display:flex; justify-content:space-between; align-items:flex-end; flex-wrap:wrap; gap:16px; margin-bottom:22px; }
   .explorer-head h2{ font-size:24px; }
-  .explorer-head p{ font-size:13.5px; color:var(--stone); margin:6px 0 0; max-width:46ch; }
+  .explorer-head p{ font-size:13.5px; color:var(--stone); margin:6px 0 0; max-width:50ch; }
 
-  .filters{
-    display:flex; flex-wrap:wrap; gap:6px;
-    background:var(--off-white-2);
-    padding:6px; border-radius:14px; border:1px solid var(--line);
-    margin-bottom:28px;
-  }
-  .filters button{
-    appearance:none; border:none; background:transparent;
-    font-family:'Inter', sans-serif; font-size:12.5px; font-weight:500;
-    color:var(--stone); padding:7px 13px; border-radius:10px; cursor:pointer;
-    transition:background 0.18s ease, color 0.18s ease;
-    white-space:nowrap;
-  }
+  .filters{ display:flex; flex-wrap:wrap; gap:6px; background:var(--off-white-2); padding:6px; border-radius:14px; border:1px solid var(--line); margin-bottom:16px; }
+  .filters button{ appearance:none; border:none; background:transparent; font-family:'Inter', sans-serif; font-size:12px; font-weight:500; color:var(--stone); padding:7px 12px; border-radius:10px; cursor:pointer; transition:background 0.18s ease, color 0.18s ease; white-space:nowrap; }
   .filters button:hover{ color:var(--ink); }
   .filters button.active{ background:var(--ink); color:var(--off-white); }
-  .filters button:focus-visible,
-  .hotspot:focus-visible,
-  summary:focus-visible,
-  .quiz-opt:focus-visible,
-  .crumb:focus-visible{ outline:2px solid var(--cherry); outline-offset:2px; }
+  .filters button:focus-visible, .hotspot:focus-visible, summary:focus-visible, .quiz-opt:focus-visible, .crumb:focus-visible{ outline:2px solid var(--cherry); outline-offset:2px; }
 
-  .explorer-grid{
-    display:grid;
-    grid-template-columns:1.05fr 0.95fr;
-    gap:28px;
-    align-items:start;
+  .search-row{ margin-bottom:24px; }
+  .search-row input{
+    width:100%; max-width:360px; font-family:'Inter', sans-serif; font-size:13.5px;
+    padding:10px 14px; border:1px solid var(--line); border-radius:10px; background:var(--off-white);
+    color:var(--ink);
   }
-  @media (max-width:860px){
-    .explorer-grid{ grid-template-columns:1fr; }
-  }
+  .search-row input:focus{ outline:2px solid var(--cherry); outline-offset:1px; border-color:var(--cherry); }
 
-  .figure-wrap{
-    background:var(--off-white-2);
-    border:1px solid var(--line);
-    border-radius:var(--radius-card);
-    padding:20px;
-    position:relative;
-  }
-  .figure-wrap svg{ width:100%; height:auto; display:block; }
+  .explorer-grid{ display:grid; grid-template-columns:1.05fr 0.95fr; gap:28px; align-items:start; }
+  @media (max-width:900px){ .explorer-grid{ grid-template-columns:1fr; } }
 
-  .body-outline{ fill:var(--off-white); stroke:var(--ink); stroke-width:2.2; }
+  .figure-wrap{ background:var(--off-white-2); border:1px solid var(--line); border-radius:var(--radius-card); padding:20px; }
+  .figure-stage{ position:relative; width:100%; max-width:420px; margin:0 auto; }
+  .figure-stage svg{ display:block; width:100%; height:auto; user-select:none; }
+  .figure-body{ fill:url(#skinGrad); stroke:var(--ink); stroke-width:2.2; stroke-linejoin:round; }
+  .figure-contour{ fill:none; stroke:var(--ink); stroke-width:1; opacity:0.22; }
+  .hotspot-layer{ position:absolute; inset:0; }
 
-  .hotspot{ cursor:pointer; }
-  .hotspot circle.ring{
-    fill:none; stroke:var(--cherry); stroke-width:1.4; opacity:0;
-    transition:opacity 0.2s ease, r 0.2s ease;
+  .hotspot{
+    position:absolute; width:12px; height:12px; margin:-6px 0 0 -6px;
+    border-radius:50%; background:var(--cherry); border:1.6px solid var(--off-white);
+    cursor:pointer; padding:0; transition:transform 0.15s ease, background 0.15s ease, opacity 0.15s ease;
   }
-  .hotspot circle.dot{
-    fill:var(--cherry); stroke:var(--off-white); stroke-width:2;
-    transition:fill 0.18s ease, transform 0.18s ease, opacity 0.18s ease;
-    transform-origin:center;
-    transform-box:fill-box;
-  }
-  .hotspot:hover circle.dot{ transform:scale(1.3); }
-  .hotspot.active circle.dot{ fill:var(--gold); transform:scale(1.4); }
-  .hotspot.active circle.ring{ opacity:1; r:11; }
-  .hotspot.dim circle.dot{ opacity:0.18; }
-  .hotspot.dim{ pointer-events:none; }
+  .hotspot::after{ content:""; position:absolute; inset:0; border-radius:50%; animation:pulse 2.4s ease-out infinite; }
+  @keyframes pulse{ 0%{ box-shadow:0 0 0 0 rgba(156,31,59,0.4); } 100%{ box-shadow:0 0 0 10px rgba(156,31,59,0); } }
+  .hotspot:hover{ transform:scale(1.35); }
+  .hotspot.active{ background:var(--gold); transform:scale(1.5); z-index:5; }
+  .hotspot.active::after{ animation:none; box-shadow:0 0 0 5px rgba(181,137,42,0.28); }
+  .hotspot.dim{ opacity:0.14; pointer-events:none; }
+  .hotspot.dim::after{ display:none; }
 
-  @keyframes pulse{
-    0%{ r:6.5; opacity:0.55; }
-    100%{ r:13; opacity:0; }
-  }
-  .hotspot circle.pulse{
-    fill:none; stroke:var(--cherry); stroke-width:1.2;
-    animation:pulse 2.4s ease-out infinite;
-    transform-origin:center; transform-box:fill-box;
-  }
-  .hotspot.dim circle.pulse{ display:none; }
-
-  .figure-hint{
-    margin-top:14px; font-size:12.5px; color:var(--stone); text-align:center;
-  }
+  .figure-caption{ margin-top:14px; font-size:12px; color:var(--stone); text-align:center; line-height:1.5; }
+  .figure-caption a{ color:var(--stone); text-decoration:underline; }
 
   /* info panel */
-  .panel{
-    background:var(--off-white);
-    border:1px solid var(--line);
-    border-radius:var(--radius-card);
-    padding:26px;
-    min-height:360px;
-    display:flex; flex-direction:column;
-  }
+  .panel{ background:var(--off-white); border:1px solid var(--line); border-radius:var(--radius-card); padding:26px; min-height:400px; display:flex; flex-direction:column; }
   .panel .idx{ font-family:'Newsreader', serif; font-style:italic; font-size:13px; color:var(--stone); }
   .panel h3{ font-size:22px; margin:8px 0 4px; }
   .panel .system-name{ font-size:12.5px; color:var(--cherry); font-weight:600; margin-bottom:14px; }
   .panel .note{ font-size:14.5px; line-height:1.6; color:var(--ink); margin:0 0 18px; }
   .panel .quickfacts{ list-style:none; margin:0 0 22px; padding:0; display:flex; flex-direction:column; gap:9px; }
-  .panel .quickfacts li{
-    font-size:13px; line-height:1.5; color:var(--stone); padding-left:16px; position:relative;
-  }
-  .panel .quickfacts li::before{
-    content:""; position:absolute; left:0; top:7px; width:6px; height:6px; border-radius:50%; background:var(--gold);
-  }
-  .panel .cta{
-    margin-top:auto;
-    align-self:flex-start;
-    font-size:13px; font-weight:500; color:var(--cherry);
-    background:none; border:none; padding:0; cursor:pointer;
-    border-bottom:1px solid var(--cherry-wash);
-  }
+  .panel .quickfacts li{ font-size:13px; line-height:1.5; color:var(--stone); padding-left:16px; position:relative; }
+  .panel .quickfacts li::before{ content:""; position:absolute; left:0; top:7px; width:6px; height:6px; border-radius:50%; background:var(--gold); }
+  .panel .cta{ margin-top:auto; align-self:flex-start; font-size:13px; font-weight:500; color:var(--cherry); background:none; border:none; padding:0; cursor:pointer; border-bottom:1px solid var(--cherry-wash); }
   .panel .cta:hover{ border-color:var(--cherry); }
   .panel.empty{ align-items:center; justify-content:center; text-align:center; color:var(--stone); }
   .panel.empty .idx{ display:none; }
-  .panel.empty p{ font-size:14px; max-width:32ch; margin:0; }
+  .panel.empty p{ font-size:14px; max-width:34ch; margin:0; }
+  .panel .count-note{ font-size:11.5px; color:var(--stone); margin-top:4px; }
 
   /* ---------- reference / modules ---------- */
-  .reference{
-    max-width:var(--max-w);
-    margin:0 auto;
-    padding:56px 24px 20px;
-    border-top:1px solid var(--line);
-  }
+  .reference{ max-width:var(--max-w); margin:0 auto; padding:56px 24px 20px; border-top:1px solid var(--line); }
   .reference h2{ font-size:24px; margin-bottom:6px; }
-  .reference > p{ font-size:13.5px; color:var(--stone); max-width:56ch; margin:0 0 28px; }
+  .reference > p{ font-size:13.5px; color:var(--stone); max-width:58ch; margin:0 0 28px; }
 
-  details.module{
-    border:1px solid var(--line);
-    border-radius:var(--radius-card);
-    margin-bottom:10px;
-    background:var(--off-white);
-    overflow:hidden;
-    scroll-margin-top:24px;
-  }
+  details.module{ border:1px solid var(--line); border-radius:var(--radius-card); margin-bottom:10px; background:var(--off-white); overflow:hidden; scroll-margin-top:24px; }
   details.module[open]{ border-color:var(--cherry); }
-  details.module summary{
-    list-style:none; cursor:pointer;
-    display:flex; align-items:center; justify-content:space-between; gap:16px;
-    padding:18px 22px;
-  }
+  details.module summary{ list-style:none; cursor:pointer; display:flex; align-items:center; justify-content:space-between; gap:16px; padding:18px 22px; }
   details.module summary::-webkit-details-marker{ display:none; }
   .summary-left{ display:flex; align-items:baseline; gap:14px; }
   .summary-left .mno{ font-family:'Newsreader', serif; font-style:italic; color:var(--stone); font-size:14px; }
   .summary-left h3{ font-size:18px; }
-  .summary-right{
-    width:22px; height:22px; border-radius:50%; border:1px solid var(--line);
-    display:flex; align-items:center; justify-content:center; flex-shrink:0;
-    font-size:14px; color:var(--stone); transition:transform 0.2s ease;
-  }
+  .summary-right{ width:22px; height:22px; border-radius:50%; border:1px solid var(--line); display:flex; align-items:center; justify-content:center; flex-shrink:0; font-size:14px; color:var(--stone); transition:transform 0.2s ease; }
   details.module[open] .summary-right{ transform:rotate(45deg); color:var(--cherry); border-color:var(--cherry); }
   .module-body{ padding:0 22px 22px; }
-  .module-body p.blurb{ font-size:14px; line-height:1.6; color:var(--stone); margin:0 0 16px; max-width:64ch; }
+  .module-body p.blurb{ font-size:14px; line-height:1.6; color:var(--stone); margin:0 0 16px; max-width:66ch; }
   .module-body ul{ margin:0; padding:0; list-style:none; display:grid; grid-template-columns:1fr 1fr; gap:10px 22px; }
   @media (max-width:640px){ .module-body ul{ grid-template-columns:1fr; } }
-  .module-body li{
-    font-size:13.5px; line-height:1.55; color:var(--ink); padding-left:16px; position:relative;
-  }
-  .module-body li::before{
-    content:""; position:absolute; left:0; top:7px; width:6px; height:6px; border-radius:50%; background:var(--cherry);
-  }
+  .module-body li{ font-size:13.5px; line-height:1.55; color:var(--ink); padding-left:16px; position:relative; }
+  .module-body li::before{ content:""; position:absolute; left:0; top:7px; width:6px; height:6px; border-radius:50%; background:var(--cherry); }
+  .module-body table{ border-collapse:collapse; width:100%; margin-top:6px; font-size:13px; }
+  .module-body table th, .module-body table td{ text-align:left; padding:7px 10px; border-bottom:1px solid var(--line); }
+  .module-body table th{ color:var(--stone); font-weight:600; font-size:11.5px; text-transform:uppercase; letter-spacing:0.03em; }
 
   /* ---------- quiz ---------- */
-  .quiz-section{
-    max-width:var(--max-w);
-    margin:0 auto;
-    padding:56px 24px 90px;
-    border-top:1px solid var(--line);
-  }
+  .quiz-section{ max-width:var(--max-w); margin:0 auto; padding:56px 24px 90px; border-top:1px solid var(--line); }
   .quiz-section h2{ font-size:24px; margin-bottom:6px; }
-  .quiz-section > p{ font-size:13.5px; color:var(--stone); max-width:56ch; margin:0 0 26px; }
-
-  .quiz-card{
-    background:var(--off-white-2);
-    border:1px solid var(--line);
-    border-radius:var(--radius-card);
-    padding:32px;
-    max-width:640px;
-  }
-  .quiz-start{
-    display:flex; align-items:center; justify-content:space-between; gap:20px; flex-wrap:wrap;
-  }
+  .quiz-section > p{ font-size:13.5px; color:var(--stone); max-width:58ch; margin:0 0 26px; }
+  .quiz-card{ background:var(--off-white-2); border:1px solid var(--line); border-radius:var(--radius-card); padding:32px; max-width:640px; }
+  .quiz-start{ display:flex; align-items:center; justify-content:space-between; gap:20px; flex-wrap:wrap; }
   .quiz-start p{ margin:0; font-size:14px; color:var(--stone); max-width:36ch; }
-  .btn-primary{
-    appearance:none; border:none; cursor:pointer;
-    background:var(--cherry); color:var(--off-white);
-    font-family:'Inter', sans-serif; font-size:13.5px; font-weight:600;
-    padding:12px 22px; border-radius:999px;
-    transition:background 0.18s ease, transform 0.18s ease;
-    white-space:nowrap;
-  }
+  .btn-primary{ appearance:none; border:none; cursor:pointer; background:var(--cherry); color:var(--off-white); font-family:'Inter', sans-serif; font-size:13.5px; font-weight:600; padding:12px 22px; border-radius:999px; transition:background 0.18s ease, transform 0.18s ease; white-space:nowrap; }
   .btn-primary:hover{ background:var(--cherry-bright); transform:translateY(-1px); }
-
   .quiz-progress{ display:flex; gap:6px; margin-bottom:20px; }
   .quiz-progress span{ height:4px; flex:1; border-radius:2px; background:var(--line); }
   .quiz-progress span.done{ background:var(--gold); }
   .quiz-progress span.current{ background:var(--cherry); }
-
   .quiz-q-label{ font-size:12px; color:var(--stone); margin-bottom:8px; }
   .quiz-q{ font-size:18px; line-height:1.4; margin-bottom:20px; }
   .quiz-options{ display:flex; flex-direction:column; gap:10px; margin-bottom:18px; }
-  .quiz-opt{
-    text-align:left; appearance:none; cursor:pointer;
-    background:var(--off-white); border:1px solid var(--line); border-radius:10px;
-    padding:13px 16px; font-family:'Inter', sans-serif; font-size:14px; color:var(--ink);
-    transition:border-color 0.15s ease, background 0.15s ease;
-  }
+  .quiz-opt{ text-align:left; appearance:none; cursor:pointer; background:var(--off-white); border:1px solid var(--line); border-radius:10px; padding:13px 16px; font-family:'Inter', sans-serif; font-size:14px; color:var(--ink); transition:border-color 0.15s ease, background 0.15s ease; }
   .quiz-opt:hover:not(:disabled){ border-color:var(--cherry); }
   .quiz-opt:disabled{ cursor:default; }
   .quiz-opt.correct{ border-color:var(--gold); background:var(--gold-wash); }
   .quiz-opt.incorrect{ border-color:var(--cherry); background:var(--cherry-wash); }
-
-  .quiz-explain{
-    font-size:13.5px; line-height:1.55; color:var(--stone);
-    background:var(--off-white); border:1px solid var(--line); border-radius:8px;
-    padding:14px 16px; margin-bottom:18px; display:none;
-  }
+  .quiz-explain{ font-size:13.5px; line-height:1.55; color:var(--stone); background:var(--off-white); border:1px solid var(--line); border-radius:8px; padding:14px 16px; margin-bottom:18px; display:none; }
   .quiz-explain.show{ display:block; }
-
   .quiz-score{ text-align:center; padding:20px 0; }
   .quiz-score .big{ font-family:'Newsreader', serif; font-size:44px; color:var(--cherry); margin-bottom:6px; }
   .quiz-score p{ color:var(--stone); font-size:14px; margin:0 0 22px; }
 
   .hidden{ display:none !important; }
 
-  /* ---------- footer ---------- */
   footer{ border-top:1px solid var(--line); padding:28px 24px; }
-  footer .inner{
-    max-width:var(--max-w); margin:0 auto;
-    display:flex; justify-content:space-between; flex-wrap:wrap; gap:8px;
-    font-size:13px; color:var(--stone);
-  }
+  footer .inner{ max-width:var(--max-w); margin:0 auto; display:flex; justify-content:space-between; flex-wrap:wrap; gap:8px; font-size:13px; color:var(--stone); }
   footer a{ color:var(--cherry); text-decoration:none; border-bottom:1px solid transparent; }
   footer a:hover{ border-color:var(--cherry); }
-  footer .disclaimer{ max-width:var(--max-w); margin:0 auto 16px; font-size:12px; color:var(--stone); padding:0 24px; }
+  .disclaimer{ max-width:var(--max-w); margin:0 auto 16px; font-size:12px; color:var(--stone); padding:0 24px; }
 
   .fade-in{ animation:fadeUp 0.6s ease both; }
   @keyframes fadeUp{ from{ opacity:0; transform:translateY(10px); } to{ opacity:1; transform:translateY(0); } }
@@ -349,12 +188,12 @@
   <section class="hero">
     <div class="fade-in">
       <div class="eyebrow-line"><span class="rule"></span> Human Anatomy I</div>
-      <h1>An interactive map of the <em>body</em> — every system, one figure.</h1>
-      <p class="lede">Tap a point on the figure to open a system, read the reference notes below, or test what stuck with the quiz at the end. Built for pre-med revision, not passive reading.</p>
+      <h1>An interactive map of the <em>body</em> — every system, every region, one figure.</h1>
+      <p class="lede">Tap any of the 100 marked points to open a structure or a named body region, read the reference notes below, or test what stuck with the quiz at the end. Built for pre-med revision, not passive reading.</p>
       <div class="hero-stats">
-        <div><span class="num">11</span><span class="lbl">body systems</span></div>
-        <div><span class="num">24</span><span class="lbl">explorable points</span></div>
-        <div><span class="num">206</span><span class="lbl">bones, for scale</span></div>
+        <div><span class="num">12</span><span class="lbl">modules, incl. terminology</span></div>
+        <div><span class="num">100</span><span class="lbl">explorable points</span></div>
+        <div><span class="num">30</span><span class="lbl">quiz questions</span></div>
       </div>
     </div>
   </section>
@@ -363,50 +202,74 @@
     <div class="explorer-head">
       <div>
         <h2>Explore the figure</h2>
-        <p>Choose a system to filter the figure, or click any point directly. The panel on the right updates with what you select.</p>
+        <p>Filter by system, or search a structure or region by name. Every marked point includes its Latin-derived medical name where one exists.</p>
       </div>
     </div>
 
     <div class="filters" id="filters"></div>
+    <div class="search-row">
+      <input type="text" id="searchBox" placeholder="Search a structure or region — e.g. &quot;femoral&quot;, &quot;liver&quot;, &quot;patellar&quot;">
+    </div>
 
     <div class="explorer-grid">
       <div class="figure-wrap">
-        <svg viewBox="0 0 400 720" xmlns="http://www.w3.org/2000/svg" aria-label="Diagram of the human body with interactive points">
-          <ellipse class="body-outline" cx="200" cy="55" rx="38" ry="46"/>
-          <rect class="body-outline" x="182" y="95" width="36" height="22" rx="6"/>
-          <path class="body-outline" d="M148,115 C130,120 118,150 116,190 L114,260 C113,290 120,315 135,335 L265,335 C280,315 287,290 286,260 L284,190 C282,150 270,120 252,115 C230,105 170,105 148,115 Z"/>
-          <rect class="body-outline" x="84" y="122" width="32" height="142" rx="15"/>
-          <rect class="body-outline" x="284" y="122" width="32" height="142" rx="15"/>
-          <rect class="body-outline" x="80" y="256" width="30" height="128" rx="14"/>
-          <rect class="body-outline" x="290" y="256" width="30" height="128" rx="14"/>
-          <ellipse class="body-outline" cx="95" cy="400" rx="19" ry="25"/>
-          <ellipse class="body-outline" cx="305" cy="400" rx="19" ry="25"/>
-          <rect class="body-outline" x="148" y="335" width="46" height="170" rx="20"/>
-          <rect class="body-outline" x="206" y="335" width="46" height="170" rx="20"/>
-          <rect class="body-outline" x="152" y="500" width="38" height="150" rx="17"/>
-          <rect class="body-outline" x="210" y="500" width="38" height="150" rx="17"/>
-          <ellipse class="body-outline" cx="171" cy="668" rx="29" ry="15"/>
-          <ellipse class="body-outline" cx="229" cy="668" rx="29" ry="15"/>
-          <g id="hotspots"></g>
-        </svg>
-        <p class="figure-hint">24 points across 11 systems — start anywhere.</p>
+        <div class="figure-stage" id="figureStage">
+          <svg viewBox="0 0 400 800" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Front view of a human body in standard anatomical position, used as a base for anatomical points">
+            <defs>
+              <linearGradient id="skinGrad" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0%" stop-color="#FCF4E9"/>
+                <stop offset="100%" stop-color="#E9D6B8"/>
+              </linearGradient>
+            </defs>
+
+            <!-- legs (drawn first, behind torso) -->
+            <path class="figure-body" d="M158,300 Q150,390 148,480 Q142,580 140,680 L168,684 Q168,580 170,480 Q172,390 198,300 Z"/>
+            <path class="figure-body" d="M242,300 Q250,390 252,480 Q258,580 260,680 L232,684 Q232,580 230,480 Q228,390 202,300 Z"/>
+            <ellipse class="figure-body" cx="138" cy="693" rx="27" ry="13"/>
+            <ellipse class="figure-body" cx="262" cy="693" rx="27" ry="13"/>
+
+            <!-- arms (behind torso at shoulder) -->
+            <path class="figure-body" d="M122,138 Q90,195 75,248 Q55,310 44,378 L60,382 Q68,315 96,252 Q118,195 140,145 Z"/>
+            <path class="figure-body" d="M278,138 Q310,195 325,248 Q345,310 356,378 L340,382 Q332,315 304,252 Q282,195 260,145 Z"/>
+            <ellipse class="figure-body" cx="46" cy="390" rx="16" ry="22"/>
+            <ellipse class="figure-body" cx="354" cy="390" rx="16" ry="22"/>
+
+            <!-- torso -->
+            <path class="figure-body" d="M135,135 C120,150 118,180 122,210 C126,240 138,260 155,275 L160,300 L240,300 L245,275 C262,260 274,240 278,210 C282,180 280,150 265,135 C250,120 150,120 135,135 Z"/>
+
+            <!-- neck + head -->
+            <path class="figure-body" d="M183,98 L217,98 L214,128 L186,128 Z"/>
+            <ellipse class="figure-body" cx="200" cy="55" rx="42" ry="50"/>
+
+            <!-- soft surface contour lines, purely illustrative -->
+            <path class="figure-contour" d="M160,138 Q200,150 240,138"/>
+            <path class="figure-contour" d="M200,150 L200,270"/>
+            <path class="figure-contour" d="M150,175 Q200,190 250,175"/>
+            <path class="figure-contour" d="M170,300 Q170,480 168,600"/>
+            <path class="figure-contour" d="M230,300 Q230,480 232,600"/>
+            <circle class="figure-contour" cx="170" cy="482" r="10"/>
+            <circle class="figure-contour" cx="230" cy="482" r="10"/>
+          </svg>
+          <div class="hotspot-layer" id="hotspots"></div>
+        </div>
+        <p class="figure-caption">An original figure, drawn in standard anatomical position — standing upright, arms spread, palms forward — the reference stance used throughout the surface anatomy module below.</p>
       </div>
 
       <div class="panel empty" id="panel">
-        <p>Nothing selected yet. Tap a point on the figure, or pick a system above, to see what's there.</p>
+        <p>Nothing selected yet. Tap a point on the figure, search a name, or pick a system above.</p>
       </div>
     </div>
   </section>
 
   <section class="reference" id="reference">
     <h2>The reference</h2>
-    <p>Every system, in full — the same content behind the figure above, laid out for reading straight through or reviewing before an exam.</p>
+    <p>Every system — and the language anatomists use to describe the body's surface — laid out for reading straight through or reviewing before an exam.</p>
     <div id="modules"></div>
   </section>
 
   <section class="quiz-section" id="quiz">
     <h2>Test yourself</h2>
-    <p>Five random questions pulled from the full bank each time. Enough to check what's stuck without turning it into a slog.</p>
+    <p>Five random questions pulled from a bank of 30 each time — spanning both systems and regional terminology.</p>
     <div class="quiz-card" id="quizCard"></div>
   </section>
 
@@ -420,7 +283,7 @@
   </footer>
 
 <script>
-/* ---------------- data ---------------- */
+/* ---------------- data: modules ---------------- */
 
 const MODULES = [
   { id:"skeletal", number:"01", name:"Skeletal system",
@@ -428,9 +291,11 @@ const MODULES = [
     facts:[
       "Adults have 206 bones; newborns have closer to 300, many of which fuse together during growth.",
       "Bone tissue stores most of the body's calcium and phosphate, and red marrow inside certain bones produces blood cells.",
-      "The femur (thigh bone) is the longest and strongest bone; the stapes in the middle ear is the smallest.",
+      "The femur is the longest and strongest bone; the stapes in the middle ear is the smallest.",
       "The spine has 33 vertebrae grouped into cervical, thoracic, lumbar, sacral and coccygeal regions.",
-      "Joints are classed as fibrous, cartilaginous, or synovial, depending on how much movement they allow."
+      "Joints are classed as fibrous, cartilaginous, or synovial, depending on how much movement they allow.",
+      "The clavicle is the most frequently fractured bone in the body, often from a fall onto an outstretched arm.",
+      "Cartilage cushions many joints and has almost no blood supply, which is part of why it heals so slowly."
     ]},
   { id:"muscular", number:"02", name:"Muscular system",
     blurb:"Around 600 skeletal muscles working in opposing pairs, plus the smooth and cardiac muscle that keep organs and the heart moving without any conscious effort.",
@@ -439,7 +304,9 @@ const MODULES = [
       "There are three muscle types: skeletal (voluntary), smooth (organ walls, involuntary), and cardiac (heart only).",
       "The masseter, at the jaw, produces the strongest bite force relative to its size of any muscle in the body.",
       "Muscle contraction converts chemical energy from ATP into movement and heat — which is why shivering warms you up.",
-      "Regular resistance use increases muscle fiber size (hypertrophy); disuse leads to measurable loss within a couple of weeks (atrophy)."
+      "Regular resistance use increases muscle fiber size (hypertrophy); disuse leads to measurable loss within a couple of weeks (atrophy).",
+      "The gluteus maximus is the largest muscle by mass, key to hip extension and posture.",
+      "Muscle names often describe their own shape, location, or action — for example, the biceps brachii ('two-headed muscle of the arm')."
     ]},
   { id:"circulatory", number:"03", name:"Circulatory system",
     blurb:"A closed loop of roughly 5 liters of blood, pushed by the heart through two separate circuits, reaching almost every cell in the body.",
@@ -448,7 +315,9 @@ const MODULES = [
       "The heart beats around 100,000 times a day across two circuits: pulmonary (to the lungs) and systemic (to the body).",
       "Laid end to end, the body's blood vessels would stretch roughly 100,000 km — enough to circle the earth twice.",
       "Arteries generally carry oxygen-rich blood away from the heart; veins generally return it, with the pulmonary vessels being the exception.",
-      "Red blood cells carry oxygen via hemoglobin, white blood cells fight infection, and platelets seal off wounds."
+      "Red blood cells carry oxygen via hemoglobin, white blood cells fight infection, and platelets seal off wounds.",
+      "The radial pulse, felt at the wrist, is one of the most common spots for checking heart rate by hand.",
+      "The carotid arteries in the neck supply the brain and are a key pulse-check point in emergencies."
     ]},
   { id:"respiratory", number:"04", name:"Respiratory system",
     blurb:"The lungs exchange oxygen and carbon dioxide across a surface area close to a tennis court, folded into the chest cavity.",
@@ -456,16 +325,19 @@ const MODULES = [
       "Each lung contains roughly 300–500 million tiny air sacs called alveoli, where gas exchange happens.",
       "At rest, adults breathe 12–20 times a minute, trading oxygen for carbon dioxide across the alveolar membrane.",
       "The diaphragm, a dome-shaped muscle beneath the lungs, does most of the mechanical work of breathing.",
-      "The trachea splits into two bronchi, one per lung, which branch further into smaller bronchioles before reaching the alveoli."
+      "The trachea splits into two bronchi, one per lung, which branch further into smaller bronchioles before reaching the alveoli.",
+      "The right lung has three lobes while the left has two, making room for the heart."
     ]},
   { id:"digestive", number:"05", name:"Digestive system",
-    blurb:"A roughly 9-meter tube from mouth to anus, supported by the liver and pancreas, that breaks food down and absorbs what the body needs.",
+    blurb:"A roughly 9-meter tube from mouth to anus, supported by the liver, gallbladder and pancreas, that breaks food down and absorbs what the body needs.",
     facts:[
       "The digestive tract runs about 9 meters total, through the esophagus, stomach, small intestine, and large intestine.",
       "Stomach acid sits around pH 1.5–3.5 — strong enough to dissolve metal over time — but a regenerating mucus layer protects the stomach lining.",
       "The liver performs over 500 distinct functions, including filtering blood, producing bile, and storing nutrients.",
       "The small intestine, at roughly 6 meters, handles most nutrient absorption; the large intestine mainly reabsorbs water.",
-      "The pancreas contributes digestive enzymes to the small intestine and also releases insulin and glucagon into the blood."
+      "The pancreas contributes digestive enzymes to the small intestine and also releases insulin and glucagon into the blood.",
+      "The gallbladder stores and concentrates bile produced by the liver, releasing it when fatty food enters the small intestine.",
+      "The appendix, attached to the large intestine, is thought to help reseed gut bacteria after illness."
     ]},
   { id:"nervous", number:"06", name:"Nervous system",
     blurb:"The body's signaling network, split into a central command center and a peripheral wiring system reaching every limb and organ.",
@@ -473,7 +345,9 @@ const MODULES = [
       "The nervous system splits into the central nervous system (brain and spinal cord) and peripheral nervous system (nerves reaching the body).",
       "The adult brain weighs about 1.4 kg but uses roughly 20% of the body's resting energy.",
       "Neurons transmit signals electrically and chemically, at speeds up to around 120 meters per second in some fibers.",
-      "The peripheral nervous system splits further into the somatic branch (voluntary movement and sensation) and the autonomic branch, which itself divides into sympathetic ('fight or flight') and parasympathetic ('rest and digest') pathways."
+      "The peripheral nervous system splits further into the somatic branch (voluntary movement and sensation) and the autonomic branch, which itself divides into sympathetic ('fight or flight') and parasympathetic ('rest and digest') pathways.",
+      "The sciatic nerve, running from the lower back down the leg, is the longest and widest nerve in the body.",
+      "The brachial plexus, a network of nerves near the shoulder, supplies most of the arm's movement and sensation."
     ]},
   { id:"lymphatic", number:"07", name:"Lymphatic & immune system",
     blurb:"A drainage and defense network — lymph nodes, vessels, the spleen and thymus — that filters fluid and clears pathogens.",
@@ -481,7 +355,9 @@ const MODULES = [
       "Lymph nodes, vessels, the spleen, thymus, and tonsils together filter fluid and trap pathogens before they spread.",
       "Lymph nodes swell during infection because immune cells multiply rapidly inside them to fight it off.",
       "The lymphatic system also drains excess fluid from tissues back into the bloodstream, which is why blockages cause swelling (edema).",
-      "White blood cells produced and matured in lymphatic tissue are central to both immediate and long-term (adaptive) immune defense."
+      "White blood cells produced and matured in lymphatic tissue are central to both immediate and long-term (adaptive) immune defense.",
+      "The spleen filters blood directly, removing old or damaged red blood cells.",
+      "The tonsils sit at the back of the throat as an early checkpoint against inhaled or swallowed pathogens."
     ]},
   { id:"urinary", number:"08", name:"Urinary system",
     blurb:"The kidneys filter the entire blood supply dozens of times a day, balancing fluid, salts, and waste before they leave the body.",
@@ -489,7 +365,8 @@ const MODULES = [
       "The kidneys filter the entire blood supply roughly 40 times a day, producing about 1–2 liters of urine.",
       "Each kidney contains around a million tiny filtering units called nephrons.",
       "The bladder typically holds 400–600 ml comfortably before signaling the urge to empty.",
-      "Beyond waste removal, the kidneys help regulate blood pressure, blood pH, and red blood cell production."
+      "Beyond waste removal, the kidneys help regulate blood pressure, blood pH, and red blood cell production.",
+      "Urine travels from each kidney to the bladder through a thin tube called the ureter."
     ]},
   { id:"endocrine", number:"09", name:"Endocrine system",
     blurb:"A set of glands releasing hormones straight into the bloodstream, coordinating growth, metabolism, and mood over minutes to years.",
@@ -497,7 +374,9 @@ const MODULES = [
       "Glands including the pituitary, thyroid, adrenal glands, and pancreas release hormones directly into the blood.",
       "The pea-sized pituitary gland is often called the 'master gland' because it directs the activity of several other glands.",
       "The thyroid, in the neck, sets the pace of metabolism throughout the body.",
-      "Hormonal effects can be slow to appear compared with nerve signals, but they tend to last far longer."
+      "Hormonal effects can be slow to appear compared with nerve signals, but they tend to last far longer.",
+      "The adrenal glands, sitting atop each kidney, release adrenaline during acute stress and cortisol over longer stress.",
+      "The thymus is most active in childhood, helping immune cells mature before slowly shrinking with age."
     ]},
   { id:"integumentary", number:"10", name:"Integumentary system",
     blurb:"Skin is the body's largest organ — a three-layer barrier that regulates temperature, senses the world, and keeps infection out.",
@@ -505,46 +384,168 @@ const MODULES = [
       "Skin is made of three layers: the epidermis (outer barrier), dermis (nerves, vessels, glands), and hypodermis (fat and insulation).",
       "An adult's skin covers roughly 1.5–2 square meters and weighs around 4 kg — making it the body's largest organ by surface area.",
       "It regulates temperature through sweating and blood flow, senses touch, pain, and temperature, and forms the first barrier against infection.",
-      "The outer epidermis fully replaces itself roughly every four weeks."
+      "The outer epidermis fully replaces itself roughly every four weeks.",
+      "Nails are made of the same protein, keratin, that makes up the outer layer of skin and hair."
     ]},
   { id:"senses", number:"11", name:"Special senses",
-    blurb:"The eyes and ears translate light and vibration into signals the brain can use — including three of the smallest bones in the body.",
+    blurb:"The eyes, ears, nose, and tongue translate light, vibration, and chemicals into signals the brain can use — including three of the smallest bones in the body.",
     facts:[
       "The middle ear contains the body's three smallest bones — malleus, incus, and stapes — which amplify sound vibrations toward the inner ear.",
       "The eye focuses light onto the retina, where photoreceptor cells convert it into signals carried by the optic nerve.",
       "Balance relies on fluid-filled canals in the inner ear working together with the eyes and the brain.",
-      "Taste and smell receptors work together closely, which is why a blocked nose dulls the flavor of food."
+      "Taste and smell receptors work together closely, which is why a blocked nose dulls the flavor of food.",
+      "The tongue's taste buds detect only a handful of basic qualities — sweet, salty, sour, bitter, and umami — with smell doing most of the rest of 'flavor'."
+    ]},
+  { id:"surface", number:"12", name:"Surface anatomy & regional terms",
+    blurb:"Before naming organs, anatomists first name the surface of the body itself — a shared vocabulary that lets any two clinicians describe the same spot precisely.",
+    facts:[
+      "Anatomical position is the reference stance for all descriptions: standing upright, facing forward, arms at the sides, palms facing forward.",
+      "Directional terms work in pairs: superior/inferior (above/below), anterior/posterior (front/back), medial/lateral (toward/away from the midline), and proximal/distal (closer to/farther from where a limb attaches).",
+      "Regional terms name an area by an underlying structure — cephalic (head), brachial (arm), patellar (kneecap) — and are the adjective form clinicians use in notes and exam questions.",
+      "Cavities group organs by location: the thoracic cavity holds the heart and lungs, while the abdominopelvic cavity holds most of the digestive and urinary organs.",
+      "Planes of section — sagittal, frontal (coronal), and transverse — describe how the body is conceptually sliced in imaging and dissection."
+    ],
+    termTable:[
+      ["Cephalic","Head"], ["Frontal","Forehead"], ["Orbital","Eye area"], ["Nasal","Nose"],
+      ["Buccal","Cheek"], ["Oral","Mouth"], ["Mental","Chin"], ["Auricular","Ear"],
+      ["Cervical","Neck"], ["Acromial","Point of shoulder"], ["Axillary","Armpit"],
+      ["Thoracic","Chest"], ["Abdominal","Belly"], ["Umbilical","Navel"], ["Inguinal","Groin"],
+      ["Brachial","Upper arm"], ["Antebrachial","Forearm"], ["Carpal","Wrist"], ["Palmar","Palm"],
+      ["Femoral","Thigh"], ["Patellar","Kneecap"], ["Crural","Leg (shin)"], ["Pedal","Foot"]
     ]}
 ];
 
+const moduleById = Object.fromEntries(MODULES.map(m => [m.id, m]));
+
+/* ---------------- data: hotspots (100 points) ---------------- */
+/* x, y are percentages across the figure image */
+
 const HOTSPOTS = [
-  { x:200, y:45,  system:"nervous",       label:"Brain",             note:"Uses about a fifth of the body's resting energy despite weighing only ~1.4 kg." },
-  { x:200, y:62,  system:"senses",        label:"Eyes",              note:"Focus light onto the retina, which converts it into signals along the optic nerve." },
-  { x:163, y:64,  system:"senses",        label:"Left ear",          note:"Houses the three smallest bones in the body, which amplify sound toward the inner ear." },
-  { x:237, y:64,  system:"senses",        label:"Right ear",         note:"Works with its counterpart and the eyes to maintain balance." },
-  { x:172, y:86,  system:"muscular",      label:"Masseter (jaw)",    note:"Pound for pound, the strongest muscle in the body for generating bite force." },
-  { x:200, y:108, system:"endocrine",     label:"Thyroid",           note:"Sets the pace of metabolism for nearly every cell in the body." },
-  { x:152, y:112, system:"lymphatic",     label:"Neck lymph nodes",  note:"Swell when immune cells multiply here to fight off an infection." },
-  { x:188, y:172, system:"circulatory",   label:"Heart",             note:"Beats roughly 100,000 times a day, pushing blood through two circuits." },
-  { x:150, y:165, system:"respiratory",   label:"Lungs",             note:"Together hold hundreds of millions of alveoli — a gas-exchange surface the size of a tennis court." },
-  { x:228, y:150, system:"skeletal",      label:"Ribcage",           note:"Twelve pairs of ribs shield the heart and lungs while still flexing with each breath." },
-  { x:200, y:222, system:"nervous",       label:"Spinal cord",       note:"Carries signals between the brain and the rest of the body along the length of the spine." },
-  { x:234, y:242, system:"digestive",     label:"Liver",             note:"Performs over 500 distinct jobs, from filtering blood to producing bile." },
-  { x:158, y:236, system:"digestive",     label:"Stomach",           note:"Its acid sits around pH 1.5–3.5 — strong enough to dissolve metal over time." },
-  { x:258, y:258, system:"urinary",       label:"Kidney",            note:"Filters the entire blood supply about 40 times a day." },
-  { x:200, y:302, system:"digestive",     label:"Intestines",        note:"Roughly 7.5 meters of small and large intestine handle absorption and water recovery." },
-  { x:200, y:326, system:"urinary",       label:"Bladder",           note:"Comfortably holds 400–600 ml before signaling the urge to empty." },
-  { x:112, y:180, system:"lymphatic",     label:"Armpit lymph nodes",note:"Part of the network that filters lymph fluid draining from the arm and chest wall." },
-  { x:160, y:338, system:"lymphatic",     label:"Groin lymph nodes", note:"Filter lymph draining from the legs before it rejoins the bloodstream." },
-  { x:100, y:190, system:"muscular",      label:"Biceps",            note:"Flexes the elbow — and relaxes as its opposing partner, the triceps, extends it." },
-  { x:305, y:320, system:"integumentary", label:"Skin (forearm)",    note:"Skin is the body's largest organ, replacing its outer layer roughly every four weeks." },
-  { x:95,  y:402, system:"skeletal",      label:"Hand bones",        note:"27 bones per hand give it the dexterity to grip, write, and manipulate fine tools." },
-  { x:171, y:420, system:"muscular",      label:"Quadriceps",        note:"A group of four muscles at the front of the thigh, key to standing and climbing stairs." },
-  { x:229, y:420, system:"skeletal",      label:"Femur",             note:"The longest and strongest bone in the body, running from hip to knee." },
-  { x:171, y:503, system:"skeletal",      label:"Knee joint",        note:"A hinge joint that takes several times body weight with every step." },
-  { x:229, y:575, system:"muscular",      label:"Calf muscle",       note:"Powers the push-off in every step, working with the Achilles tendon." },
-  { x:171, y:668, system:"skeletal",      label:"Foot bones",        note:"26 bones per foot absorb impact and help balance while standing or walking." }
+  // Skeletal (10)
+  { x:50, y:4,  system:"skeletal", label:"Skull (cranium)", note:"Encases and protects the brain; made of several bones fused along immovable sutures." },
+  { x:50, y:12.5, system:"skeletal", label:"Mandible", note:"The lower jawbone — the only skull bone that moves freely, via the temporomandibular joint." },
+  { x:60, y:16.5, system:"skeletal", label:"Clavicle", note:"The collarbone; the most frequently fractured bone in the body." },
+  { x:58, y:22, system:"skeletal", label:"Ribcage", note:"Twelve pairs of ribs shield the heart and lungs while still flexing with each breath." },
+  { x:50, y:27, system:"skeletal", label:"Vertebral column", note:"33 vertebrae in cervical, thoracic, lumbar, sacral, and coccygeal regions protect the spinal cord." },
+  { x:74, y:25, system:"skeletal", label:"Humerus", note:"The single long bone of the upper arm, running from shoulder to elbow." },
+  { x:81, y:38, system:"skeletal", label:"Radius & ulna", note:"The paired forearm bones that rotate around each other to turn the palm up or down." },
+  { x:87, y:47, system:"skeletal", label:"Hand bones", note:"27 bones per hand — carpals, metacarpals, and phalanges — give it fine dexterity." },
+  { x:58, y:48, system:"skeletal", label:"Femur", note:"The longest and strongest bone in the body, running from hip to knee." },
+  { x:60, y:72, system:"skeletal", label:"Tibia & fibula", note:"The shin bones; the tibia bears most of the body's weight, the fibula mainly stabilizes." },
+
+  // Muscular (9)
+  { x:56, y:11, system:"muscular", label:"Masseter", note:"The jaw muscle with the strongest bite force relative to its size of any muscle in the body." },
+  { x:70, y:19, system:"muscular", label:"Deltoid", note:"Caps the shoulder and lifts the arm out to the side." },
+  { x:58, y:21, system:"muscular", label:"Pectoralis major", note:"The main chest muscle, driving arm movement across the body." },
+  { x:76, y:27, system:"muscular", label:"Biceps brachii", note:"Flexes the elbow; its opposing partner, the triceps, extends it." },
+  { x:50, y:31, system:"muscular", label:"Rectus abdominis", note:"The 'six-pack' muscle running down the front of the abdomen, flexing the trunk." },
+  { x:59, y:55, system:"muscular", label:"Quadriceps", note:"A group of four muscles at the front of the thigh, key to standing and climbing stairs." },
+  { x:56, y:55, system:"muscular", label:"Hamstrings", note:"The opposing muscle group at the back of the thigh, bending the knee and extending the hip." },
+  { x:61, y:75, system:"muscular", label:"Gastrocnemius", note:"The main calf muscle, powering the push-off in every step." },
+  { x:63, y:72, system:"muscular", label:"Tibialis anterior", note:"Runs along the shin and lifts the foot upward (dorsiflexion)." },
+
+  // Circulatory (8)
+  { x:46, y:22, system:"circulatory", label:"Heart", note:"Beats roughly 100,000 times a day, pushing blood through two circuits." },
+  { x:50, y:24, system:"circulatory", label:"Aorta", note:"The body's largest artery, carrying oxygen-rich blood out of the heart to the whole body." },
+  { x:55, y:14, system:"circulatory", label:"Carotid artery", note:"Supplies the brain; a common pulse-check point in emergencies." },
+  { x:57, y:14.5, system:"circulatory", label:"Jugular vein", note:"Drains blood from the head and neck back toward the heart." },
+  { x:85.5, y:45, system:"circulatory", label:"Radial pulse point", note:"Where the radial artery crosses the wrist — the most common spot to check heart rate by hand." },
+  { x:56, y:39, system:"circulatory", label:"Femoral artery", note:"A major artery supplying the leg, palpable in the groin." },
+  { x:52, y:19, system:"circulatory", label:"Superior vena cava", note:"The large vein returning blood from the upper body to the heart's right atrium." },
+  { x:83, y:40, system:"circulatory", label:"Capillary network", note:"Microscopic vessels, one cell thick, where oxygen and nutrients actually cross into tissue." },
+
+  // Respiratory (6)
+  { x:52, y:15.5, system:"respiratory", label:"Trachea", note:"The windpipe, reinforced with cartilage rings, carrying air toward the lungs." },
+  { x:42, y:21, system:"respiratory", label:"Left lung", note:"Has two lobes, slightly smaller than the right to make room for the heart." },
+  { x:60, y:21, system:"respiratory", label:"Right lung", note:"Has three lobes and is typically the larger of the two lungs." },
+  { x:52, y:20, system:"respiratory", label:"Bronchi", note:"The two branches of the trachea, one per lung, splitting further into bronchioles." },
+  { x:50, y:26, system:"respiratory", label:"Diaphragm", note:"A dome-shaped muscle beneath the lungs that does most of the mechanical work of breathing." },
+  { x:58, y:20, system:"respiratory", label:"Alveoli", note:"Hundreds of millions of tiny air sacs per lung, giving a gas-exchange surface the size of a tennis court." },
+
+  // Digestive (10)
+  { x:51, y:17, system:"digestive", label:"Esophagus", note:"The muscular tube that pushes swallowed food from throat to stomach." },
+  { x:59, y:27, system:"digestive", label:"Liver", note:"Performs over 500 distinct jobs, from filtering blood to producing bile." },
+  { x:42, y:27, system:"digestive", label:"Stomach", note:"Its acid sits around pH 1.5–3.5 — strong enough to dissolve metal over time." },
+  { x:57, y:29, system:"digestive", label:"Gallbladder", note:"Stores and concentrates bile from the liver, releasing it when fatty food arrives." },
+  { x:47, y:29, system:"digestive", label:"Pancreas", note:"Supplies digestive enzymes to the small intestine alongside its hormone-releasing role." },
+  { x:50, y:32, system:"digestive", label:"Small intestine", note:"Roughly 6 meters long and the main site of nutrient absorption." },
+  { x:55, y:34, system:"digestive", label:"Large intestine", note:"Mainly reabsorbs water and compacts waste before elimination." },
+  { x:60, y:36, system:"digestive", label:"Appendix", note:"A small pouch off the large intestine, thought to help reseed gut bacteria after illness." },
+  { x:50, y:37, system:"digestive", label:"Rectum", note:"The final stretch of the large intestine, storing waste before elimination." },
+  { x:45, y:12, system:"digestive", label:"Salivary glands", note:"Release saliva that starts carbohydrate digestion before food even reaches the stomach." },
+
+  // Nervous (7)
+  { x:50, y:3.5, system:"nervous", label:"Cerebrum", note:"The brain's largest part, responsible for conscious thought, movement, and sensation." },
+  { x:54, y:5.5, system:"nervous", label:"Cerebellum", note:"Sits at the back of the brain and fine-tunes balance and coordination." },
+  { x:50, y:18, system:"nervous", label:"Spinal cord", note:"Carries signals between the brain and the rest of the body along the length of the spine." },
+  { x:68, y:19, system:"nervous", label:"Brachial plexus", note:"A nerve network near the shoulder supplying most of the arm's movement and sensation." },
+  { x:57, y:50, system:"nervous", label:"Sciatic nerve", note:"The longest and widest nerve in the body, running from the lower back down the leg." },
+  { x:82, y:36, system:"nervous", label:"Radial nerve", note:"Runs down the arm and controls extension of the wrist and fingers." },
+  { x:50, y:28, system:"nervous", label:"Autonomic ganglia", note:"Relay stations for the involuntary nerves that manage digestion, heart rate, and more." },
+
+  // Lymphatic (6)
+  { x:50, y:11.5, system:"lymphatic", label:"Tonsils", note:"Sit at the back of the throat as an early checkpoint against inhaled or swallowed pathogens." },
+  { x:50, y:18.5, system:"lymphatic", label:"Thymus", note:"Most active in childhood, helping immune cells mature before slowly shrinking with age." },
+  { x:39, y:28, system:"lymphatic", label:"Spleen", note:"Filters blood directly, removing old or damaged red blood cells." },
+  { x:45, y:14, system:"lymphatic", label:"Cervical lymph nodes", note:"Swell when immune cells multiply here to fight off a throat or head infection." },
+  { x:72, y:22, system:"lymphatic", label:"Axillary lymph nodes", note:"Filter lymph draining from the arm and chest wall." },
+  { x:58, y:38, system:"lymphatic", label:"Inguinal lymph nodes", note:"Filter lymph draining from the legs before it rejoins the bloodstream." },
+
+  // Urinary (5)
+  { x:61, y:30, system:"urinary", label:"Right kidney", note:"Sits slightly lower than the left to make room for the liver." },
+  { x:40, y:30, system:"urinary", label:"Left kidney", note:"Filters blood and produces urine alongside its right-side partner." },
+  { x:55, y:33, system:"urinary", label:"Ureter", note:"A thin tube carrying urine from each kidney down to the bladder." },
+  { x:50, y:35.5, system:"urinary", label:"Bladder", note:"Comfortably holds 400–600 ml before signaling the urge to empty." },
+  { x:50, y:37.5, system:"urinary", label:"Urethra", note:"Carries urine from the bladder out of the body." },
+
+  // Endocrine (6)
+  { x:50, y:3,  system:"endocrine", label:"Pituitary gland", note:"Pea-sized, but often called the 'master gland' for directing several other glands." },
+  { x:50, y:15, system:"endocrine", label:"Thyroid gland", note:"Sits in the neck and sets the pace of metabolism throughout the body." },
+  { x:58, y:29.5, system:"endocrine", label:"Adrenal glands", note:"Sit atop each kidney, releasing adrenaline in acute stress and cortisol over longer stress." },
+  { x:46, y:29, system:"endocrine", label:"Pancreatic islets", note:"Clusters of hormone-releasing cells within the pancreas that produce insulin and glucagon." },
+  { x:50, y:19, system:"endocrine", label:"Thymus (hormonal role)", note:"Releases hormones that guide the maturation of certain immune cells in childhood." },
+  { x:50, y:37, system:"endocrine", label:"Gonads", note:"The body's primary source of reproductive hormones, active from puberty onward." },
+
+  // Integumentary (4)
+  { x:84, y:39, system:"integumentary", label:"Epidermis (forearm)", note:"The outer skin layer here fully replaces itself roughly every four weeks." },
+  { x:50, y:1.5, system:"integumentary", label:"Scalp & hair", note:"Hair follicles in the dermis produce keratin-based hair that helps regulate heat loss." },
+  { x:88, y:47.5, system:"integumentary", label:"Nail", note:"Made of the same protein, keratin, that forms the outer layer of skin." },
+  { x:86, y:41, system:"integumentary", label:"Sweat gland", note:"Releases sweat to cool the body as it evaporates from the skin's surface." },
+
+  // Special senses (6)
+  { x:55, y:7,  system:"senses", label:"Right eye", note:"Focuses light onto the retina, which sends signals to the brain via the optic nerve." },
+  { x:45, y:7,  system:"senses", label:"Left eye", note:"Works with its partner to give depth perception through binocular vision." },
+  { x:64, y:8,  system:"senses", label:"Right ear", note:"Houses the body's three smallest bones, which amplify sound toward the inner ear." },
+  { x:36, y:8,  system:"senses", label:"Left ear", note:"Works with the eyes and inner-ear canals to help maintain balance." },
+  { x:50, y:12, system:"senses", label:"Tongue", note:"Detects sweet, salty, sour, bitter, and umami — smell handles most of the rest of 'flavor'." },
+  { x:50, y:9.5, system:"senses", label:"Olfactory receptors", note:"Line the upper nasal cavity and feed smell signals directly toward the brain." },
+
+  // Surface anatomy / regional terms (23) — left side of the figure
+  { x:50, y:2,  system:"surface", label:"Cephalic region", note:"The medical term for the head as a whole." },
+  { x:50, y:5,  system:"surface", label:"Frontal region", note:"Covers the forehead." },
+  { x:45, y:7,  system:"surface", label:"Orbital region", note:"The area surrounding the eye." },
+  { x:50, y:9,  system:"surface", label:"Nasal region", note:"Covers the nose." },
+  { x:40, y:10, system:"surface", label:"Buccal region", note:"Covers the cheek." },
+  { x:50, y:11, system:"surface", label:"Oral region", note:"Covers the mouth." },
+  { x:50, y:13, system:"surface", label:"Mental region", note:"Covers the chin." },
+  { x:36, y:8,  system:"surface", label:"Auricular region", note:"Covers the ear." },
+  { x:44, y:14, system:"surface", label:"Cervical region", note:"Covers the neck." },
+  { x:34, y:17, system:"surface", label:"Acromial region", note:"The point of the shoulder." },
+  { x:28, y:20, system:"surface", label:"Axillary region", note:"The armpit." },
+  { x:42, y:21, system:"surface", label:"Thoracic region", note:"Covers the chest." },
+  { x:44, y:29, system:"surface", label:"Abdominal region", note:"Covers the belly, between chest and pelvis." },
+  { x:50, y:30, system:"surface", label:"Umbilical region", note:"Centered on the navel." },
+  { x:44, y:37, system:"surface", label:"Inguinal region", note:"The groin, where the abdomen meets the thigh." },
+  { x:26, y:25, system:"surface", label:"Brachial region", note:"Covers the upper arm, shoulder to elbow." },
+  { x:19, y:38, system:"surface", label:"Antebrachial region", note:"Covers the forearm, elbow to wrist." },
+  { x:14.5, y:45, system:"surface", label:"Carpal region", note:"Covers the wrist." },
+  { x:12, y:47, system:"surface", label:"Palmar region", note:"The palm of the hand." },
+  { x:41, y:50, system:"surface", label:"Femoral region", note:"Covers the thigh." },
+  { x:41.25, y:60, system:"surface", label:"Patellar region", note:"Covers the kneecap." },
+  { x:39, y:72, system:"surface", label:"Crural region", note:"Covers the leg between knee and ankle (the shin)." },
+  { x:37.5, y:90, system:"surface", label:"Pedal region", note:"Covers the foot." }
 ];
+
 
 const QUIZ = [
   { q:"About how many bones does the adult human skeleton have?", options:["146","206","260","320"], correct:1,
@@ -579,17 +580,35 @@ const QUIZ = [
     explain:"Each kidney contains roughly a million nephrons, its microscopic filtering units." },
   { q:"Roughly what pH range is stomach acid?", options:["6.5–7.5 (neutral)","4.5–5.5 (mildly acidic)","1.5–3.5 (strongly acidic)","9–10 (alkaline)"], correct:2,
     explain:"Stomach acid sits around pH 1.5–3.5, strong enough to dissolve metal over time." },
-  { q:"Put these spinal regions in order from top to bottom: lumbar, cervical, thoracic.", options:["Cervical, thoracic, lumbar","Thoracic, cervical, lumbar","Lumbar, thoracic, cervical","Cervical, lumbar, thoracic"], correct:0,
+  { q:"Put these spinal regions in order from top to bottom.", options:["Cervical, thoracic, lumbar","Thoracic, cervical, lumbar","Lumbar, thoracic, cervical","Cervical, lumbar, thoracic"], correct:0,
     explain:"From the neck down, the spine runs cervical, then thoracic, then lumbar (followed by sacral and coccygeal)." },
   { q:"Which fluid does the liver produce to help digest fat?", options:["Insulin","Bile","Mucus","Plasma"], correct:1,
     explain:"The liver produces bile, which helps break down fats during digestion." },
   { q:"About how much blood does an average adult carry?", options:["1 liter","5 liters","10 liters","15 liters"], correct:1,
     explain:"Adults carry roughly 5 liters of blood, about 7–8% of total body weight." },
   { q:"What is the longest bone in the human body?", options:["Humerus","Tibia","Femur","Fibula"], correct:2,
-    explain:"The femur, running from hip to knee, is both the longest and strongest bone in the body." }
+    explain:"The femur, running from hip to knee, is both the longest and strongest bone in the body." },
+  { q:"What is the medical (regional) term for the area of the neck?", options:["Cervical","Cranial","Cephalic","Nuchal"], correct:0,
+    explain:"Cervical refers to the neck region — the same root used for the neck's vertebrae." },
+  { q:"'Antebrachial' refers to which body region?", options:["Upper arm","Forearm","Wrist","Shoulder"], correct:1,
+    explain:"Antebrachial describes the forearm, between elbow and wrist." },
+  { q:"Which term describes the kneecap region?", options:["Patellar","Crural","Femoral","Popliteal"], correct:0,
+    explain:"Patellar refers to the kneecap; crural refers to the leg below the knee, and femoral to the thigh." },
+  { q:"In anatomical position, which way do the palms face?", options:["Backward","Forward","Inward, toward the thighs","Downward"], correct:1,
+    explain:"Standard anatomical position has the body upright, facing forward, with palms facing forward." },
+  { q:"Which directional term means 'closer to the midline'?", options:["Lateral","Medial","Proximal","Distal"], correct:1,
+    explain:"Medial means toward the midline of the body; lateral means away from it." },
+  { q:"Which directional term pair describes distance from a limb's point of attachment?", options:["Superior/inferior","Anterior/posterior","Proximal/distal","Medial/lateral"], correct:2,
+    explain:"Proximal means closer to the point of attachment; distal means farther from it." },
+  { q:"What does the term 'axillary' refer to?", options:["The armpit","The groin","The wrist","The neck"], correct:0,
+    explain:"Axillary refers to the armpit region — the same root used for the axillary lymph nodes and artery." },
+  { q:"Which cavity holds the heart and lungs?", options:["Abdominopelvic cavity","Cranial cavity","Thoracic cavity","Spinal cavity"], correct:2,
+    explain:"The thoracic cavity, enclosed by the ribcage, houses the heart and lungs." },
+  { q:"'Pedal' refers to which body region?", options:["Foot","Hand","Hip","Thigh"], correct:0,
+    explain:"Pedal refers to the foot, as in 'pedal pulse' — the pulse felt on top of the foot." },
+  { q:"Which term names the region around the navel?", options:["Inguinal","Umbilical","Abdominal","Pelvic"], correct:1,
+    explain:"Umbilical specifically refers to the navel; abdominal is the broader belly region around it." }
 ];
-
-const moduleById = Object.fromEntries(MODULES.map(m => [m.id, m]));
 
 /* ---------------- filters ---------------- */
 
@@ -598,14 +617,15 @@ let activeSystem = "all";
 
 function renderFilters(){
   const all = document.createElement("button");
-  all.textContent = "All systems";
+  all.textContent = "All (100)";
   all.dataset.system = "all";
   all.className = "active";
   filtersEl.appendChild(all);
 
   MODULES.forEach(m => {
+    const count = HOTSPOTS.filter(h => h.system === m.id).length;
     const b = document.createElement("button");
-    b.textContent = m.name;
+    b.textContent = `${m.name.replace(" system","").replace(" & regional terms","")} (${count})`;
     b.dataset.system = m.id;
     filtersEl.appendChild(b);
   });
@@ -613,6 +633,7 @@ function renderFilters(){
   filtersEl.addEventListener("click", e => {
     const btn = e.target.closest("button");
     if(!btn) return;
+    document.getElementById("searchBox").value = "";
     setActiveSystem(btn.dataset.system);
   });
 }
@@ -628,47 +649,46 @@ function setActiveSystem(sys){
 
 /* ---------------- hotspots ---------------- */
 
-const svgNS = "http://www.w3.org/2000/svg";
-const hotspotsGroup = document.getElementById("hotspots");
+const hotspotsLayer = document.getElementById("hotspots");
+let hotspotEls = [];
 
 function renderHotspots(){
   HOTSPOTS.forEach((h, i) => {
-    const g = document.createElementNS(svgNS, "g");
-    g.setAttribute("class", "hotspot");
-    g.setAttribute("data-system", h.system);
-    g.setAttribute("tabindex", "0");
-    g.setAttribute("role", "button");
-    g.setAttribute("aria-label", h.label);
-
-    const pulse = document.createElementNS(svgNS, "circle");
-    pulse.setAttribute("class", "pulse");
-    pulse.setAttribute("cx", h.x); pulse.setAttribute("cy", h.y); pulse.setAttribute("r", 6.5);
-    pulse.style.animationDelay = (i * 0.15) + "s";
-
-    const ring = document.createElementNS(svgNS, "circle");
-    ring.setAttribute("class", "ring");
-    ring.setAttribute("cx", h.x); ring.setAttribute("cy", h.y); ring.setAttribute("r", 8);
-
-    const dot = document.createElementNS(svgNS, "circle");
-    dot.setAttribute("class", "dot");
-    dot.setAttribute("cx", h.x); dot.setAttribute("cy", h.y); dot.setAttribute("r", 5.5);
-
-    g.appendChild(pulse); g.appendChild(ring); g.appendChild(dot);
-
-    const activate = () => selectHotspot(h, g);
-    g.addEventListener("click", activate);
-    g.addEventListener("keydown", e => { if(e.key === "Enter" || e.key === " "){ e.preventDefault(); activate(); } });
-
-    hotspotsGroup.appendChild(g);
+    const btn = document.createElement("button");
+    btn.className = "hotspot";
+    btn.type = "button";
+    btn.dataset.system = h.system;
+    btn.style.left = h.x + "%";
+    btn.style.top = h.y + "%";
+    btn.setAttribute("aria-label", h.label);
+    btn.style.animationDelay = (i % 12) * 0.12 + "s";
+    btn.addEventListener("click", () => selectHotspot(h, btn));
+    hotspotsLayer.appendChild(btn);
+    hotspotEls.push({ data:h, el:btn });
   });
 }
 
-function selectHotspot(h, g){
-  document.querySelectorAll(".hotspot").forEach(el => el.classList.remove("active"));
-  g.classList.add("active");
+function selectHotspot(h, el){
+  hotspotEls.forEach(o => o.el.classList.remove("active"));
+  el.classList.add("active");
   setActiveSystem(h.system);
   renderPanel(h);
+  el.scrollIntoView({ behavior:"smooth", block:"nearest", inline:"nearest" });
 }
+
+/* ---------------- search ---------------- */
+
+document.getElementById("searchBox").addEventListener("input", e => {
+  const q = e.target.value.trim().toLowerCase();
+  if(!q){ setActiveSystem("all"); return; }
+  filtersEl.querySelectorAll("button").forEach(b => b.classList.remove("active"));
+  hotspotEls.forEach(o => {
+    const match = o.data.label.toLowerCase().includes(q) || o.data.note.toLowerCase().includes(q);
+    o.el.classList.toggle("dim", !match);
+  });
+  const firstMatch = hotspotEls.find(o => o.data.label.toLowerCase().includes(q));
+  if(firstMatch) renderPanel(firstMatch.data);
+});
 
 /* ---------------- panel ---------------- */
 
@@ -699,6 +719,12 @@ function renderModules(){
     const d = document.createElement("details");
     d.className = "module";
     d.id = "module-" + m.id;
+    let extra = "";
+    if(m.termTable){
+      extra = `<table><thead><tr><th>Regional term</th><th>Common name</th></tr></thead><tbody>
+        ${m.termTable.map(row => `<tr><td>${row[0]}</td><td>${row[1]}</td></tr>`).join("")}
+      </tbody></table>`;
+    }
     d.innerHTML = `
       <summary>
         <div class="summary-left">
@@ -710,6 +736,7 @@ function renderModules(){
       <div class="module-body">
         <p class="blurb">${m.blurb}</p>
         <ul>${m.facts.map(f => `<li>${f}</li>`).join("")}</ul>
+        ${extra}
       </div>
     `;
     modulesEl.appendChild(d);
@@ -757,7 +784,7 @@ function startQuiz(){
 }
 
 function renderQuizQuestion(){
-  const { questions, index, score } = quizState;
+  const { questions, index } = quizState;
   const q = questions[index];
 
   const progress = questions.map((_, i) => {
@@ -785,8 +812,7 @@ function answerQuiz(choice){
   quizState.answered = true;
   const { questions, index } = quizState;
   const q = questions[index];
-  const correct = choice === q.correct;
-  if(correct) quizState.score++;
+  if(choice === q.correct) quizState.score++;
 
   quizCard.querySelectorAll(".quiz-opt").forEach((btn, i) => {
     btn.disabled = true;
