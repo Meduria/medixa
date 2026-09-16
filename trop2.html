@@ -1,0 +1,802 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TROP2 in Cutaneous Malignancies | Medixa</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;0,6..72,700;1,6..72,400&family=Inter:wght@400;500;600;700&family=IBM+Plex+Sans:wght@400;500;600&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --wine:#6b1f2e;
+    --wine-2:#9C1F3B;
+    --wine-deep:#4a1420;
+    --gold:#c19a3d;
+    --gold-light:#e4c876;
+    --cream:#faf5ec;
+    --cream-2:#f3ead9;
+    --ink:#241417;
+    --ink-soft:#5a4a4e;
+    --line:#e4d7c3;
+    --white:#fffdf9;
+    --serif:'Newsreader', 'Source Serif 4', serif;
+    --sans:'Inter','IBM Plex Sans', sans-serif;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background:var(--cream);
+    color:var(--ink);
+    font-family:var(--sans);
+    line-height:1.65;
+    -webkit-font-smoothing:antialiased;
+  }
+  a{color:var(--wine-2);}
+
+  /* ===== Top bar ===== */
+  .topbar{
+    position:sticky; top:0; z-index:50;
+    background:linear-gradient(180deg,var(--wine-deep),var(--wine));
+    color:var(--cream);
+    padding:14px 28px;
+    display:flex; align-items:center; justify-content:flex-end;
+    box-shadow:0 2px 14px rgba(74,20,32,.25);
+  }
+  .home-link{
+    display:inline-flex; align-items:center;
+    color:var(--cream-2); text-decoration:none; font-size:14px; font-weight:600;
+    letter-spacing:.2px; opacity:.92; transition:opacity .15s;
+  }
+  .home-link:hover{opacity:1; color:var(--gold-light);}
+  .home-link .arrow{font-size:16px; margin-left:8px;}
+
+  /* ===== Hero ===== */
+  .hero{
+    background:
+      radial-gradient(1100px 420px at 15% -10%, rgba(193,154,61,.20), transparent 60%),
+      linear-gradient(180deg,var(--wine-deep) 0%, var(--wine) 55%, var(--wine-2) 100%);
+    color:var(--cream);
+    padding:64px 28px 56px;
+    position:relative;
+    overflow:hidden;
+  }
+  .hero::after{
+    content:"";
+    position:absolute; inset:0;
+    background-image:
+      radial-gradient(circle at 85% 20%, rgba(228,200,118,.12), transparent 45%),
+      radial-gradient(circle at 92% 85%, rgba(228,200,118,.10), transparent 40%);
+    pointer-events:none;
+  }
+  .hero-inner{max-width:900px; margin:0 auto; position:relative;}
+  .kicker{
+    display:inline-flex; align-items:center; gap:8px;
+    font-family:var(--sans); font-weight:600; font-size:12.5px;
+    letter-spacing:1.6px; text-transform:uppercase;
+    color:var(--gold-light);
+    border:1px solid rgba(228,200,118,.4);
+    padding:6px 14px; border-radius:999px;
+    background:rgba(0,0,0,.12);
+  }
+  h1.title{
+    font-family:var(--serif);
+    font-weight:600;
+    font-size:clamp(28px,4.4vw,44px);
+    line-height:1.15;
+    margin:20px 0 14px;
+  }
+  .subtitle{
+    font-family:var(--serif); font-style:italic; font-weight:400;
+    color:var(--cream-2); font-size:clamp(16px,2.1vw,19px);
+    max-width:70ch; margin:0 0 26px;
+  }
+  .byline{
+    display:flex; flex-wrap:wrap; gap:22px;
+    font-size:13.5px; color:var(--cream-2); opacity:.9;
+    border-top:1px solid rgba(255,255,255,.18);
+    padding-top:18px;
+  }
+  .byline b{color:var(--gold-light); font-weight:600;}
+
+  /* ===== Layout ===== */
+  .wrap{max-width:900px; margin:0 auto; padding:0 28px;}
+  .layout{max-width:1180px; margin:0 auto; padding:0 28px; display:grid; grid-template-columns:230px minmax(0,1fr); gap:44px; align-items:start;}
+  @media (max-width:920px){ .layout{grid-template-columns:1fr;} .toc{display:none;} }
+
+  .toc{
+    position:sticky; top:76px;
+    background:var(--white);
+    border:1px solid var(--line);
+    border-radius:14px;
+    padding:20px 18px;
+    margin-top:40px;
+    max-height:calc(100vh - 100px);
+    overflow-y:auto;
+  }
+  .toc h4{
+    margin:0 0 10px; font-family:var(--serif); font-size:13px;
+    text-transform:uppercase; letter-spacing:1px; color:var(--wine); font-weight:700;
+  }
+  .toc a{
+    display:block; font-size:13px; color:var(--ink-soft); text-decoration:none;
+    padding:5px 0; border-bottom:1px dashed transparent;
+  }
+  .toc a:hover{color:var(--wine-2);}
+
+  main.article{padding:44px 0 90px;}
+
+  section.block{margin:0 0 46px;}
+  h2.h2{
+    font-family:var(--serif); font-weight:600; color:var(--wine);
+    font-size:clamp(21px,2.6vw,27px);
+    margin:0 0 4px;
+    padding-bottom:12px;
+    border-bottom:2px solid var(--gold);
+    display:flex; align-items:baseline;
+  }
+  h2.h2 .num{
+    font-family:var(--sans); font-weight:700;
+    font-size:14px; background:var(--wine-deep); color:#ffffff;
+    padding:3px 9px; border-radius:6px;
+    margin-right:14px;
+    flex:none;
+  }
+  h2.h2 .subtag{
+    font-family:var(--sans); font-weight:700;
+    font-size:12px; letter-spacing:.3px; text-transform:uppercase;
+    background:var(--cream-2); color:var(--wine);
+    padding:4px 10px; border-radius:6px;
+    margin-right:14px; border:1px solid var(--line);
+    flex:none;
+  }
+  h3.h3{
+    font-family:var(--serif); font-weight:600; color:var(--wine-2);
+    font-size:18.5px; margin:26px 0 10px;
+  }
+  h4.h4{
+    font-family:var(--sans); font-weight:700; color:var(--ink);
+    font-size:14.5px; text-transform:uppercase; letter-spacing:.4px;
+    margin:20px 0 8px; color:var(--wine);
+  }
+  p{margin:0 0 15px; font-size:15.5px; color:#3a2a2e;}
+  .lede{font-family:var(--serif); font-size:18px; color:var(--ink); line-height:1.6;}
+  ul,ol{margin:0 0 16px; padding-left:22px;}
+  li{margin-bottom:6px; font-size:15.5px; color:#3a2a2e;}
+  strong{color:var(--wine-deep);}
+  em.q{font-family:var(--serif); font-style:italic; color:var(--wine);}
+
+  .pull{
+    font-family:var(--serif); font-style:italic; font-size:19px;
+    color:var(--wine-deep); border-left:3px solid var(--gold);
+    padding:6px 0 6px 20px; margin:22px 0; background:var(--cream-2);
+    border-radius:0 10px 10px 0; padding:14px 20px;
+  }
+
+  .callout{
+    background:var(--white); border:1px solid var(--line); border-left:4px solid var(--wine-2);
+    border-radius:10px; padding:16px 20px; margin:18px 0;
+  }
+  .callout.gold{border-left-color:var(--gold);}
+  .callout h5{margin:0 0 6px; font-family:var(--sans); font-weight:700; font-size:13px; letter-spacing:.3px; text-transform:uppercase; color:var(--wine);}
+  .callout p:last-child{margin-bottom:0;}
+
+  /* Tables */
+  .tbl-wrap{overflow-x:auto; margin:16px 0 22px; border-radius:12px; border:1px solid var(--line);}
+  table{border-collapse:collapse; width:100%; min-width:560px; background:var(--white); font-size:14px;}
+  caption{caption-side:top; text-align:left; font-family:var(--sans); font-weight:700; color:var(--wine); font-size:13px; letter-spacing:.3px; padding:12px 14px 8px; background:var(--cream-2);}
+  th{
+    background:var(--wine); color:var(--cream); text-align:left;
+    padding:10px 14px; font-weight:600; font-size:13px; letter-spacing:.2px;
+  }
+  td{padding:9px 14px; border-bottom:1px solid var(--line); color:#3a2a2e; vertical-align:top;}
+  tr:last-child td{border-bottom:none;}
+  tr:nth-child(even) td{background:#fbf6ec;}
+
+  .grade{display:inline-block; padding:2px 9px; border-radius:999px; font-size:12px; font-weight:700;}
+  .grade.strong{background:#e6f0e6; color:#2f6b2f;}
+  .grade.moderate{background:#fbf1d8; color:#8a6a1a;}
+  .grade.weak{background:#f7e3e3; color:#a13636;}
+  .grade.none{background:#eee; color:#777;}
+
+  figure{margin:22px 0; text-align:center;}
+  figure svg{max-width:100%; height:auto; background:var(--white); border:1px solid var(--line); border-radius:12px;}
+  figcaption{font-size:12.5px; color:var(--ink-soft); margin-top:8px; font-family:var(--sans);}
+
+  .refs{list-style:none; padding:0; counter-reset:refnum;}
+  .refs li{
+    counter-increment: refnum;
+    font-size:13.5px; color:var(--ink-soft); margin-bottom:10px; padding-left:34px; position:relative;
+  }
+  .refs li::before{
+    content: counter(refnum) ".";
+    position:absolute; left:0; color:var(--wine); font-weight:700; font-family:var(--sans); font-size:12.5px;
+  }
+
+  .badge-row{display:flex; flex-wrap:wrap; margin:14px 0 4px;}
+  .kw{background:var(--cream-2); border:1px solid var(--line); color:var(--wine-deep); font-size:12.5px; padding:4px 11px; border-radius:999px; margin:0 8px 8px 0;}
+
+  .divider{height:1px; background:linear-gradient(90deg,transparent,var(--gold),transparent); margin:8px 0 34px;}
+
+  footer{
+    background:var(--wine-deep); color:var(--cream-2); text-align:center;
+    padding:30px 20px; font-size:13px; margin-top:20px;
+  }
+  footer a{color:var(--gold-light); text-decoration:none;}
+
+  .abstract-box{
+    background:var(--white); border:1px solid var(--line); border-top:4px solid var(--wine);
+    border-radius:14px; padding:26px 28px; margin-top:-30px; position:relative; z-index:2;
+    box-shadow:0 12px 30px rgba(74,20,32,.10);
+  }
+  .abstract-box h3{margin-top:0; font-family:var(--serif); color:var(--wine); font-size:15px; text-transform:uppercase; letter-spacing:1px;}
+  .abstract-box h4.sub{font-family:var(--sans); font-weight:700; font-size:12.5px; text-transform:uppercase; letter-spacing:.4px; color:var(--gold); margin:16px 0 4px;}
+  .abstract-box p{font-size:14.5px;}
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <a class="home-link" href="index.html"><span>Go back home</span><span class="arrow">&#8594;</span></a>
+</div>
+
+<header class="hero">
+  <div class="hero-inner">
+    <span class="kicker">Article · Oncologic Dermatology &amp; Translational Pharmacology</span>
+    <h1 class="title">TROP2 in Cutaneous Malignancies: From Expression and Functional Biology to Therapeutic Targeting in Cutaneous Squamous Cell Carcinoma and Basal Cell Carcinoma</h1>
+    <p class="subtitle">Two skin cancers, one candidate drug target, and a body of evidence that quietly favors one of them far more than the other.</p>
+    <div class="byline">
+      <span>Medixa Research Review</span>
+      <span><b>Field:</b> Dermato-oncology / ADC pharmacology</span>
+      <span><b>Reading time:</b> ~28 min</span>
+      <span><b>Word count:</b> ~7,000</span>
+    </div>
+  </div>
+</header>
+
+<div class="wrap">
+  <div class="abstract-box" id="abstract">
+    <h3>Structured Abstract</h3>
+    <h4 class="sub">Background</h4>
+    <p>TROP2 is a surface protein that has already become a workable drug handle in several cancers, thanks to a new generation of antibody&ndash;drug conjugates (ADCs). Whether it deserves the same attention in nonmelanoma skin cancer &mdash; basal cell carcinoma (BCC) and cutaneous squamous cell carcinoma (cSCC) &mdash; is a question that has been raised more often than it has been answered.</p>
+    <h4 class="sub">Objective</h4>
+    <p>To find out whether BCC and cSCC really belong in the same sentence as TROP2 targets, or whether the data quietly tell two very different stories.</p>
+    <h4 class="sub">Methods</h4>
+    <p>This review works through the original 2021 case-control staining study of BCC and cSCC, a 2024 functional study that dug into 51 cSCC tissue samples and the A431 cell line, a 2025 survey spanning 198 cutaneous tumors, what is known about TROP2 in ordinary skin, and the clinical record of TROP2 ADCs everywhere they have been tested.</p>
+    <h4 class="sub">Results</h4>
+    <p>cSCC's expression data hold up: high, consistent, and repeated in two separate cohorts, with knockdown experiments showing that pulling TROP2 out of cancer cells actually slows them down and reinforced by lab evidence that a real TROP2 drug (sacituzumab govitecan) can kill cSCC cells. BCC's story is messier &mdash; one small study saw a rise in TROP2, a bigger and newer one saw almost nothing.</p>
+    <h4 class="sub">Critical interpretation</h4>
+    <p>That BCC contradiction probably comes down to small numbers, different scoring cutoffs, and different tissue sampled (peri-lesional skin and tumor islands are not the same thing), possibly compounded by differences in reagents or cohorts &mdash; not some settled fact about BCC biology in either direction.</p>
+    <h4 class="sub">Therapeutic implications</h4>
+    <p>cSCC has moved further down the path that normally justifies starting drug development &mdash; expression, then function, then early drug sensitivity. BCC hasn't gotten there. And because ordinary skin also carries TROP2, neither cancer gets an easy pass on safety.</p>
+    <h4 class="sub">Conclusion</h4>
+    <p>The evidence clearly favors cSCC. BCC's TROP2 story is still open, and it should be treated that way &mdash; not quietly inherited from one small early study.</p>
+    <div class="badge-row">
+      <span class="kw">TROP2</span><span class="kw">cSCC</span><span class="kw">BCC</span><span class="kw">Antibody&ndash;drug conjugate</span><span class="kw">Sacituzumab govitecan</span><span class="kw">Skin cancer</span><span class="kw">Immunohistochemistry</span>
+    </div>
+  </div>
+</div>
+
+<div class="layout">
+  <aside class="toc">
+    <h4>Contents</h4>
+    <a href="#intro">1. Setting the stage</a>
+    <a href="#biology">2. What TROP2 actually does</a>
+    <a href="#normalskin">3. TROP2 lives in normal skin too</a>
+    <a href="#bcc">4. TROP2 in BCC — a shakier case</a>
+    <a href="#cscc">5. TROP2 in cSCC — the stronger case</a>
+    <a href="#ladder">6. A ladder for grading the evidence</a>
+    <a href="#field">7. Field cancerization — an open question</a>
+    <a href="#targetable">8. What makes something druggable</a>
+    <a href="#adc">9. How ADCs actually work</a>
+    <a href="#tnbc">10. TROP2 ADCs that already work — in breast cancer</a>
+    <a href="#beyond">11. What happens outside breast cancer</a>
+    <a href="#cscc-adc">12. Grading TROP2 ADCs for cSCC</a>
+    <a href="#sg-cscc">13. Sacituzumab govitecan, specifically, in cSCC</a>
+    <a href="#why-cscc">14. Why cSCC looks like the better bet</a>
+    <a href="#diagnostic">15. A possible diagnostic use</a>
+    <a href="#window">16. The safety-margin problem</a>
+    <a href="#resistance">17. How tumors might dodge these drugs</a>
+    <a href="#combo">18. Combining TROP2 ADCs with other treatments</a>
+    <a href="#currentcscc">19. Where cSCC treatment stands today</a>
+    <a href="#currentbcc">20. Where BCC treatment stands today</a>
+    <a href="#conflict">21. Untangling the BCC contradiction</a>
+    <a href="#hierarchy">22. Ranking the evidence honestly</a>
+    <a href="#program">23. What research should happen next</a>
+    <a href="#questions">24. Open questions worth asking</a>
+    <a href="#position">25. Where this leaves us</a>
+    <a href="#references">References</a>
+  </aside>
+
+  <main class="article">
+
+    <section class="block" id="intro">
+      <h2 class="h2"><span class="num">1</span> Setting the Stage</h2>
+      <p class="lede">Between them, basal cell carcinoma and cutaneous squamous cell carcinoma make up the vast majority of all cancer diagnosed in humans. Most cases end the same way: a straightforward excision, a clear margin, and no further treatment needed. But a stubborn minority don't go so quietly &mdash; they come back, they invade, and occasionally they spread, at which point the treatment options thin out fast. TROP2-targeted antibody&ndash;drug conjugates, which have already changed how breast, lung, and bladder cancer are treated, have been floated as a possible answer. This paper is about whether that idea actually holds up, and whether it holds up equally well for both cancers.</p>
+
+      <h3 class="h3">Basal cell carcinoma, briefly</h3>
+      <p>BCC is the single most common cancer in humans, full stop. It grows out of basal cells in the epidermis and hair follicle, and in the overwhelming majority of cases the culprit is an overactive Hedgehog signaling pathway &mdash; usually a broken <em>PTCH1</em> gene or an overactive <em>SMO</em>. Sun exposure over a lifetime is the biggest driver, with fair skin, a weakened immune system, and rare inherited syndromes (Gorlin syndrome, for instance) adding to the risk. BCC rarely spreads; it just grows where it started, sometimes for years. Surgery, including Mohs technique, cures nearly everyone. When surgery isn't an option, Hedgehog inhibitors (vismodegib, sonidegib) are the first systemic drugs reached for, with the immunotherapy cemiplimab kept in reserve for when those stop working.</p>
+
+      <h3 class="h3">Cutaneous squamous cell carcinoma, briefly</h3>
+      <p>cSCC grows out of keratinocytes and comes in a distant second among skin cancers, responsible for roughly one in five cases. Decades of UV damage leave these tumors riddled with mutations &mdash; <em>TP53</em> is knocked out early and almost universally, and <em>NOTCH1/2</em>, <em>CDKN2A</em>, and RAS/MAPK pathway genes are frequently hit as well. Excision cures most cases, but tumors that are large, deep, invade nerves, or arise in an immunosuppressed patient have a real chance of coming back or spreading to lymph nodes and beyond. Immunotherapy (cemiplimab, pembrolizumab) has genuinely changed outcomes for advanced cSCC &mdash; but a meaningful share of patients simply don't respond, or respond and then relapse, which is exactly the gap a new drug class would need to fill.</p>
+
+      <p>That gap &mdash; good local control, an incomplete systemic answer &mdash; is the reason TROP2 has entered the conversation at all, borrowed largely from its track record in other cancers rather than earned from scratch in skin.</p>
+    </section>
+
+    <section class="block" id="biology">
+      <h2 class="h2"><span class="num">2</span> What TROP2 Actually Does</h2>
+      <p>TROP2, the product of the <em>TACSTD2</em> gene, is a protein that sits on the cell surface, first noticed on placental cells and since found scattered across nearly every kind of epithelial tissue in the body, healthy and cancerous alike. Its outer portion has a thyroglobulin-like fold, it crosses the membrane once, and its short inner tail carries a spot (serine 303) that protein kinase C likes to phosphorylate, plus a separate site that grips a membrane lipid called PIP2.</p>
+      <p>Under normal conditions, TROP2 helps epithelial cells grow, survive, and rebuild after injury &mdash; its levels climb whenever skin or other tissue is actively healing. Here's roughly how that plays out at the molecular level: PKC tags the tail, which triggers PIP2 to split into two second messengers, one of which (IP3) pulls calcium out of internal stores; that calcium spike switches on MAPK/ERK signaling, which pushes the cell toward division by boosting cyclin D1 and cyclin E while dialing down the brake protein p27. A second branch works through a partner protein called RACK1, linking TROP2 to PI3K/AKT and to FAK/&beta;1-integrin signaling &mdash; the machinery cells use to move. TROP2 has also been tied to JAK/STAT3 signaling, to switching on ZEB1 (which in turn shuts off the adhesion protein E-cadherin), and, more unusually, to being physically cut apart by ADAM17 and &gamma;-secretase, releasing a fragment that can travel to the nucleus and influence gene expression directly.</p>
+      <p>Put those pieces together and TROP2 looks less like a single dedicated oncogene and more like a signaling relay station sitting at the membrane, amplifying whatever growth and calcium signals are already passing through. Whether it's actually driving cancer, or just along for the ride as a marker of cells in an activated, proliferative state, seems to depend heavily on which tumor you're looking at &mdash; and that distinction matters enormously for how much weight a simple expression finding should carry.</p>
+
+      <div class="tbl-wrap">
+        <table>
+          <caption>Table 1 &mdash; What TROP2 does, and through which pathways</caption>
+          <tr><th>Function</th><th>Pathway(s) involved</th><th>How solid is this?</th></tr>
+          <tr><td>Pushing cells from G1 into S phase</td><td>PKC &rarr; PIP2/IP3/DAG &rarr; Ca&sup2;&#8314; &rarr; MAPK/ERK &rarr; cyclin D1/E, &darr;p27</td><td>Well established</td></tr>
+          <tr><td>Keeping cells alive</td><td>PI3K/AKT; shifts the BCL-2/BAX balance</td><td>Established in multiple cancers</td></tr>
+          <tr><td>Migration / invasion</td><td>RACK1&ndash;FAK&ndash;&beta;1-integrin; vimentin and other EMT markers</td><td>Established; directly confirmed in cSCC (A431)</td></tr>
+          <tr><td>Loosening cell&ndash;cell contacts</td><td>ZEB1 shuts down E-cadherin; DSG2 lost</td><td>Proposed, not fully nailed down</td></tr>
+          <tr><td>Direct gene-expression effects</td><td>ADAM17/&gamma;-secretase cleavage &rarr; fragment enters nucleus</td><td>Proposed, still provisional</td></tr>
+          <tr><td>JAK/STAT3 activation</td><td>STAT3 phosphorylated downstream of TROP2</td><td>Proposed; varies by tumor type</td></tr>
+        </table>
+      </div>
+
+      <div class="callout">
+        <h5>What's nailed down, and what isn't</h5>
+        <p>The calcium/PKC/MAPK arm and the RACK1&ndash;FAK migration arm are the best-supported pieces of this picture across cancer types generally. The nuclear-signaling angle, and some of the more tumor-specific partnerships (DSG2, claudin-7), are still working hypotheses. None of this has actually been dissected in skin tumors yet &mdash; it's borrowed reasoning until proven otherwise.</p>
+      </div>
+    </section>
+
+    <section class="block" id="normalskin">
+      <h2 class="h2"><span class="num">3</span> TROP2 Lives in Normal Skin, Too</h2>
+      <p>Here's the complication that any TROP2-in-skin-cancer argument has to face head-on: TROP2 isn't a tumor exclusive in skin. Work done alongside a large series of extramammary Paget's disease found TROP2 sitting comfortably in ordinary epidermal keratinocytes, in the inner root sheath and upper portions of hair follicles, and in eccrine, apocrine, and sebaceous glands. A separate study looking specifically at sweat gland and sebaceous carcinomas confirmed the same pattern &mdash; strong TROP2 in both the normal glands and their malignant counterparts.</p>
+      <p>This isn't a footnote. It sets a hard ceiling on how selective any TROP2 therapy could ever be in skin, and it's exactly why researchers working on Paget's disease have already flagged skin and mucosal toxicity as a real worry when borrowing systemic TROP2 drugs for cutaneous use. The short version: <strong>finding a lot of TROP2 in a tumor doesn't automatically mean you can hit it safely</strong> if the tissue sitting right next to that tumor is carrying plenty of the same target.</p>
+      <div class="pull">Normal keratinocytes, hair follicles, and sweat glands all express TROP2 &mdash; a detail that turns every tumor-expression headline in this field into a relative advantage, never an absolute green light.</div>
+    </section>
+
+    <section class="block" id="bcc">
+      <h2 class="h2"><span class="num">4</span> TROP2 in BCC — A Shakier Case</h2>
+      <p>Nearly everything written about TROP2 in BCC traces back to one 2021 case-control study: 17 BCC patients, 15 with cSCC, and 12 healthy controls, scored using an H-score system that weights staining by intensity. Controls averaged 38.89. In BCC, that number climbed to roughly 76.7 in peri-lesional skin, 93.85 in the lesional epidermis, and 109.33 in the tumor islands themselves &mdash; a steady, statistically significant climb from normal tissue to tumor. The authors read this as a sign that TROP2 might actually help drive BCC, and floated it as a possible drug target.</p>
+      <p>A much larger, more recent study tells a different story. In 2025, researchers surveyed 198 cutaneous tumors, 27 of them BCC, and found TROP2 essentially missing in action &mdash; a sharp contrast to squamous cell carcinoma, which lit up almost universally in the same dataset. Two studies, same disease, opposite conclusions. Something has to give, and Section 21 takes that discrepancy apart in detail.</p>
+
+      <div class="tbl-wrap">
+        <table>
+          <caption>Table 2a &mdash; What we know about TROP2 in BCC, study by study</caption>
+          <tr><th>Study</th><th>Year</th><th>BCC sample</th><th>Method</th><th>Result</th><th>Authors' take</th></tr>
+          <tr><td>Elbendary et al., case-control study</td><td>2021</td><td>n = 17 (+15 cSCC, 12 controls)</td><td>IHC, H-score by compartment</td><td>Steady climb: ~38.9 &rarr; 76.7 &rarr; 93.9 &rarr; 109.3</td><td>Possible pathogenic role; therapy suggested</td></tr>
+          <tr><td>Torres-Cabala et al., 198-tumor survey</td><td>2025</td><td>n = 27</td><td>IHC, H-score, large multi-tumor cohort</td><td>Minimal or absent, unlike SCC and several adnexal tumors</td><td>Probably not worth targeting in BCC right now</td></tr>
+        </table>
+      </div>
+
+      <p>Read honestly, the current literature makes TROP2 in BCC, at best, <strong>an unresolved biomarker question</strong>: one study saw it up, a bigger and newer one didn't. There's no functional data at all &mdash; nobody has knocked TROP2 down in a BCC cell line to see what happens &mdash; so calling it a driver of the disease is premature, and calling it a validated drug target is further premature still. Any program built on the BCC data alone would be building on ground that hasn't stopped shifting.</p>
+    </section>
+
+    <section class="block" id="cscc">
+      <h2 class="h2"><span class="num">5</span> TROP2 in cSCC — The Stronger Case</h2>
+      <p>The cSCC picture is both more consistent and, importantly, deeper &mdash; it doesn't stop at staining patterns. Three separate pieces of evidence point the same direction.</p>
+
+      <h3 class="h3">Where it started: the 2021 expression study</h3>
+      <p>In that same 17/15/12 cohort, cSCC actually produced the single biggest jump of any group studied: H-scores rose from 38.89 in controls to about 60.0 in peri-lesional skin, 140.91 in the lesional epidermis, and 94.29 in the tumor islands &mdash; that 140.9 figure is the highest tissue-level number reported anywhere in the entire study.</p>
+
+      <h3 class="h3">Where it got serious: the 2024 functional study</h3>
+      <p>A 2024 study didn't stop at counting stained cells. Working with 51 cSCC tissue samples plus the A431 squamous carcinoma cell line, the researchers confirmed TROP2 sitting right on the cell membrane &mdash; exactly where an antibody drug would need it to be &mdash; in both patient tumors and cultured cells. Then they knocked it down. Cell viability dropped. So did cyclin D1 and BCL-2, the proteins that keep cells dividing and alive. Vimentin dropped too, along with the cells' ability to migrate &mdash; suggesting TROP2 has a hand in the invasive, mesenchymal-like behavior these cells show. On top of that, intact A431 cells shrank in number, dose by dose, when exposed to sacituzumab govitecan &mdash; the first real evidence that an actual TROP2 drug can hurt a cSCC cell model.</p>
+      <p>This is arguably the single most important paper in the whole field, because it does something the expression studies can't: it shows that removing TROP2 changes what these cells do, and that an approved TROP2 drug already has teeth against them in a dish.</p>
+
+      <h3 class="h3">Where the numbers got bigger: the 2025 survey</h3>
+      <p>The largest dataset available comes from that same 2025, 198-tumor survey. Every single one of the 44 SCCs in it &mdash; 100% &mdash; stained positive for TROP2, with a median H-score of 272.5. That's roughly double the highest average seen in the smaller 2021 cohort, and it dwarfs everything measured in BCC, melanoma, Merkel cell carcinoma, or most soft-tissue tumors in the same study. A handful of adnexal carcinomas (certain sweat gland and sebaceous tumors) also lit up strongly, which matters more for diagnosis than for the cSCC argument itself.</p>
+
+      <div class="tbl-wrap">
+        <table>
+          <caption>Table 2b &mdash; What we know about TROP2 in cSCC, study by study</caption>
+          <tr><th>Study</th><th>Year</th><th>cSCC sample</th><th>Method</th><th>Key finding</th></tr>
+          <tr><td>Elbendary et al.</td><td>2021</td><td>n = 15</td><td>IHC, H-score</td><td>Steady climb; lesional epidermis hit ~140.9, the highest value in the whole study</td></tr>
+          <tr><td>Tanegashima et al.</td><td>2024</td><td>51 tissues + A431 line</td><td>IHC + knockdown + drug-sensitivity assay</td><td>Membrane TROP2 confirmed; knockdown cut viability, cyclin D1/BCL-2, vimentin, and migration; A431 responded to sacituzumab govitecan</td></tr>
+          <tr><td>Torres-Cabala et al.</td><td>2025</td><td>n = 44</td><td>IHC, H-score, 198-tumor cohort</td><td>100% positive; median H-score 272.5, the highest of any tumor type in the study</td></tr>
+        </table>
+      </div>
+    </section>
+
+    <section class="block" id="ladder">
+      <h2 class="h2"><span class="num">6</span> A Ladder for Grading the Evidence</h2>
+      <p>It helps to think of TROP2 evidence, in any cancer, as sitting on one of five rungs &mdash; and each rung answers a different question that the one below it simply can't.</p>
+      <figure>
+        <svg viewBox="0 0 760 300" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto"><path d="M0,0 L8,3 L0,6 z" fill="#6b1f2e"/></marker>
+          </defs>
+          <style>
+            .lbl{font-family:Inter,sans-serif; font-size:12.5px; fill:#241417;}
+            .lbl2{font-family:Inter,sans-serif; font-size:11px; fill:#5a4a4e;}
+            .box{stroke:#c19a3d; stroke-width:1.4;}
+          </style>
+          <line x1="60" y1="150" x2="700" y2="150" stroke="#e4d7c3" stroke-width="2"/>
+          <g>
+            <circle cx="90" cy="150" r="34" fill="#faf5ec" class="box"/>
+            <text x="90" y="146" text-anchor="middle" class="lbl" font-weight="700">Rung 1</text>
+            <text x="90" y="162" text-anchor="middle" class="lbl2">Expression</text>
+            <text x="90" y="205" text-anchor="middle" class="lbl2">cSCC: yes (2021, 2025)</text>
+            <text x="90" y="220" text-anchor="middle" class="lbl2">BCC: contradicted</text>
+          </g>
+          <g>
+            <circle cx="230" cy="150" r="34" fill="#faf5ec" class="box"/>
+            <text x="230" y="146" text-anchor="middle" class="lbl" font-weight="700">Rung 2</text>
+            <text x="230" y="162" text-anchor="middle" class="lbl2">Correlation</text>
+            <text x="230" y="205" text-anchor="middle" class="lbl2">cSCC: partial</text>
+            <text x="230" y="220" text-anchor="middle" class="lbl2">BCC: minimal</text>
+          </g>
+          <g>
+            <circle cx="370" cy="150" r="34" fill="#6b1f2e"/>
+            <text x="370" y="146" text-anchor="middle" class="lbl" fill="#ffffff" font-weight="700">Rung 3</text>
+            <text x="370" y="162" text-anchor="middle" class="lbl2" fill="#ffffff">Function</text>
+            <text x="370" y="205" text-anchor="middle" class="lbl2">cSCC: yes (A431, 2024)</text>
+            <text x="370" y="220" text-anchor="middle" class="lbl2">BCC: none</text>
+          </g>
+          <g>
+            <circle cx="510" cy="150" r="34" fill="#faf5ec" class="box"/>
+            <text x="510" y="146" text-anchor="middle" class="lbl" font-weight="700">Rung 4</text>
+            <text x="510" y="162" text-anchor="middle" class="lbl2">Drug response</text>
+            <text x="510" y="205" text-anchor="middle" class="lbl2">cSCC: early, in vitro only</text>
+            <text x="510" y="220" text-anchor="middle" class="lbl2">BCC: none</text>
+          </g>
+          <g>
+            <circle cx="650" cy="150" r="34" fill="#f3ead9" stroke="#e4d7c3"/>
+            <text x="650" y="146" text-anchor="middle" class="lbl" font-weight="700">Rung 5</text>
+            <text x="650" y="162" text-anchor="middle" class="lbl2">Patient outcomes</text>
+            <text x="650" y="205" text-anchor="middle" class="lbl2">cSCC: none</text>
+            <text x="650" y="220" text-anchor="middle" class="lbl2">BCC: none</text>
+          </g>
+          <line x1="124" y1="150" x2="196" y2="150" stroke="#6b1f2e" stroke-width="2" marker-end="url(#arrow)"/>
+          <line x1="264" y1="150" x2="336" y2="150" stroke="#6b1f2e" stroke-width="2" marker-end="url(#arrow)"/>
+          <line x1="404" y1="150" x2="476" y2="150" stroke="#6b1f2e" stroke-width="2" marker-end="url(#arrow)"/>
+          <line x1="544" y1="150" x2="616" y2="150" stroke="#6b1f2e" stroke-width="2" marker-end="url(#arrow)"/>
+          <text x="380" y="40" text-anchor="middle" font-family="Newsreader, serif" font-size="16" fill="#6b1f2e" font-weight="600">Figure 4 — How far each cancer has climbed the evidence ladder</text>
+          <text x="380" y="270" text-anchor="middle" class="lbl2">cSCC has reached Rung 3 with an early signal at Rung 4; BCC is stuck arguing about Rung 1.</text>
+        </svg>
+        <figcaption>Figure 4. Neither cancer has clinical-trial evidence yet, but cSCC has climbed noticeably further up the ladder than BCC has.</figcaption>
+      </figure>
+      <p>By this measure, cSCC has cleared expression (two independent cohorts, 59 cSCC cases combined), correlation with tissue context, and function (the 2024 knockdown work), with an early hint of drug response thrown in. BCC hasn't even secured a stable footing on rung one, has zero functional data, and nothing at all on rungs four or five. And to be clear &mdash; nobody, for either cancer, has reached rung five. No TROP2 ADC has been tested in a real BCC or cSCC patient yet.</p>
+    </section>
+
+    <section class="block" id="field">
+      <h2 class="h2"><span class="num">7</span> Field Cancerization — An Open Question</h2>
+      <p>The peri-lesional numbers from the 2021 study raise a question that's separate from the tumor-versus-control comparison: could elevated TROP2 in normal-looking skin right next to a tumor be an early signature of field cancerization &mdash; the idea that sun-damaged skin surrounding a visible lesion is already quietly carrying molecular changes and clonal patches that predispose it to becoming a tumor itself? A steady rise from control skin, through peri-lesional tissue, to the lesion itself fits that story reasonably well.</p>
+      <p>But it's still just a story at this point. One small case-control study can't rule out simpler explanations &mdash; background inflammation, sampling noise, or just a tumor's microenvironment bleeding outward into whatever tissue happens to sit closest to it. Nobody has tracked TROP2-high peri-lesional skin over time to see if it actually predicts a second tumor showing up later, and no one has connected peri-lesional TROP2 to the specific mutational fingerprints that define field cancerization. <strong>Right now, there simply isn't enough here to call TROP2 a validated marker of a cancer-prone field</strong> &mdash; though it's a reasonable enough idea to test properly.</p>
+    </section>
+
+    <section class="block" id="targetable">
+      <h2 class="h2"><span class="num">8</span> What Makes Something Druggable</h2>
+      <p>Before any expression finding gets treated as a therapeutic claim, it's worth checking it against six basic requirements for a good ADC target: it has to sit accessibly on the cell surface; it has to be expressed reliably and at reasonably high levels; the antibody has to get pulled inside the cell efficiently once it binds; there has to be a real gap between tumor and normal-tissue expression; the tumor cells have to actually be vulnerable to whatever payload gets delivered; and the whole package has to add up to a workable safety margin.</p>
+      <p>TROP2 checks several of these boxes well as a general class of target &mdash; it's a genuine surface protein, it gets internalized on cue, and it reaches impressively high levels in several cancers. The box it doesn't automatically check, especially here, is the tumor-versus-normal gap, given what Section 3 already laid out about ordinary skin. That tension &mdash; real druggability at the molecular level, uncertain selectivity once you zoom out to tissue &mdash; runs underneath everything that follows.</p>
+    </section>
+
+    <section class="block" id="adc">
+      <h2 class="h2"><span class="num">9</span> How ADCs Actually Work</h2>
+      <p>An antibody&ndash;drug conjugate is exactly what it sounds like: a tumor-homing antibody chemically tethered to a cell-killing small molecule via a linker. The antibody finds its target on the cell surface, the whole complex gets pulled inside by endocytosis, and once it lands in the endosome or lysosome, the linker breaks (or, for sturdier linkers, the entire conjugate gets chewed up by enzymes), setting the payload free inside the cell. From there it usually does one of two things &mdash; damages DNA (if it's a topoisomerase I inhibitor) or wrecks the microtubule network &mdash; either of which triggers the cell to die. Many payloads can also slip out and diffuse into neighboring cells regardless of whether those cells carry the target themselves &mdash; the so-called bystander effect, which is genuinely useful against tumors with patchy antigen expression, but also a plausible route to collateral damage in nearby normal cells that happen to be TROP2-low but not TROP2-zero.</p>
+      <p>Four design choices separate one TROP2 ADC from another even when the underlying antibody target is identical: which payload is attached (all three clinically advanced TROP2 ADCs use a topoisomerase I inhibitor, but chemically distinct ones &mdash; SN-38 in one case, DXd-class molecules in the others); the drug-to-antibody ratio, usually somewhere between 4 and 8, which sets how much payload rides on each antibody; how stable the linker is in the bloodstream, which determines how much payload leaks out before the drug even reaches the tumor; and how strong the bystander effect is, which trades better coverage of uneven tumors against a higher risk of hitting normal tissue nearby.</p>
+      <figure>
+        <svg viewBox="0 0 760 230" xmlns="http://www.w3.org/2000/svg">
+          <style>.t{font-family:Inter,sans-serif; font-size:12px; fill:#241417;} .t2{font-family:Inter,sans-serif; font-size:11px; fill:#5a4a4e;}</style>
+          <text x="380" y="26" text-anchor="middle" font-family="Newsreader, serif" font-size="16" fill="#6b1f2e" font-weight="600">Figure 3 — How an ADC kills a cell, step by step</text>
+          <rect x="30" y="70" width="120" height="60" rx="10" fill="#faf5ec" stroke="#c19a3d"/>
+          <text x="90" y="95" text-anchor="middle" class="t" font-weight="700">Binds TROP2</text>
+          <text x="90" y="112" text-anchor="middle" class="t2">Antibody finds</text>
+          <text x="90" y="124" text-anchor="middle" class="t2">its surface target</text>
+          <rect x="190" y="70" width="120" height="60" rx="10" fill="#faf5ec" stroke="#c19a3d"/>
+          <text x="250" y="95" text-anchor="middle" class="t" font-weight="700">Pulled inside</text>
+          <text x="250" y="112" text-anchor="middle" class="t2">Cell engulfs the</text>
+          <text x="250" y="124" text-anchor="middle" class="t2">antibody&ndash;antigen pair</text>
+          <rect x="350" y="70" width="120" height="60" rx="10" fill="#faf5ec" stroke="#c19a3d"/>
+          <text x="410" y="95" text-anchor="middle" class="t" font-weight="700">Payload released</text>
+          <text x="410" y="112" text-anchor="middle" class="t2">Linker breaks</text>
+          <text x="410" y="124" text-anchor="middle" class="t2">inside the lysosome</text>
+          <rect x="510" y="70" width="120" height="60" rx="10" fill="#faf5ec" stroke="#c19a3d"/>
+          <text x="570" y="95" text-anchor="middle" class="t" font-weight="700">DNA damaged</text>
+          <text x="570" y="112" text-anchor="middle" class="t2">Topoisomerase I</text>
+          <text x="570" y="124" text-anchor="middle" class="t2">blocked, strands break</text>
+          <rect x="640" y="70" width="100" height="60" rx="10" fill="#6b1f2e"/>
+          <text x="690" y="95" text-anchor="middle" class="t" fill="#ffffff" font-weight="700">Cell dies</text>
+          <text x="690" y="112" text-anchor="middle" class="t2" fill="#ffffff">(apoptosis</text>
+          <text x="690" y="124" text-anchor="middle" class="t2" fill="#ffffff">triggered)</text>
+          <line x1="150" y1="100" x2="188" y2="100" stroke="#6b1f2e" stroke-width="2"/>
+          <line x1="310" y1="100" x2="348" y2="100" stroke="#6b1f2e" stroke-width="2"/>
+          <line x1="470" y1="100" x2="508" y2="100" stroke="#6b1f2e" stroke-width="2"/>
+          <line x1="630" y1="100" x2="638" y2="100" stroke="#6b1f2e" stroke-width="2"/>
+          <text x="380" y="180" text-anchor="middle" class="t2">Bystander effect: freed payload can drift into nearby cells, tumor or normal, regardless of their own TROP2 level</text>
+        </svg>
+        <figcaption>Figure 3. The mechanism shared by sacituzumab govitecan, datopotamab deruxtecan, and sacituzumab tirumotecan.</figcaption>
+      </figure>
+    </section>
+
+    <section class="block" id="tnbc">
+      <h2 class="h2"><span class="num">10</span> TROP2 ADCs That Already Work — In Breast Cancer</h2>
+      <h3 class="h3">Sacituzumab govitecan</h3>
+      <p>This drug pairs a humanized anti-TROP2 antibody with SN-38 (the active form of irinotecan) through a linker designed to hydrolyze, at a drug-to-antibody ratio around 7.6. In the pivotal ASCENT trial, run in previously treated metastatic triple-negative breast cancer, it pushed median overall survival from 6.7 months up to 12.1 months and meaningfully extended progression-free survival compared with standard chemotherapy. A follow-up trial, ASCENT-03, tested it as a first-line option in patients who weren't candidates for checkpoint inhibitors, and again it won on progression-free survival &mdash; 9.7 months versus 6.9. Paired with pembrolizumab in PD-L1-positive first-line disease (ASCENT-04), it has also shown gains on newer composite endpoints. The price is neutropenia and diarrhea, the expected fingerprint of an SN-38 payload.</p>
+
+      <h3 class="h3">Datopotamab deruxtecan</h3>
+      <p>Here the anti-TROP2 antibody is paired with DXd, a topoisomerase I inhibitor related to exatecan, riding on a sturdier tetrapeptide linker built specifically to avoid dumping payload into the bloodstream early. In TROPION-Breast01, tested in previously treated hormone receptor-positive, HER2-negative breast cancer, it delivered a real progression-free survival advantage (about 7 months versus 5), though the final overall survival numbers didn't reach statistical significance &mdash; plausibly muddied by how many control-arm patients went on to receive other active ADCs afterward. Its side-effect profile looks nothing like sacituzumab govitecan's: blood counts are largely spared, but stomatitis shows up in roughly half of patients.</p>
+
+      <h3 class="h3">Sacituzumab tirumotecan</h3>
+      <p>The newest of the three, sac-TMT, was tested in the phase III OptiTROP-Breast01 trial in previously treated metastatic triple-negative breast cancer, where it produced a median progression-free survival of 6.7 months against just 2.5 for chemotherapy &mdash; one of the largest relative gains reported for any TROP2 ADC, though cross-trial comparisons always come with an asterisk given differing patient populations. Its toxicity leans toward blood-count problems, with a moderate amount of stomatitis thrown in, landing it somewhere between the other two agents on safety.</p>
+
+      <div class="tbl-wrap">
+        <table>
+          <caption>Table 4 &mdash; The three TROP2 ADCs already in clinical use, side by side</caption>
+          <tr><th>ADC</th><th>Payload</th><th>Linker</th><th>Approx. DAR</th><th>Signature toxicity</th></tr>
+          <tr><td>Sacituzumab govitecan</td><td>SN-38 (topoisomerase I inhibitor)</td><td>Hydrolyzable, less stable in serum</td><td>~7.6</td><td>Neutropenia and diarrhea common; stomatitis rare</td></tr>
+          <tr><td>Datopotamab deruxtecan</td><td>DXd (exatecan derivative)</td><td>Stable tetrapeptide-based</td><td>~4</td><td>Stomatitis common; blood-count effects rare</td></tr>
+          <tr><td>Sacituzumab tirumotecan (sac-TMT)</td><td>Belotecan-derivative topoisomerase I inhibitor</td><td>Cleavable</td><td>~7.4</td><td>Blood-count effects common; moderate stomatitis</td></tr>
+        </table>
+      </div>
+
+      <div class="tbl-wrap">
+        <table>
+          <caption>Table 5 &mdash; The major trials behind these drugs</caption>
+          <tr><th>Trial</th><th>Drug</th><th>Setting</th><th>Headline result</th></tr>
+          <tr><td>ASCENT (phase III)</td><td>Sacituzumab govitecan</td><td>Pretreated metastatic TNBC</td><td>OS 12.1 vs 6.7 months over chemotherapy</td></tr>
+          <tr><td>ASCENT-03 (phase III)</td><td>Sacituzumab govitecan</td><td>First-line mTNBC, checkpoint-ineligible</td><td>PFS 9.7 vs 6.9 months</td></tr>
+          <tr><td>ASCENT-04 (phase III)</td><td>Sacituzumab govitecan + pembrolizumab</td><td>First-line PD-L1+ mTNBC</td><td>Gains on PFS2, a surrogate that tracks closely with survival</td></tr>
+          <tr><td>TROPION-Breast01 (phase III)</td><td>Datopotamab deruxtecan</td><td>Pretreated HR+/HER2&minus; metastatic breast cancer</td><td>PFS ~7 vs ~5 months; final OS not statistically significant</td></tr>
+          <tr><td>OptiTROP-Breast01 (phase III)</td><td>Sacituzumab tirumotecan</td><td>Pretreated mTNBC</td><td>PFS 6.7 vs 2.5 months</td></tr>
+          <tr><td>EVOKE-01 / TROPION-Lung01 (pooled)</td><td>Sacituzumab govitecan / datopotamab deruxtecan</td><td>Pretreated advanced NSCLC</td><td>No overall OS/PFS benefit vs docetaxel; benefit only in patients with actionable mutations</td></tr>
+          <tr><td>TROPHY-U-01 (phase II)</td><td>Sacituzumab govitecan</td><td>Platinum/checkpoint-refractory urothelial cancer</td><td>Response rates strong enough to support accelerated approval</td></tr>
+        </table>
+      </div>
+    </section>
+
+    <section class="block" id="beyond">
+      <h2 class="h2"><span class="num">11</span> What Happens Outside Breast Cancer</h2>
+      <p>TROP2 ADCs don't perform the same way everywhere, and that inconsistency is probably the single most useful lesson for skin cancer. In previously treated advanced non-small-cell lung cancer, a pooled analysis of the EVOKE-01 and TROPION-Lung01 trials found no meaningful survival or progression-free survival advantage over docetaxel across the board &mdash; the benefit only showed up in a subgroup carrying specific actionable mutations. Urothelial cancer tells a different story: sacituzumab govitecan produced real, clinically meaningful responses in the platinum- and checkpoint-refractory phase II TROPHY-U-01 trial. And in vulvar squamous cell carcinoma &mdash; another squamous tumor, like cSCC &mdash; TROP2 expression and translational rationale have looked encouraging too, hinting that this biology might travel better across squamous cancers specifically than across epithelial cancers as a broad category.</p>
+      <p>The takeaway for BCC and cSCC couldn't be more direct: <strong>success in breast cancer doesn't automatically carry over to a different tumor</strong>, even a related epithelial one, even using essentially the same drug chemistry. Whatever is happening inside the tumor &mdash; how much antigen is there, how efficiently it gets internalized, what the surrounding microenvironment looks like, which downstream pathways TROP2 actually engages in that specific tissue &mdash; seems to matter just as much as the ADC itself. That's the whole argument for evaluating a squamous, high-expression cancer like cSCC on its own terms rather than assuming it inherits TNBC's results, and lung cancer's underwhelming overall numbers are a useful reminder not to get ahead of the data even when the biological story sounds reasonable.</p>
+    </section>
+
+    <section class="block" id="cscc-adc">
+      <h2 class="h2"><span class="num">12</span> Grading TROP2 ADCs for cSCC</h2>
+      <p><em class="q">Has cSCC actually earned a formal preclinical ADC development program, or does it just sound like it has?</em> Breaking that question into its four component parts, and scoring each honestly against what's actually been shown rather than what seems plausible:</p>
+
+      <div class="tbl-wrap">
+        <table>
+          <caption>Table 6 &mdash; Scoring the evidence for targeting TROP2 in cSCC</caption>
+          <tr><th>Question</th><th>Grade</th><th>Why</th></tr>
+          <tr><td>Is the target actually there?</td><td><span class="grade strong">Strong</span></td><td>Confirmed in two separate cohorts (2021, 2025); 100% positivity and the highest H-scores of any skin tumor in the larger dataset</td></tr>
+          <tr><td>Does it actually do anything biologically?</td><td><span class="grade moderate">Moderate</span></td><td>One functional study, one cell line (A431); the knockdown results look real, but nobody's repeated them in a second model yet</td></tr>
+          <tr><td>Are the tumor cells actually sensitive to the drug?</td><td><span class="grade moderate">Moderate&ndash;weak</span></td><td>A single in-vitro dose-response experiment, one cell line, no animal or patient-tissue data behind it</td></tr>
+          <tr><td>Is there clinical evidence?</td><td><span class="grade none">None</span></td><td>No case reports, no basket-trial cohorts, no registered trials specific to cSCC found anywhere in the literature</td></tr>
+        </table>
+      </div>
+
+      <p>Adding it up: cSCC has earned its way into a serious preclinical program &mdash; animal models, deeper functional work, real toxicology &mdash; but it hasn't earned a first-in-human trial yet. The distance between "looks promising in a dish" and "works in a patient" (see Section 13) is exactly where cSCC currently sits, no further along.</p>
+    </section>
+
+    <section class="block" id="sg-cscc">
+      <h2 class="h2"><span class="num">13</span> Sacituzumab Govitecan, Specifically, in cSCC</h2>
+      <p>Narrowing the question down to just this one drug, the only TROP2 ADC with any direct data point in a cSCC model: there's in-vitro evidence (the A431 result described earlier). That's it. No animal studies, no patient-derived xenografts, no case reports of anyone actually receiving it for cSCC, no basket trial with a cSCC arm, and no registered clinical trial anywhere aimed at this specific cancer, as far as the literature shows. Worth saying plainly rather than hinting at it: <strong>the entire case for sacituzumab govitecan in cSCC currently rests on a single in-vitro experiment in a single cell line</strong> &mdash; genuinely encouraging, but still just that. Promising lab results are a perfectly good reason to keep investigating. They are not evidence that the drug works in a real patient, and the two shouldn't get blurred together when talking to patients or designing early trials.</p>
+    </section>
+
+    <section class="block" id="why-cscc">
+      <h2 class="h2"><span class="num">14</span> Why cSCC Looks Like the Better Bet</h2>
+      <p>Put the pieces together and a reasonably confident case for cSCC over BCC emerges: expression that's stronger and more reproducible in every study that's looked; universal positivity with the highest scores of any cutaneous tumor type in the biggest dataset available; the only functional and drug-sensitivity data that exists anywhere in nonmelanoma skin cancer; and a plausible biological echo from other squamous cancers (vulvar SCC included) that show the same high TROP2 signature, hinting this might be more about squamous biology broadly than about cSCC specifically.</p>
+      <p>Set against all that, BCC's own expression data argue with each other, with the larger and more recent study coming down on the side of minimal-to-absent, and there's zero functional, drug-sensitivity, or clinical data of any kind. So, to answer this paper's original question directly &mdash; should BCC and cSCC be treated as equally promising TROP2 targets &mdash; <strong>no, they shouldn't</strong>. cSCC's case is broader, more internally consistent, and goes deeper mechanistically. That said, this is a judgment about where the evidence stands today, not a permanent ruling; a well-powered, properly designed multicenter BCC study could still flip this conclusion in either direction.</p>
+    </section>
+
+    <section class="block" id="diagnostic">
+      <h2 class="h2"><span class="num">15</span> A Possible Diagnostic Use</h2>
+      <p>Separate from any treatment angle, the stark contrast seen in the 2025 study &mdash; universal, high-intensity staining in SCC against next-to-nothing in BCC and most other tumor categories &mdash; suggests TROP2 staining might actually help pathologists tell SCC apart from BCC and from basaloid look-alike adnexal tumors in tricky biopsies, a job currently handled imperfectly by markers like BerEP4, p63, and p40. That would put TROP2 in the role of a useful addition to an existing panel, not a replacement for one. Nobody has yet run a head-to-head comparison of TROP2's diagnostic accuracy against those established markers, so any claim that it's actually better should wait for that study to exist.</p>
+    </section>
+
+    <section class="block" id="window">
+      <h2 class="h2"><span class="num">16</span> The Safety-Margin Problem</h2>
+      <p>Here's the safety question that any cutaneous TROP2 ADC program eventually has to answer: given that normal keratinocytes and follicle, sebaceous, and sweat gland tissue all carry TROP2, how would a drug given systemically ever tell tumor from normal skin apart? A few things could, in theory, still create some separation without needing perfect specificity: raw antigen density (the 2025 cohort's SCC H-score of 272.5 is well above what normal tissue typically shows, though nobody has directly measured that ratio in matched patients yet); differences in how quickly malignant versus normal cells internalize the antibody; and simply the fact that a systemic drug reaches normal skin only in proportion to blood flow and local antigen density, not by direct application.</p>
+      <p>Against that optimism sits real-world experience: TROP2 ADCs already cause mucocutaneous side effects &mdash; stomatitis, notably, with datopotamab deruxtecan and sacituzumab tirumotecan &mdash; that plausibly reflect the drug hitting TROP2 on normal mucosal tissue exactly as designed. That's proof that normal-tissue TROP2 isn't a theoretical concern; it already shows up as a real clinical side effect elsewhere in the body. Whether that safety margin is wide enough for skin specifically is a question the current data simply can't answer. It would take either direct tumor-versus-normal expression-ratio studies in matched cSCC patients, or close monitoring of skin and mucosal toxicity in whatever future basket trial eventually enrolls cSCC patients.</p>
+    </section>
+
+    <section class="block" id="resistance">
+      <h2 class="h2"><span class="num">17</span> How Tumors Might Dodge These Drugs</h2>
+      <p>Experience with TROP2 ADCs elsewhere has already surfaced several plausible ways resistance could develop, all worth watching for in any future cSCC program: tumors with patchy or low baseline TROP2 letting antigen-poor cells survive and take over; TROP2 getting shed or downregulated once treatment pressure kicks in; internalization or intracellular trafficking going wrong, so the payload never actually gets released where it needs to; linker- or payload-specific escape routes, including drug efflux pumps and beefed-up DNA repair that blunts topoisomerase I inhibitors; compensatory survival signaling (worth noting, given TROP2's own ties to BCL-2); and a tumor microenvironment that simply blocks the antibody from reaching cells buried in poorly vascularized or heavily keratinized tissue.</p>
+      <p>Two of these feel especially worth flagging for cSCC specifically: patchy antigen expression and poor internalization, since squamous tumors are notoriously uneven in differentiation across a single lesion, and heavily keratinized regions seem like a plausible physical barrier to both antibody penetration and normal endosomal handling. Nobody's tested that directly yet, but it follows reasonably from what's already known about how cSCC tissue is built.</p>
+    </section>
+
+    <section class="block" id="combo">
+      <h2 class="h2"><span class="num">18</span> Combining TROP2 ADCs With Other Treatments</h2>
+      <p>Since anti-PD-1 therapy is already the backbone of advanced cSCC treatment, pairing a TROP2 ADC with checkpoint inhibition is an obvious next question &mdash; it echoes what's already been tried with sacituzumab govitecan plus pembrolizumab in first-line PD-L1-positive TNBC (ASCENT-04). The theory: ADC-triggered cell death might prime the immune system in a way that synergizes with checkpoint blockade. Radiation and other combinations are plausible for similar reasons. But that upside comes with a real downside &mdash; myelosuppression, skin and mucosal damage, and colitis-like effects show up with both ADCs and checkpoint inhibitors on their own, so stacking them risks stacking those side effects too, and nobody has tested any of these combinations in cSCC yet. <strong>None of this supports a clinical recommendation today</strong>; it's a reasonable direction for future trial design, nothing more.</p>
+    </section>
+
+    <section class="block" id="currentcscc">
+      <h2 class="h2"><span class="num">19</span> Where cSCC Treatment Stands Today</h2>
+      <p>Localized cSCC is handled with excision or Mohs surgery, radiation stepping in as an alternative or add-on in select cases. Once disease is locally advanced or metastatic, anti-PD-1 therapy (cemiplimab, pembrolizumab) is now the systemic standard, and it works durably for a good share of patients. So the gap any new drug actually needs to fill is fairly narrow and specific: patients who never respond to checkpoint blockade in the first place, patients who respond and then relapse, patients who can't take checkpoint inhibitors at all (organ transplant recipients, for instance, who carry a disproportionate burden of aggressive cSCC and for whom immunotherapy risks triggering organ rejection), and patients whose disease is moving too fast for anything but an aggressive combination approach. A TROP2 ADC would need to prove itself in one of these specific pockets to actually add something beyond just being another option on the shelf.</p>
+    </section>
+
+    <section class="block" id="currentbcc">
+      <h2 class="h2"><span class="num">20</span> Where BCC Treatment Stands Today</h2>
+      <p>BCC follows the same local-first playbook &mdash; surgery or Mohs surgery handles the vast majority of cases &mdash; with Hedgehog pathway inhibitors (vismodegib, sonidegib) as the first systemic option for locally advanced or metastatic disease, and cemiplimab available for patients who progress on or can't tolerate those. Given how shaky the TROP2 expression data in BCC actually are, it's a bit premature to even ask what a TROP2 strategy would add on top of this pathway &mdash; that question assumes a target validity that hasn't been established yet. <strong>BCC doesn't currently deserve to be treated as a serious TROP2 target</strong> based on the evidence in hand, regardless of what unmet needs Hedgehog-resistant BCC might otherwise present.</p>
+    </section>
+
+    <section class="block" id="conflict">
+      <h2 class="h2"><span class="num">21</span> Untangling the BCC Contradiction</h2>
+      <p>This is probably the most important piece of critical thinking this whole review has to do, because the two BCC datasets don't just disagree on degree &mdash; they point in opposite directions entirely.</p>
+
+      <div class="tbl-wrap">
+        <table>
+          <caption>Table 3 &mdash; The two BCC studies, side by side</caption>
+          <tr><th>Feature</th><th>Elbendary et al. (2021)</th><th>Torres-Cabala et al. (2025)</th></tr>
+          <tr><td>BCC sample size</td><td>17</td><td>27</td></tr>
+          <tr><td>Method</td><td>IHC, H-score</td><td>IHC, H-score</td></tr>
+          <tr><td>Headline finding</td><td>TROP2 up versus control, rising by tissue compartment</td><td>TROP2 minimal or absent</td></tr>
+          <tr><td>What tissue was scored</td><td>Peri-lesional epidermis, lesional epidermis, and tumor islands, scored separately</td><td>Tumor tissue, within a much broader 198-case, multi-tumor-type cohort</td></tr>
+          <tr><td>What it was compared against</td><td>Age/sex-matched healthy controls only (n=12)</td><td>SCC, melanoma, Merkel cell carcinoma, and adnexal/mesenchymal tumors, all at once</td></tr>
+          <tr><td>What the study was built to do</td><td>A focused case-control comparison of BCC and cSCC specifically</td><td>A broad map of relative TROP2 positivity across tumor categories, with SCC as the headline finding</td></tr>
+          <tr><td>How the authors read it</td><td>Possible pathogenic role; therapy floated as an idea</td><td>Not much near-term therapeutic relevance for BCC; more useful as a diagnostic marker separating SCC from BCC</td></tr>
+        </table>
+      </div>
+
+      <p>What might actually explain the gap, weighed against what's genuinely known rather than assumed:</p>
+      <ul>
+        <li><strong>Small numbers.</strong> Seventeen BCC cases isn't a lot to build an H-score average on; a few unusually high- or low-staining cases could swing the whole result. Twenty-seven cases is still modest, but it's meaningfully more, and it came out of a bigger, more systematically built archive.</li>
+        <li><strong>Different tissue got scored.</strong> The 2021 study broke things down by peri-lesional epidermis, lesional epidermis, and tumor islands separately, and its highest BCC number came specifically from tumor islands (around 109). If the 2025 study's "tumor tissue" category captured a different mix of tumor and surrounding stroma, the two headline numbers may simply not be comparable in the way they look on paper.</li>
+        <li><strong>Different patients entirely.</strong> One study was done in an Egyptian dermatology clinic, the other in a US academic pathology archive &mdash; different populations that could easily differ in which BCC subtypes (nodular, superficial, infiltrative) show up most often, a detail neither study reports in a way that lets you compare directly.</li>
+        <li><strong>Different antibody, maybe different protocol.</strong> The 2024 cSCC study spells out its reagents precisely &mdash; a specific rabbit anti-human TROP2 antibody from Abcam, with a defined retrieval and detection method &mdash; which is a good reminder of just how sensitive IHC staining intensity is to clone choice, dilution, and detection chemistry. Neither BCC paper's available material specifies its antibody clone in the same detail, so this remains an open item to check rather than a confirmed explanation.</li>
+        <li><strong>Different definitions of "positive."</strong> Both use an H-score system, but "minimal or absent" and "significantly elevated" imply different practical cutoffs that have never actually been calibrated against each other by re-reading the same slides side by side.</li>
+      </ul>
+      <p>No single explanation here can be proven correct from what's published. The fairest summary is that <strong>sample size, which tissue got sampled, and possibly technical differences in antibody or protocol all plausibly play a role</strong>, and a genuinely biological explanation &mdash; real population-level variation in how BCC expresses TROP2 &mdash; can't be ruled out either. Settling this properly would take exactly the kind of large, multicenter, protocol-matched study proposed in Section 23, ideally re-staining archived tissue from both original cohorts with one standardized antibody and one scoring rulebook.</p>
+    </section>
+
+    <section class="block" id="hierarchy">
+      <h2 class="h2"><span class="num">22</span> Ranking the Evidence Honestly</h2>
+      <div class="tbl-wrap">
+        <table>
+          <tr><th>Level</th><th>Type of evidence</th><th>Exists for cSCC?</th><th>Exists for BCC?</th></tr>
+          <tr><td>A</td><td>Randomized clinical trial data</td><td>No</td><td>No</td></tr>
+          <tr><td>B</td><td>Prospective clinical data</td><td>No</td><td>No</td></tr>
+          <tr><td>C</td><td>Human tissue/pathology data</td><td>Yes &mdash; two cohorts, agreeing</td><td>Yes &mdash; two cohorts, disagreeing</td></tr>
+          <tr><td>D</td><td>Functional cell-based data</td><td>Yes &mdash; A431 knockdown study</td><td>No</td></tr>
+          <tr><td>E</td><td>Animal/preclinical in-vivo data</td><td>No</td><td>No</td></tr>
+          <tr><td>F</td><td>Evidence borrowed from other cancers</td><td>Supportive (TNBC, vulvar SCC, urothelial)</td><td>Doesn't clearly apply</td></tr>
+          <tr><td>G</td><td>Hypothesis or theoretical reasoning</td><td>Field cancerization; shared squamous biology</td><td>Speculative pathogenic role</td></tr>
+        </table>
+      </div>
+      <p>Every major claim made in this review sits at level C&ndash;D at best for cSCC (with some level-F support behind it), and at level C, internally contradicted, for BCC. Nothing here should ever get dressed up as level A or B evidence &mdash; because it isn't.</p>
+    </section>
+
+    <section class="block" id="program">
+      <h2 class="h2"><span class="num">23</span> What Research Should Happen Next</h2>
+      <ol>
+        <li><strong>Step 1 &mdash; Settle the reproducibility question.</strong> A large, multicenter study of BCC and cSCC using one validated antibody, pre-set H-score cutoffs, and blinded central scoring &mdash; built specifically to resolve the BCC disagreement once and for all.</li>
+        <li><strong>Step 2 &mdash; Characterize the molecule properly.</strong> RNA and protein-level measurements, confirming membrane localization through other methods (flow cytometry on dissociated tumor cells, for instance), spatial mapping of TROP2 across tumor, peri-lesional, and normal tissue, and a direct, quantitative comparison of tumor versus adjacent normal antigen density in the same patients.</li>
+        <li><strong>Step 3 &mdash; Confirm the function holds up elsewhere.</strong> Repeat the knockdown/overexpression work in a second cSCC cell line and, ideally, in primary patient-derived keratinocyte and BCC cultures, tracking proliferation, migration, invasion, and cell death.</li>
+        <li><strong>Step 4 &mdash; Actually test the drugs.</strong> Dose-response testing of sacituzumab govitecan and other TROP2 ADCs across a real panel of cSCC and BCC cell lines, watching specifically for any difference in sensitivity between the two.</li>
+        <li><strong>Step 5 &mdash; Build better models.</strong> Organoids and reconstructed 3D skin models that include normal keratinocytes alongside tumor cells, so the safety-margin question can be tested directly instead of inferred from separate tumor-only and normal-only experiments.</li>
+        <li><strong>Step 6 &mdash; Move into animals.</strong> Patient-derived xenograft studies that track tumor response and &mdash; critically &mdash; skin and mucosal toxicity, ideally in mice carrying human skin grafts.</li>
+        <li><strong>Step 7 &mdash; Only then, a clinical trial.</strong> A biomarker-selected basket or dermatology-specific early-phase trial, restricted to TROP2-high tumors by a pre-set cutoff, makes sense only once Steps 1&ndash;6 together show an adequate safety margin &mdash; not before.</li>
+      </ol>
+
+      <div class="tbl-wrap">
+        <table>
+          <caption>Table 8 &mdash; What's missing, and what would fill the gap</caption>
+          <tr><th>Gap</th><th>What would answer it</th></tr>
+          <tr><td>BCC expression contradiction unresolved</td><td>One harmonized multicenter re-analysis, one antibody, one protocol (Step 1)</td></tr>
+          <tr><td>Functional data limited to a single cSCC cell line</td><td>Repeat the experiment in more lines and patient-derived cultures (Step 3)</td></tr>
+          <tr><td>No in-vivo efficacy or toxicity data at all</td><td>PDX and humanized-skin xenograft studies (Step 6)</td></tr>
+          <tr><td>Nobody's measured the tumor/normal antigen ratio directly</td><td>Matched quantitative IHC or flow cytometry, tumor vs. adjacent normal skin (Step 2)</td></tr>
+          <tr><td>Zero clinical exposure data in any nonmelanoma skin cancer</td><td>Biomarker-selected early-phase basket trial (Step 7, conditional)</td></tr>
+          <tr><td>Field cancerization idea never tested over time</td><td>Follow TROP2-high peri-lesional skin prospectively for second tumors</td></tr>
+        </table>
+      </div>
+    </section>
+
+    <section class="block" id="questions">
+      <h2 class="h2"><span class="num">24</span> Open Questions Worth Asking</h2>
+      <ol>
+        <li>Does TROP2 stay consistently overexpressed in cSCC once more, larger, geographically varied cohorts are studied?</li>
+        <li>Does TROP2 level track with more aggressive cSCC features &mdash; depth, nerve invasion, spread?</li>
+        <li>Is TROP2 actually necessary for cSCC growth in models beyond just A431?</li>
+        <li>Does TROP2 get internalized as efficiently in cSCC cells as it does in breast or bladder cancer cells?</li>
+        <li>Do TROP2 ADCs actually work against cSCC in a living animal, not just a dish?</li>
+        <li>Is there a TROP2 expression cutoff that actually predicts who responds to an ADC in skin cancer?</li>
+        <li>Does TROP2 level say anything about who responds to anti-PD-1 therapy in cSCC?</li>
+        <li>Could TROP2 ADCs specifically help patients whose cSCC has stopped responding to immunotherapy?</li>
+        <li>Is TROP2 relevant to BCC biology at all, or was the original signal just a small-sample fluke?</li>
+        <li>What's actually behind the disagreement between the two big BCC studies &mdash; technique, sampling, or real biology?</li>
+        <li>How much skin toxicity would a systemically dosed TROP2 ADC actually cause in real dermatology patients?</li>
+        <li>Which ADC design &mdash; payload, linker, DAR &mdash; would give the best safety margin specifically for skin cancer?</li>
+      </ol>
+    </section>
+
+    <section class="block" id="position">
+      <h2 class="h2"><span class="num">25</span> Where This Leaves Us</h2>
+      <div class="pull">The evidence clearly favors cSCC over BCC: recent studies bring consistent, high-magnitude expression data plus early functional and in-vitro therapeutic signals for cSCC, while BCC's evidence stays small, and its two dedicated studies flatly disagree with each other.</div>
+      <p>This review deliberately didn't start from the assumption that TROP2 is a proven target in either cancer. Having gone through the expression, functional, and therapeutic literature, that careful, split conclusion &mdash; rather than a blanket "TROP2 is a skin cancer target" &mdash; is genuinely what the evidence supports. cSCC has climbed further up the expression-to-function-to-therapy ladder than any other nonmelanoma skin cancer and has earned a real, structured preclinical program along the lines sketched in Section 23. BCC's status is genuinely unsettled, and it deserves to be described that way in any grant, review, or clinical conversation &mdash; not quietly inherited from one small 2021 paper. Neither cancer has clinical-trial evidence of any kind right now, and for either one, nothing stronger than "biologically promising, preclinically unfinished" is currently defensible.</p>
+    </section>
+
+    <section class="block" id="tablesfig">
+      <h2 class="h2"><span class="subtag">Supplementary</span> Table 7 &amp; Figure 5</h2>
+      <h3 class="h3">Table 7 — What's missing for a BCC case to hold up</h3>
+      <div class="tbl-wrap">
+        <table>
+          <tr><th>What's needed</th><th>Where it stands</th></tr>
+          <tr><td>Consistent overexpression across independent studies</td><td>Not there &mdash; the two studies disagree</td></tr>
+          <tr><td>Functional or mechanistic proof</td><td>Not there &mdash; no BCC functional studies exist at all</td></tr>
+          <tr><td>In-vitro drug sensitivity</td><td>Not there &mdash; never tested</td></tr>
+          <tr><td>Any clinical or case-level evidence</td><td>Not there</td></tr>
+          <tr><td>A plausible link to Hedgehog signaling</td><td>Not established &mdash; no published mechanistic connection exists</td></tr>
+        </table>
+      </div>
+      <figure>
+        <svg viewBox="0 0 900 340" xmlns="http://www.w3.org/2000/svg">
+          <style>
+            .ax{font-family:Inter,sans-serif; font-size:12px; fill:#5a4a4e;}
+            .tt{font-family:Newsreader,serif; font-size:15px; fill:#6b1f2e; font-weight:600;}
+          </style>
+          <text x="450" y="28" text-anchor="middle" class="tt">Figure 5 — Reported TROP2 H-score: BCC vs cSCC/SCC across the two key studies</text>
+          <line x1="80" y1="270" x2="840" y2="270" stroke="#e4d7c3" stroke-width="2"/>
+          <line x1="80" y1="60" x2="80" y2="270" stroke="#e4d7c3" stroke-width="2"/>
+          <text x="40" y="65" class="ax">H-score</text>
+
+          <rect x="125" y="216" width="70" height="54" fill="#c19a3d"/>
+          <text x="160" y="205" text-anchor="middle" class="ax" fill="#4a1420" font-weight="700">109</text>
+          <text x="160" y="290" text-anchor="middle" class="ax">BCC 2021</text>
+          <text x="160" y="305" text-anchor="middle" class="ax">(tumor islands)</text>
+
+          <rect x="270" y="191" width="70" height="79" fill="#9C1F3B"/>
+          <text x="305" y="180" text-anchor="middle" class="ax" fill="#4a1420" font-weight="700">141</text>
+          <text x="305" y="290" text-anchor="middle" class="ax">cSCC 2021</text>
+          <text x="305" y="305" text-anchor="middle" class="ax">(lesional epidermis)</text>
+
+          <rect x="500" y="258" width="70" height="12" fill="#c19a3d"/>
+          <text x="535" y="248" text-anchor="middle" class="ax" fill="#4a1420" font-weight="700">minimal</text>
+          <text x="535" y="290" text-anchor="middle" class="ax">BCC 2025</text>
+          <text x="535" y="305" text-anchor="middle" class="ax">(27-case cohort)</text>
+
+          <rect x="680" y="90" width="70" height="180" fill="#6b1f2e"/>
+          <text x="715" y="80" text-anchor="middle" class="ax" fill="#4a1420" font-weight="700">272.5</text>
+          <text x="715" y="290" text-anchor="middle" class="ax">SCC 2025</text>
+          <text x="715" y="305" text-anchor="middle" class="ax">(44-case cohort, median)</text>
+
+          <line x1="430" y1="60" x2="430" y2="270" stroke="#e4d7c3" stroke-width="1" stroke-dasharray="4,4"/>
+          <text x="240" y="50" text-anchor="middle" class="ax" font-style="italic">Original 2021 study</text>
+          <text x="620" y="50" text-anchor="middle" class="ax" font-style="italic">2025 large cohort (198 tumors)</text>
+        </svg>
+        <figcaption>Figure 5. BCC's numbers fall or flip between the two studies; cSCC/SCC stays high throughout, and climbs even higher in the larger 2025 cohort.</figcaption>
+      </figure>
+    </section>
+
+    <div class="divider"></div>
+
+    <section class="block" id="references">
+      <h2 class="h2"><span class="num">§</span> References</h2>
+      <ol class="refs">
+        <li>Elbendary A, et al. The Role of TROP2 in BCC and Cutaneous SCC: A Clinical and Immunohistochemical Study. <em>Clin Cosmet Investig Dermatol.</em> 2021;14:509–517. PMID: 34103959.</li>
+        <li>Tanegashima K, et al. TROP2 Expression and Therapeutic Implications in Cutaneous Squamous Cell Carcinoma: Insights From Immunohistochemical and Functional Analysis. <em>Exp Dermatol.</em> 2024. doi:10.1111/exd.15196. PMID: 39422290.</li>
+        <li>Torres-Cabala CA, et al. TROP2 is highly expressed in cutaneous squamous cell carcinomas and a subset of adnexal carcinomas: A potential therapeutic target with TROP2-directed antibody drug conjugates. <em>Hum Pathol.</em> 2025;160. PMID: 40523445.</li>
+        <li>Ito T, Tanegashima K, Tanaka Y, Hashimoto H, Murata M, Oda Y, Kaku-Ito Y. Trop2 Expression in Extramammary Paget's Disease and Normal Skin. <em>Int J Mol Sci.</em> 2021;22:7706. doi:10.3390/ijms22147706.</li>
+        <li>Ito T, et al. TROP2 Expression in Sebaceous and Sweat Gland Carcinoma. <em>J Clin Med.</em> 2022;11:607. doi:10.3390/jcm11030607.</li>
+        <li>Ito T, et al. A multicenter study on TROP2 as a potential targeted therapy for extramammary Paget disease in Japan. <em>Sci Rep.</em> 2025;15:409. PMID: 39747638.</li>
+        <li>Bardia A, Hurvitz SA, Tolaney SM, et al. Sacituzumab Govitecan in Metastatic Triple-Negative Breast Cancer. <em>N Engl J Med.</em> 2021;384:1529–1541.</li>
+        <li>Rugo HS, et al. Subgroup analyses from the phase 3 ASCENT study of sacituzumab govitecan in metastatic triple-negative breast cancer. <em>npj Breast Cancer.</em> 2024;10:56.</li>
+        <li>Cortés J, Punie K, Barrios C, et al. Sacituzumab Govitecan in Untreated, Advanced Triple-Negative Breast Cancer (ASCENT-03). <em>N Engl J Med.</em> 2025;393(19).</li>
+        <li>American Society of Clinical Oncology. Sacituzumab Govitecan With Pembrolizumab Extends Progression-Free Survival 2 in Metastatic Triple-Negative Breast Cancer (ASCENT-04). ASCO Annual Meeting press release, 2026.</li>
+        <li>Bardia A, et al. Datopotamab Deruxtecan Versus Chemotherapy in Previously Treated HR-Positive HER2-Negative Breast Cancer: Primary Results From TROPION-Breast01. <em>J Clin Oncol.</em> 2024.</li>
+        <li>TROPION-Breast01 Investigators. Datopotamab deruxtecan versus chemotherapy: final overall survival analysis of the phase III TROPION-Breast01 study. <em>Ann Oncol.</em> 2025/2026. PMID: 41448362.</li>
+        <li>Sacituzumab tirumotecan in previously treated metastatic triple-negative breast cancer: a randomized phase 3 trial (OptiTROP-Breast01). <em>Nat Med.</em> 2025.</li>
+        <li>Systematic review and pooled analysis of reconstructed patient data: Efficacy and Safety of TROP-2-Targeting ADC Treatment in Previously Treated Advanced NSCLC (EVOKE-01/TROPION-Lung01). PMC12153610.</li>
+        <li>Alhushki S, Deshmukh S, Levy B, Desai A. A tale of two TROP-2 antibody-drug conjugates: a comparative saga of datopotamab deruxtecan and sacituzumab govitecan. <em>Oncologist.</em> 2025;30(9):oyaf251.</li>
+        <li>Tagawa ST, et al. TROPHY-U-01: Sacituzumab Govitecan in Metastatic Urothelial Carcinoma Progressing After Platinum-Based Chemotherapy and Checkpoint Inhibitors. <em>J Clin Oncol.</em> 2021.</li>
+        <li>Li XX, Chen JL. TROP2: as a promising target in lung cancer. <em>Front Oncol.</em> 2025.</li>
+        <li>Zhang X, Xiao H, Na F, et al. Evolution of TROP2: Biological insights and clinical applications. <em>Eur J Med Chem.</em> 2025;296:117863.</li>
+        <li>An assembly of TROP2-mediated signaling events. <em>J Cell Commun Signal.</em> 2023.</li>
+        <li>Trop2-targeted therapy in breast cancer [signaling pathway review]. PMID: 39135109.</li>
+        <li>Zeybek B, Manzano A, Bianchi A, et al. Cervical carcinomas that overexpress human trophoblast cell-surface marker (Trop-2) are highly sensitive to the antibody-drug conjugate sacituzumab govitecan. Referenced for cross-tumor TROP2 ADC sensitivity context.</li>
+        <li>TROP-2 is widely expressed in vulvar squamous cell carcinoma and represents a potential new therapeutic target. PMC10374825.</li>
+      </ol>
+      <p style="font-size:12.5px;color:var(--ink-soft);">This review draws on the peer-reviewed and preprint sources listed above. Readers should check the original papers for full methodology, statistics, and figures before drawing clinical conclusions from any of this. Written for the Medixa pre-medical curriculum; not clinical guidance.</p>
+    </section>
+
+  </main>
+</div>
+
+<footer>
+  <p>Medixa — medical education for pre-med students</p>
+  <p>Built by <a href="https://omar-momen.vercel.app" target="_blank" rel="noopener">Omar</a></p>
+</footer>
+
+</body>
+</html>
