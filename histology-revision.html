@@ -1,0 +1,224 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"><title>Histology Revision · Medixa</title>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:wght@500;700&family=Inter:wght@400;600&display=swap" rel="stylesheet">
+<style>
+:root{--p:#6b1f2e;--p2:#9C1F3B;--g:#c19a3d;--bg:#faf5ec;--c:#fff;--t:#2b1b1f;--m:#6d5a5e;--l:#e6d9c4;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media(prefers-color-scheme:dark){:root:not([data-theme="light"]){--p:#d98a9b;--p2:#e0a0ae;--bg:#1d1416;--c:#2a1d20;--t:#f3e8ea;--m:#b9a3a8;--l:#4a373b}}
+:root[data-theme="dark"]{--p:#d98a9b;--p2:#e0a0ae;--bg:#1d1416;--c:#2a1d20;--t:#f3e8ea;--m:#b9a3a8;--l:#4a373b}
+html{scroll-padding-top:70px}body{margin:0;background:var(--bg);color:var(--t);font:16px/1.6 Inter,system-ui,sans-serif}
+h1,h2,h3{font-family:Newsreader,Georgia,serif;color:var(--p);margin:0 0 .5rem}
+header{background:#6b1f2e;color:#faf5ec;padding:2.2rem 1.2rem;text-align:center;border-bottom:4px solid var(--g)}header h1{color:#faf5ec;font-size:2.2rem}header p{margin:0;opacity:.85}
+nav{position:sticky;top:0;z-index:5;background:var(--c);border-bottom:1px solid var(--l);display:flex;gap:.4rem;overflow-x:auto;padding:.5rem 1rem}nav a{white-space:nowrap;color:var(--p);text-decoration:none;font-size:.85rem;font-weight:600;padding:.3rem .7rem;border-radius:99px;border:1px solid var(--l)}nav a:hover{background:var(--p);color:#fff}
+main{max-width:900px;margin:auto;padding:1rem}section{margin:2rem 0}
+.card{background:var(--c);border:1px solid var(--l);border-left:4px solid var(--g);border-radius:10px;padding:1rem 1.2rem;margin:.8rem 0}
+.card h3{font-size:1.15rem}ul{margin:.3rem 0;padding-left:1.2rem}li{margin:.2rem 0}b{color:var(--p2)}
+.tag{display:inline-block;background:var(--g);color:#2b1b1f;font-size:.7rem;font-weight:700;padding:.1rem .5rem;border-radius:99px;margin-right:.3rem}
+table{width:100%;border-collapse:collapse;font-size:.88rem}th{background:var(--p);color:#fff}td,th{border:1px solid var(--l);padding:.4rem .6rem;text-align:left}.w{overflow-x:auto}
+.flow{display:flex;flex-wrap:wrap;gap:.3rem;align-items:center;margin:.5rem 0}.flow span{background:var(--p);color:#fff;padding:.3rem .6rem;border-radius:6px;font-size:.8rem}.flow i{color:var(--g);font-style:normal;font-weight:700}
+svg{max-width:100%;height:auto;display:block;margin:.5rem auto}svg text{fill:var(--t);font:11px Inter,sans-serif}
+.btn{background:var(--p);color:#fff;border:0;padding:.6rem 1.2rem;border-radius:8px;font:600 .95rem Inter;cursor:pointer;margin:.3rem .3rem 0 0}.opt{display:block;width:100%;text-align:left;background:var(--bg);color:var(--t);border:1px solid var(--l);padding:.6rem .8rem;border-radius:8px;margin:.4rem 0;font:inherit;cursor:pointer}
+.ok{background:#2e7d4f!important;color:#fff!important}.no{background:#b3261e!important;color:#fff!important}
+.bar{height:6px;background:var(--l);border-radius:9px}.bar div{height:100%;background:var(--g);border-radius:9px}
+footer{text-align:center;color:var(--m);padding:2rem;font-size:.85rem}footer a{color:var(--p)}
+</style></head><body>
+<header><h1>Histology Revision</h1><p>Microtechniques · Stains · Microscopes · Cell Organelles — lecture notes</p></header>
+<nav><a href="#basics">Basics</a><a href="#tech">Microtechniques</a><a href="#stain">Stains</a><a href="#scope">Microscopes</a><a href="#mem">Membranous</a><a href="#non">Non-membranous</a><a href="#quiz">Quiz</a></nav>
+<main id="m"></main>
+<footer>Medixa · Content from lecture slides only · Built by <a href="https://omar-momen.vercel.app">Omar</a></footer>
+<script>
+const S=[];const add=(id,title,cards)=>S.push({id,title,cards});
+const L=a=>'<ul>'+a.map(x=>'<li>'+x+'</li>').join('')+'</ul>';
+const T=(h,r)=>'<div class="w"><table><tr>'+h.map(x=>'<th>'+x+'</th>').join('')+'</tr>'+r.map(y=>'<tr>'+y.map(x=>'<td>'+x+'</td>').join('')+'</tr>').join('')+'</table></div>';
+const F=a=>'<div class="flow">'+a.map(x=>'<span>'+x+'</span>').join('<i>→</i>')+'</div>';
+// cross-section SVG generator
+const ring=(cx,cy,n,r,fn)=>Array.from({length:n},(_,i)=>{const a=i/n*6.283;return fn(cx+r*Math.cos(a),cy+r*Math.sin(a),a)}).join('');
+const axo='<svg viewBox="0 0 440 190" role="img" aria-label="Centriole 9x3 and cilium 9+2"><text x="60" y="14">Centriole / basal body (9×3)</text>'+ring(95,95,9,60,(x,y,a)=>`<g transform="rotate(${a*57.3+90} ${x} ${y})"><circle cx="${x}" cy="${y}" r="8" fill="none" stroke="#c19a3d" stroke-width="2"/><circle cx="${x+7}" cy="${y-9}" r="8" fill="none" stroke="#9C1F3B" stroke-width="2"/><circle cx="${x+14}" cy="${y-18}" r="8" fill="none" stroke="#6b1f2e" stroke-width="2"/></g>`)+'<text x="72" y="98">A·B·C triplets</text><text x="270" y="14">Cilium axoneme (9×2 + 2)</text>'+ring(330,95,9,55,(x,y)=>`<circle cx="${x}" cy="${y}" r="9" fill="none" stroke="#c19a3d" stroke-width="2.5"/><circle cx="${x}" cy="${y}" r="4" fill="#9C1F3B"/>`)+'<circle cx="322" cy="95" r="7" fill="none" stroke="#6b1f2e" stroke-width="2"/><circle cx="338" cy="95" r="7" fill="none" stroke="#6b1f2e" stroke-width="2"/><text x="285" y="182">9 doublets + 2 central singlets</text></svg>';
+const gol='<svg viewBox="0 0 460 200" role="img" aria-label="Golgi apparatus"><text x="10" y="20">RER</text><rect x="5" y="30" width="60" height="120" rx="8" fill="#e6d9c4"/><circle cx="85" cy="90" r="6" fill="#c19a3d"/><text x="70" y="115">transfer</text><text x="70" y="127">vesicles</text>'+[0,1,2,3,4].map(i=>`<path d="M${150+i*18} 40 Q${190+i*18} 100 ${150+i*18} 160" stroke="#6b1f2e" stroke-width="7" fill="none"/>`).join('')+'<text x="120" y="185">CIS (convex, immature, receiving)</text><text x="230" y="25">TRANS (concave, mature)</text><circle cx="330" cy="70" r="9" fill="#9C1F3B"/><circle cx="360" cy="105" r="9" fill="#9C1F3B"/><circle cx="335" cy="140" r="9" fill="#c19a3d"/><text x="350" y="75">secretory vesicles</text><text x="350" y="145">lysosomes</text></svg>';
+const units='<svg viewBox="0 0 460 70" role="img" aria-label="Unit ladder"><g font-size="11"><rect x="5" y="15" width="100" height="36" fill="#6b1f2e"/><rect x="120" y="15" width="100" height="36" fill="#9C1F3B"/><rect x="235" y="15" width="100" height="36" fill="#c19a3d"/><rect x="350" y="15" width="100" height="36" fill="#e6d9c4"/></g><text x="25" y="38" fill="#fff" style="fill:#fff">1 cm=10 mm</text><text x="130" y="38" style="fill:#fff">1 mm=1000 µm</text><text x="243" y="38" style="fill:#2b1b1f">1 µm=1000 nm</text><text x="385" y="38" style="fill:#2b1b1f">LM→EM</text></svg>';
+add('basics','Basics: Cells, Tissues, Organs',[
+['Histology',L(['Greek <b>histos</b> = tissue, <b>logos</b> = study; better described as <b>Microscopic Anatomy</b> (cells, tissues, organs, systems)','Aims: study microscopic structure, correlate structure to function, understand pathology of disease']),
+'Hierarchy',F(['Cell','Tissue','Organ','System'])+L(['<b>Cell</b>: functional and structural unit of the body; size 4–200 µm, so needs a microscope; <b>cell therapy</b>','<b>4 tissues</b>: connective, epithelial, muscle, nervous','<b>Organ</b>: several tissues performing a special function (kidney, liver, lung)','<b>System</b>: organs organized for complex functions (digestive, respiratory)'])],
+['Interpreting slides',L(['Tube sections: longitudinal, tangential, oblique, transverse','Round object (egg): longitudinal, tangential, transverse planes'])]]);
+add('tech','Microtechniques',[
+['Types','<p>Techniques used to prepare sections from organs.</p>'+L(['<b>Paraffin</b> — most commonly used','<b>Celloidin</b> — most perfect','<b>Freezing</b> — most rapid','<b>Special</b>: tissue culture, radioautography, cell fractionation'])+'<p><b>Specimens</b>: biopsies (experimental, surgical), autopsy tissue, smears (blood, urine, bone marrow), spreads (areolar connective tissue).</p>'],
+['Paraffin technique: 3 phases','<p>I. Tissue processing (biopsy → paraffin block) · II. Sectioning · III. Staining</p>'+F(['Obtain specimen','Fixation (formalin)','Washing (tap water)','Dehydration (ascending alcohol)','Clearing (xylene)','Impregnation (soft paraffin)','Embedding (hard paraffin)','Sectioning (microtome)','Mounting','H&E stain'])],
+['Step details',L(['<b>Fixation</b>: ASAP to prevent <b>autolysis</b>; formalin preserves fine structure, inhibits lysosomal hydrolytic enzymes, prevents putrefaction (bacteria), hardens by protein coagulation, mordanting effect (↑ stain affinity)','<b>Dehydration</b>: wet tissue can’t be infiltrated with paraffin; remove water with <b>gradually ascending</b> alcohol 70%→95%→100%','<b>Clearing</b>: removes alcohol with a substance miscible with paraffin; commonest = <b>xylene</b>','<b>Embedding</b>: infiltrate with molten paraffin (52–60 °C), left to harden','<b>Sectioning</b>: tissue microtome, 4–5 µm; sections float on <b>warm water bath</b> to remove wrinkles, picked up on glass slide','<b>Staining</b> (aqueous): de-paraffinize in oven, xylol, <b>descending</b> alcohol (100→50%), water — a reversal of dehydration. Unstained sections have uniform optical density; tissue parts show selective stain affinity'])],
+['Paraffin: pros &amp; cons',T(['Advantages','Disadvantages'],[['Short preparation time','Fixative dissolves fat'],['Serial sections','Fixatives/heat may alter structure'],['Very thin, easily stained','Not for lipids (dissolved by xylol)'],['','Not for enzyme activity']])],
+['Freezing technique (cryostat)',L(['Fresh tissue, rapid freezing with <b>liquid nitrogen</b> hardens sample','Section with freezing microtome in <b>cryostat</b> within minutes','Rapid diagnosis guiding <b>intra-operative</b> management, usually oncologic surgery','+ Rapid; suitable for <b>lipids and enzymes</b>; − thick sections (&gt;10 µm), serial sections hard, not easy to stain'])],
+['LM vs EM preparation',T(['','Light','Electron'],[['Specimen','1 cm³','1 mm³'],['Fixation','10% formalin','2.5% glutaraldehyde + 1% osmium tetroxide'],['Dehydration','Ascending ethyl alcohol','Same'],['Clearing','Xylol/benzene','Propylene oxide'],['Embedding','Paraffin/celloidin','Epoxy resin'],['Cutting','Microtome, steel knife, 7–10 µm','Ultramicrotome, glass/diamond knife, ultrathin'],['Mounting','Glass slide','Copper grids'],['Stain','H&E','Heavy metals'],['Resolution','0.2 µm','0.2 nm']])],
+['Tissue culture (nice to know)',L(['Growth of <b>living cells</b> outside the body (in vitro) in specific growth medium','Uses: cell growth/differentiation/cancer research, drug-virus-radiation effects, aging, vaccines (polio, rabies, chickenpox), cytogenetics &amp; karyotypes'])]]);
+add('stain','Stains',[
+['Principle','<p>Stains are reagents that <b>enhance contrast</b> and highlight organelles, muscle fibers, connective tissue and chemical components.</p>'],
+['Stain guide',T(['Stain','Type / target','Colour'],[['Hematoxylin','Basic dye; stains acidic (<b>basophilic</b>) nucleus, ribosomes, RER (DNA/RNA)','Purplish-blue'],['Eosin','Acidic dye; stains basic (<b>acidophilic</b>) cytoplasm, collagen','Pink'],['Masson trichrome','Collagen &amp; reticular fibres; nucleus; cytoplasm','Green/blue; blue-black; red'],['Mallory, Van Gieson','Other trichromes (3-coloured)','—'],['Silver','Reticular fibres, <b>Golgi</b>, neurons, motor end plates','Brown'],['PAS','Glycogen, mucopolysaccharides, mucins','Magenta red'],['Orcein','Elastic fibres','Brown'],['Leishman','Neutral stain','—'],['Sudan III','Lipids','Orange'],['Sudan black / osmic acid','Lipids (fat cells, nerve myelin)','Black'],['Giemsa, toluidine blue','Blood films / blue stain','Blue-violet']])],
+['Immune-based stains',L(['Antibodies bind specific antigens in tissue','<b>Immunohistochemistry</b>: enzyme (peroxidase) colour reaction → <b>brown</b>','<b>Immunofluorescence</b>: labelled antibodies → <b>green fluorescence</b>, seen with fluorescent microscope'])]]);
+add('scope','Microscopes',[
+['Types',L(['<b>Light</b>: ordinary, phase contrast, interference, polarizing, dark field, fluorescent','<b>Electron</b>: transmission (TEM), scanning (SEM)'])],
+['Light microscope parts',L(['Mechanical: base, arm (fine/coarse knobs), stage (central hole), tube','Optical: eyepiece, objective lenses (up to ×1000)','Illuminating: daylight/electric light, condenser, iris diaphragm'])],
+['Resolving power &amp; units',L(['Smallest distance at which two particles are seen as separate; better resolution = more detail','LM 0.2 µm (good images ×1000–1500); smaller needs EM'])+units],
+['TEM vs SEM',L(['<b>TEM</b>: shows internal cell structures; beam from cathode to anode; electromagnetic lenses (condenser, objective, projector); image on fluorescent screen/plate; ×100,000+; 0.2 nm (1000× better than LM); 2-D','<b>SEM</b>: cell surface, <b>3-D</b>; beam <b>reflected</b> from coated specimen surface; resolution 10 nm'])],
+['LM vs EM',T(['','Light','Electron'],[['Illumination','Visible light','Electron beam'],['Lenses','Glass','Electromagnetic coils'],['Magnification','Up to 1500×','400,000× or more'],['Resolution','0.2 µm','0.2 nm'],['View','Eyes; many cells; coloured','Screen; 1–2 cells; black &amp; white']])]]);
+add('mem','Membranous Organelles',[
+['Classification',L(['<b>Membranous</b> (contain enzymes): plasma membrane, mitochondria, RER, SER, Golgi, lysosomes, peroxisomes','<b>Non-membranous</b> (no enzymes): ribosomes, proteasomes, cytoskeleton (microtubules, filaments)'])],
+['Golgi apparatus',gol+L(['Well developed in <b>protein-synthesizing</b> cells; position/shape/size vary','<b>LM</b>: not seen with H&E; shows as pale <b>negative Golgi image</b> near nucleus in basophilic cells; <b>silver stain</b> = brown network; perinuclear in nerve cells, apical in secretory cells','<b>EM</b>: 4–10 flattened curved cisternae in stacks, dilated peripherally','<b>Cis</b> = convex, immature, receives transfer vesicles from RER; <b>Trans</b> = concave, mature, secretory vesicles &amp; lysosomes bud off','<b>Functions</b>: modify proteins (add carbohydrate, phosphate); condense &amp; sort; form secretory vesicles and lysosomes; recycle cell membrane'])],
+['Secretory vesicles',L(['LM: acidophilic apical granules (stored until signalled — regulated secretion, e.g. pancreas); EM: electron-dense','Fate: stay to form lysosome, or <b>exocytosis</b>'])],
+['Lysosomes',L(['<b>Digestive apparatus</b>; abundant in phagocytes (macrophages); active at <b>acidic pH</b>','Enzymes made in RER, packaged in Golgi; LM: histochemical reaction for hydrolases','<b>Primary</b>: new from Golgi, homogeneous','<b>Secondary</b>: 1° + phagosome/pinocytic vesicle/autophagosome, heterogeneous'])+T(['Secondary type','Formed from'],[['Heterolysosome','1° lysosome + phagocytic vesicle'],['Multivesicular body','1° lysosome + pinocytic vesicle'],['Autolysosome','1° lysosome + autophagic vesicle (old mitochondria)'],['Residual body','Undigested remains: exocytosed or kept as <b>lipofuscin</b> (heart, nerve cells)']])+L(['<b>Functions</b>: digest solids/fluids/worn organelles; post-mortem <b>autolysis</b>','<b>Clinical</b>: enzyme defects → lysosomal storage diseases; bone resorption &amp; autophagy are normal'])],
+['Peroxisomes',L(['Spherical, lysosome-like but contain <b>oxidative enzymes + catalase</b>; proteins made on <b>free</b> ribosomes','Oxidize substrates producing H₂O₂, then catalase eliminates it; lipid metabolism (bile acids, cholesterol); myelin sheath formation'])],
+['Protein trafficking',F(['Ribosomes on RER','Transfer vesicle','Golgi cis','Golgi trans','Secretory vesicle','Exocytosis'])]]);
+add('non','Non-membranous Organelles',[
+['Ribosomes',L(['20–30 nm electron-dense particles of <b>rRNA + protein</b>; large + small subunits; aggregation → <b>cytoplasmic basophilia</b>','mRNA joins them into <b>polysomes</b>; RER receptors bind the large subunit','rRNA made in the <b>nucleolus</b>; proteins made in cytoplasm then enter nucleus; subunits assemble then exit','Function: translate mRNA into polypeptide. <b>Free</b> = proteins for use inside cell; <b>attached</b> = secreted/stored proteins &amp; integral membrane proteins'])],
+['Cytoskeleton',L(['Microfilaments (actin 7 nm), intermediate filaments (10 nm), thick filaments, microtubules (25 nm)'])],
+['Microtubules',L(['LM: not seen; EM: 5 nm wall around lumen','<b>Labile</b>: free, polymerize/depolymerize (mitotic spindle); <b>Stable</b>: centrioles, cilia and flagella axonemes','13 protofilaments of α/β-tubulin dimers + MAPs; polarity: add at <b>plus</b> end, remove at <b>minus</b> end','Functions: cell shape; transport of organelles/vesicles (kinesin); mitotic spindle; centrioles, basal bodies, cilia, flagella','<b>Clinical</b>: chemotherapy blocks spindle assembly → stops cancer cell division'])],
+['Centriole',axo+L(['LM: iron-haematoxylin; pair of rods in <b>centrosome</b> near nucleus','EM: 2 cylinders <b>perpendicular</b> to each other; wall = <b>9 triplets</b> (A, B, C)','Functions: poles of mitotic spindle; form basal bodies for cilia/flagella'])],
+['Cilia',L(['Motile processes of microtubules; LM: acidophilic striations on ciliated cell surface','EM: <b>basal body</b> (centriole-like), <b>shaft</b>, <b>rootlets</b> (unorganized microtubules)','Shaft <b>9×2+2</b>: A subunit complete (13 protofilaments), B subunit C-shaped (10); radial spokes, nexin, dynein','Function: sweep fluid in respiratory tract; move ova in fallopian tube'])]]);
+const m=document.getElementById('m');
+m.innerHTML=S.map(s=>`<section id="${s.id}"><h2>${s.title}</h2>`+s.cards.map(c=>`<div class="card"><h3>${c[0]}</h3>${c[1]}</div>`).join('')+'</section>').join('')+'<section id="quiz"><h2>Quiz — 15 random from a 100-question bank</h2><div class="card" id="qz"></div></section>';
+// bank: [question, correct, w1, w2, w3]
+const B=`Histology comes from Greek histos meaning|Tissue|Cell|Organ|Disease
+Histology is best described as|Microscopic anatomy|Gross anatomy|Embryology|Biochemistry
+Functional and structural unit of the body|Cell|Tissue|Organ|System
+Cell size ranges about|4–200 µm|1–2 mm|1–5 cm|0.1–1 nm
+Number of basic tissue types|4|3|5|6
+Which is NOT a basic tissue|Glandular|Epithelial|Muscle|Nervous
+Several tissues performing a special function|Organ|Cell|System|Organelle
+Kidney, liver and lung are examples of|Organs|Tissues|Systems|Cells
+Most commonly used microtechnique|Paraffin|Celloidin|Freezing|Radioautography
+Most perfect microtechnique|Celloidin|Paraffin|Freezing|Cell fractionation
+Most rapid microtechnique|Freezing|Paraffin|Celloidin|Tissue culture
+Which is a special technique|Radioautography|Paraffin|Celloidin|Freezing
+Which is a special technique|Cell fractionation|Fixation|Clearing|Mounting
+First step of paraffin technique|Obtaining specimen|Fixation|Clearing|Staining
+Common fixative|Formalin|Xylene|Alcohol|Eosin
+Fixation should be done ASAP to prevent|Autolysis|Dehydration|Staining|Sectioning
+Formalin inhibits autolysis by inhibiting|Lysosomal hydrolytic enzymes|Ribosomes|Catalase|Golgi
+Formalin prevents putrefaction by inhibiting|Bacteria|Viruses|Mitochondria|Water
+Formalin hardens tissue by|Protein coagulation|Lipid dissolving|Water removal|Heating
+Mordanting effect of fixative|Increases stain affinity|Removes water|Clears tissue|Cuts sections
+Dehydration removes|Water|Fat|Paraffin|Alcohol
+Dehydration uses alcohol that is|Gradually ascending|Descending|Constant 50%|Boiling
+Alcohol series for dehydration|70→95→100%|100→70→50%|50→0%|0→30%
+Clearing removes|Alcohol|Water|Paraffin|Fixative
+Commonest clearing agent|Xylene|Formalin|Eosin|Silver
+Clearing agent must be miscible with|Paraffin|Water|Formalin|Hematoxylin
+Embedding agent in paraffin technique|Paraffin wax|Epoxy resin|Xylene|Glutaraldehyde
+Impregnation uses|Melted soft paraffin|Hard paraffin only|Epoxy|Alcohol
+Final block is embedded in|Hard paraffin|Soft paraffin|Xylene|Water
+Paraffin infiltration temperature|52–60 °C|10–20 °C|100–120 °C|−20 °C
+Instrument for cutting paraffin blocks|Microtome|Cryostat|Ultramicrotome|Condenser
+Paraffin section thickness|4–5 µm|1 mm|50 µm|0.2 nm
+Warm water bath is used to|Remove wrinkles|Fix tissue|Dehydrate|Stain
+Sections are picked up on|Glass slide|Copper grid|Filter paper|Plastic dish
+Staining of paraffin sections first needs|De-paraffinization|Dehydration|Embedding|Fixation
+Before staining, wax is removed by|Xylol|Formalin|Eosin|Liquid nitrogen
+Alcohol before staining is|Descending|Ascending|Absent|Constant 100%
+Staining is usually done in|Aqueous media|Wax|Xylene|Alcohol 100%
+Unstained sections have|Uniform optical density|High contrast|Natural colour|Fluorescence
+Most used paraffin stain|H&E|PAS|Silver|Sudan
+Advantage of paraffin technique|Serial thin sections|Suits lipids|Suits enzymes|Thick sections
+Paraffin is unsuitable for lipids because|Xylol dissolves them|They stain pink|They are thick|They fluoresce
+Paraffin is not used to show|Enzyme activity|Nuclei|Collagen|Cell shape
+Freezing fixation uses|Liquid nitrogen|Formalin|Xylene|Osmium
+Freezing sections are cut in a|Cryostat|Ultramicrotome|Water bath|Oven
+Freezing is usually used with|Oncologic surgery|Vaccines|Electron microscopy|Cytogenetics
+Freezing section thickness|More than 10 µm|0.2 nm|4 µm|5 nm
+Freezing technique suits demonstrating|Lipids and enzymes|Only paraffin blocks|Nothing|Only bone
+Tissue culture grows|Living cells in vitro|Dead cells|Fixed sections|Plastic
+Tissue culture use|Vaccine production|Fixation|Clearing|Mounting
+EM specimen size|1 mm³|1 cm³|10 cm³|1 m³
+EM fixative|Glutaraldehyde + osmium tetroxide|10% formalin|Xylene|Alcohol only
+EM embedding medium|Epoxy resin|Paraffin|Celloidin|Gelatin
+EM sections mounted on|Copper grids|Glass slides|Plastic|Paper
+EM sections are cut by|Ultramicrotome|Steel-knife microtome|Cryostat|Scalpel
+EM stain|Heavy metals|H&E|PAS|Sudan III
+EM clearing agent|Propylene oxide|Xylol|Benzene|Eosin
+Hematoxylin is|A natural basic dye|An acidic dye|A neutral dye|A lipid stain
+Hematoxylin stains|Nucleus purplish-blue|Cytoplasm pink|Fat orange|Elastin brown
+Basophilic structures stain with|Hematoxylin|Eosin|Sudan III|Orcein
+Eosin is|An acidic dye|A basic dye|Silver salt|Fluorescent
+Eosin colour|Pink|Blue|Brown|Green
+Acidophilic cytoplasm stains with|Eosin|Hematoxylin|Silver|Osmic acid
+Hematoxylin stains ribosomes and RER due to|RNA content|Lipid content|Glycogen|Calcium
+Masson trichrome colours collagen|Green or blue|Black|Orange|Yellow
+Masson trichrome colours nucleus|Blue-black|Pink|Green|Orange
+Trichrome stains include|Mallory, Masson, Van Gieson|PAS, Sudan|Giemsa, silver|Eosin only
+Silver stain colour|Brown|Pink|Green|Orange
+Silver stain shows|Golgi and reticular fibres|Glycogen|Elastic fibres|Lipids
+PAS stains|Glycogen and mucins|Elastic fibres|Collagen|DNA only
+PAS colour|Magenta red|Brown|Green|Black
+Orcein stains|Elastic fibres|Reticular fibres|Glycogen|Fat
+Sudan III colours lipids|Orange|Black|Green|Blue
+Sudan black colours lipids|Black|Orange|Pink|Magenta
+Osmic acid shows|Fat and myelin|Glycogen|Collagen|Nuclei
+Leishman is a|Neutral stain|Basic stain|Acidic stain|Lipid stain
+Immunohistochemistry positive colour|Brown|Green|Orange|Purple
+Enzyme used in immunohistochemistry|Peroxidase|Catalase|Dynein|Kinesin
+Immunofluorescence positive colour|Green fluorescence|Brown|Orange|Black
+Immunofluorescence needs|Fluorescent microscope|Cryostat|Ultramicrotome|Water bath
+Most common microscope|Light microscope|TEM|SEM|Cryostat
+LM resolving power|0.2 µm|0.2 nm|10 nm|1 mm
+TEM resolving power|0.2 nm|0.2 µm|10 µm|1 mm
+SEM resolving power|10 nm|0.2 nm|0.2 µm|1 µm
+LM magnification up to|1500×|100×|400,000×|10×
+EM magnification|400,000× or more|1500×|100×|50×
+1 mm equals|1000 µm|100 µm|10 µm|1 µm
+1 µm equals|1000 nm|100 nm|10 nm|1 mm
+SEM gives|3-D surface image|Internal structure|2-D colour image|Fluorescence
+TEM shows|Internal cell structures|Only surface|Living cells|Stain colour
+SEM beam is|Reflected from the surface|Passed through tissue|Visible light|Blue light
+Electron source is|Cathode|Condenser|Eyepiece|Stage
+Which contains glass lenses|Light microscope|TEM|SEM|None
+Which are membranous organelles|Mitochondria and Golgi|Ribosomes|Microtubules|Proteasomes
+Non-membranous organelles include|Ribosomes|Lysosomes|RER|Peroxisomes
+Golgi is well developed in|Protein-synthesizing cells|Red cells|Fat only|Dead cells
+Golgi is not seen with H&E but appears as|Negative Golgi image|Black dots|Pink rods|Green network
+Special stain for Golgi|Silver|Sudan|PAS|Eosin
+Golgi cisternae stack number|4–10|1–2|20–30|50
+Cis face of Golgi is|Convex and immature|Concave and mature|Flat|Fused with plasma membrane
+Trans face of Golgi is|Where vesicles bud off|Next to RER|Immature|Convex
+Transfer vesicles arise from|RER|Lysosome|Nucleus|Peroxisome
+Golgi function|Protein modification and sorting|Protein synthesis|Oxidation|Photosynthesis
+Digestive apparatus of the cell|Lysosome|Peroxisome|Ribosome|Golgi
+Lysosomes are active at|Acidic pH|Alkaline pH|Neutral pH|High heat
+Primary lysosome content|Homogeneous|Heterogeneous|Empty|Nuclear
+Heterolysosome forms from 1° lysosome and|Phagosome|Pinocytic vesicle|Autophagosome|Secretory granule
+Multivesicular body forms from 1° lysosome and|Pinocytic vesicle|Phagosome|Autophagosome|Ribosome
+Autolysosome contains|Old mitochondria|Bacteria|Nothing|Nuclei
+Lipofuscin is in|Residual bodies|Nucleoli|Golgi|Ribosomes
+Residual bodies are common in|Heart and nerve cells|Red cells|Platelets|Cartilage
+Post-mortem digestion of cells|Autolysis|Fixation|Phagocytosis|Mitosis
+Lysosomal enzyme defects cause|Storage diseases|Cancer|Anemia|Fractures
+Peroxisomes contain|Catalase|Hydrolases|Dynein|rRNA
+Peroxisome produces then removes|H₂O₂|CO₂|ATP|Glucose
+Peroxisome proteins are made on|Free ribosomes|Attached ribosomes|Golgi|Nucleolus
+Ribosome size|20–30 nm|1 µm|5 µm|1 mm
+Ribosomes are made of|rRNA and protein|DNA and lipid|Lipid only|Glycogen
+rRNA is synthesized in|Nucleolus|Golgi|Lysosome|Cytosol
+Ribosomes aggregated cause|Cytoplasmic basophilia|Acidophilia|Pigment|Fluorescence
+Polysomes are ribosomes linked by|mRNA|tRNA|DNA|Actin
+Free ribosomes make|Proteins for the cell|Secreted proteins|Lipids|Glycogen
+Attached ribosomes make|Secreted proteins|Cytosolic proteins|Lipids|Peroxisome enzymes
+Ribosome large subunit binds|RER membrane|Golgi|Lysosome|Nucleus
+Microtubule protein|Tubulin|Actin|Keratin|Catalase
+Microtubule protofilaments number|13|9|2|10
+Microtubule diameter|25 nm|7 nm|10 nm|50 nm
+Microtubules grow at the|Plus end|Minus end|Both equally|Middle
+Labile microtubules form|Mitotic spindle|Centrioles|Cilia axoneme|Basal body
+Stable microtubules form|Centrioles and cilia|Mitotic spindle|Ribosomes|Golgi
+Chemotherapy targets|Mitotic spindle assembly|Golgi|Ribosomes|Lysosomes
+Centriole wall pattern|9 triplets|9 doublets|9+2|13 singlets
+Centrioles lie|Perpendicular|Parallel|Fused|Crossed at 45°
+Centrioles in LM need|Iron haematoxylin|Eosin|PAS|Sudan
+Centrosome contains|Centriole pair|Nucleolus|Golgi|Ribosome
+Cilium shaft pattern|9×2+2|9×3|13×2|9+0
+Cilia basal body resembles|Centriole|Ribosome|Lysosome|Peroxisome
+Cilia B subunit has|10 protofilaments|13 protofilaments|9 protofilaments|2 protofilaments
+Dynein, nexin, spokes are in|Cilia|Golgi|Ribosomes|Lysosome
+Cilia move ova in the|Fallopian tube|Kidney|Stomach|Bone
+Cilia clear fluid in the|Respiratory system|Skin|Muscle|Liver
+Cilia in LM appear as|Acidophilic striations|Basophilic dots|Black rods|Green fibres`.split('\n').map(l=>l.split('|'));
+let Q,i,sc;const q=document.getElementById('qz'),sh=a=>a.map(x=>[Math.random(),x]).sort((a,b)=>a[0]-b[0]).map(x=>x[1]);
+function start(){Q=sh(B).slice(0,15);i=0;sc=0;show()}
+function intro(){q.innerHTML=`<p>The bank holds <b>${B.length}</b> questions. Each attempt draws 15 at random.</p><button class="btn" onclick="start()">Start quiz</button>`}
+function show(){if(i>=15){q.innerHTML=`<h3>Score: ${sc} / 15</h3><p>${sc>=12?'Excellent!':sc>=8?'Good — review the weak spots.':'Keep revising the notes above.'}</p><button class="btn" onclick="start()">New random 15</button>`;return}
+const r=Q[i],o=sh(r.slice(1));q.innerHTML=`<div class="bar"><div style="width:${i/15*100}%"></div></div><p><b>Question ${i+1}/15</b></p><h3>${r[0]}?</h3>`+o.map(x=>`<button class="opt">${x}</button>`).join('')+'<div id="nx"></div>';
+q.querySelectorAll('.opt').forEach(b=>b.onclick=()=>{q.querySelectorAll('.opt').forEach(x=>{x.disabled=true;if(x.textContent==r[1])x.classList.add('ok')});if(b.textContent==r[1])sc++;else b.classList.add('no');document.getElementById('nx').innerHTML='<button class="btn">'+(i==14?'Finish':'Next')+'</button>';document.querySelector('#nx button').onclick=()=>{i++;show()}})}
+intro();
+</script></body></html>
